@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="吕祎晗的个人作品集，Agent Product Engineer / FDE，展示产品思维、工程能力与 AI 产品落地案例。"
+    />
+    <title>吕祎晗 | Agent Product Engineer / FDE</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="cursor-light" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="回到首页">吕祎晗</a>
+      <nav class="nav-links" aria-label="主导航">
+        <a href="#about">关于</a>
+        <a href="#experience">经历</a>
+        <a href="#work">项目</a>
+        <a href="#contact">联系</a>
+      </nav>
+    </header>
+
+    <aside class="side-rail side-left" aria-label="外部链接">
+      <a href="https://github.com/LBP97541135" target="_blank" rel="noreferrer">GitHub</a>
+      <a href="https://zzjhfubkrktr.sealoshzh.site" target="_blank" rel="noreferrer">Site</a>
+      <span></span>
+    </aside>
+
+    <aside class="side-rail side-right" aria-label="邮箱">
+      <a href="mailto:155351988192163.com">155351988192163.com</a>
+      <span></span>
+    </aside>
+
+    <main id="top" class="page-shell">
+      <section class="hero reveal">
+        <p class="eyebrow">Agent Product Engineer / FDE</p>
+        <h1>产品里最懂开发，开发里最懂产品。</h1>
+        <p class="hero-lead">
+          我用产品思维定义问题，用工程能力交付 AI 产品。相比追逐某个技术名词，
+          我更关心一件事：如何让智能能力进入真实业务流程，并被用户、数据和结果持续验证。
+        </p>
+        <div class="hero-links">
+          <a class="text-link" href="#work">查看项目</a>
+          <a class="text-link muted" href="#about">了解方法</a>
+        </div>
+      </section>
+
+      <section id="about" class="split-section reveal">
+        <div class="section-label">
+          <span>01</span>
+          <h2>关于我</h2>
+        </div>
+        <div class="prose">
+          <p>
+            我希望成为产品里最懂开发的人，开发里最懂产品的人。我的优势不是单点技术，
+            而是能在不确定的业务场景中，把需求拆成清晰的产品流程，再用工程能力把它做成可运行的系统。
+          </p>
+          <p>
+            过去的项目里，我参与过商家工单助手、船舶运货助手、多智能体博弈系统和社团办公智能体。
+            这些经历让我形成了一套稳定的工作方式：先理解流程，再设计机制，最后交付可验证的产品结果。
+          </p>
+          <ul class="skill-list" aria-label="能力标签">
+            <li>业务问题拆解</li>
+            <li>产品流程设计</li>
+            <li>智能体系统实现</li>
+            <li>数据与工具集成</li>
+            <li>结果验证</li>
+            <li>快速交付</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="experience" class="split-section reveal">
+        <div class="section-label">
+          <span>02</span>
+          <h2>经历</h2>
+        </div>
+        <div class="timeline" id="timeline"></div>
+      </section>
+
+      <section id="work" class="split-section reveal">
+        <div class="section-label">
+          <span>03</span>
+          <h2>项目</h2>
+        </div>
+        <div>
+          <div class="filter-bar" id="filterBar" aria-label="项目分类筛选"></div>
+          <div class="project-list" id="projectGrid"></div>
+        </div>
+      </section>
+
+      <section class="split-section reveal">
+        <div class="section-label">
+          <span>04</span>
+          <h2>方法</h2>
+        </div>
+        <div class="method-stack">
+          <article>
+            <h3>先判断 AI 应该出现在哪里</h3>
+            <p>不是所有流程都需要智能体。先看用户目标、业务约束和失败成本，再决定系统边界。</p>
+          </article>
+          <article>
+            <h3>把产品流程拆成可执行单元</h3>
+            <p>把模糊需求拆成角色、任务、工具、判断条件和反馈机制，让系统知道何时行动、何时停止。</p>
+          </article>
+          <article>
+            <h3>用工程交付可验证结果</h3>
+            <p>用真实指标评估价值，包括覆盖率、准确率、响应时长和用户反馈，而不是停留在演示效果。</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="contact" class="contact-section reveal">
+        <p class="eyebrow">Contact</p>
+        <h2>如果一个 AI 想法值得被做成产品，我会关心它如何被真正使用。</h2>
+        <a class="text-link" href="mailto:155351988192163.com">和我联系</a>
+      </section>
+    </main>
+
+    <dialog class="project-dialog" id="projectDialog">
+      <button class="dialog-close" id="dialogClose" aria-label="关闭详情">×</button>
+      <div id="dialogContent"></div>
+    </dialog>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
