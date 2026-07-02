@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="AI Work Coach Mock：自适应职业学习 Agent，每日训练、AI 批改、学习画像和成长洞察。" />
+    <title>AI Work Coach · Mock 产品页</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="coach-shell">
+      <aside class="sidebar">
+        <a class="brand" href="#today" data-route="today">
+          <span class="brand-mark">WC</span>
+          <span><strong>AI Work Coach</strong><em>Adaptive Career Agent</em></span>
+        </a>
+        <nav class="nav" aria-label="主导航">
+          <button class="active" data-route="today">今日训练</button>
+          <button data-route="profile">学习画像</button>
+          <button data-route="history">历史记录</button>
+          <button data-route="insights">成长洞察</button>
+          <button data-route="settings">设置</button>
+        </nav>
+        <div class="mode-card">
+          <span>Mock Mode</span>
+          <p>训练内容、批改结果、画像更新和推荐策略均由本地 mock 数据模拟。</p>
+        </div>
+        <a class="back-link" href="../../index.html">返回作品集</a>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Asia/Shanghai · 连续学习 7 天</p>
+            <h1 id="pageTitle">今日训练</h1>
+          </div>
+          <div class="status-strip">
+            <span id="lessonStatus">未生成</span>
+            <strong id="profileSignal">画像推荐：Agent + Product</strong>
+          </div>
+        </header>
+        <section id="view"></section>
+      </main>
+    </div>
+    <div class="toast" id="toast" hidden></div>
+    <script src="./mock-data.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

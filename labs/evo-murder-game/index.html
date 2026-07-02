@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="进化酒馆 Mock 前端：保留原项目前端的暗夜剧场风格，展示 AI 剧本杀、Agent 阵容、证物推理、复盘进化与个人助手。"
+    />
+    <title>进化酒馆 | AI 剧本杀 Mock</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="#library" data-view="library" aria-label="进化酒馆">
+          <span class="brand-mark">EVO</span>
+          <span>
+            <strong>进化酒馆</strong>
+            <em>AI Murder Mystery</em>
+          </span>
+        </a>
+
+        <nav class="side-nav" aria-label="产品导航">
+          <button class="active" data-view="library">剧本库</button>
+          <button data-view="stage">游戏舞台</button>
+          <button data-view="agents">Agent 阵容</button>
+          <button data-view="review">复盘进化</button>
+          <button data-view="profile">个人助手</button>
+        </nav>
+
+        <div class="mode-card">
+          <span>Mock Mode</span>
+          <p>所有剧本、对话、证物、提示和进化报告均由本地数据模拟。</p>
+        </div>
+
+        <a class="back-link" href="../../index.html">返回作品集</a>
+      </aside>
+
+      <main class="content">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Original Frontend Style · Static Mock</p>
+            <h1 id="pageTitle">剧本库</h1>
+          </div>
+          <div class="session-status">
+            <span id="sessionPhase">未开局</span>
+            <strong id="sessionScore">推荐阵容 92%</strong>
+          </div>
+        </header>
+
+        <section class="view active" id="view-library" aria-label="剧本库">
+          <div class="hero-card">
+            <div class="hero-copy">
+              <p class="eyebrow">今晚的案件</p>
+              <h2>选择一个剧本，让 Agent 陪你入局。</h2>
+              <p>
+                原项目前端以暗夜剧场为主视觉：剧本库、角色阵容、游戏阶段、证物推理和复盘进化构成完整体验。
+                当前版本保留这套产品形态，并用本地 mock 数据跑通核心路径。
+              </p>
+              <button class="primary-btn" data-action="start-featured">开始推荐剧本</button>
+            </div>
+            <div class="hero-visual">
+              <img src="./assets/hero.png" alt="进化酒馆暗夜剧场首帧" />
+              <div class="hero-overlay">
+                <span>Featured Script</span>
+                <strong>锈铁大道</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="toolbar">
+            <label>
+              搜索剧本
+              <input id="scriptSearch" type="search" placeholder="剧本名 / 标签 / 题材" />
+            </label>
+            <label>
+              题材
+              <select id="genreFilter">
+                <option value="all">全部</option>
+                <option value="推理本">推理本</option>
+                <option value="情感本">情感本</option>
+                <option value="机制本">机制本</option>
+                <option value="阵营本">阵营本</option>
+              </select>
+            </label>
+            <label>
+              难度
+              <select id="difficultyFilter">
+                <option value="all">全部</option>
+                <option value="入门">入门</option>
+                <option value="进阶">进阶</option>
+                <option value="硬核">硬核</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="script-grid" id="scriptGrid"></div>
+        </section>
+
+        <section class="view" id="view-stage" aria-label="游戏舞台">
+          <div class="stage-grid">
+            <section class="panel phase-panel">
+              <div class="panel-head">
+                <p class="eyebrow">Game Stage</p>
+                <h2 id="stageTitle">准备入局</h2>
+              </div>
+              <div class="phase-track" id="phaseTrack"></div>
+              <div class="story-box">
+                <h3 id="storyTitle">等待剧本启动</h3>
+                <p id="storyText">从剧本库选择一个剧本后，系统会加载角色、证物和 Agent 阵容。</p>
+              </div>
+              <div class="action-row">
+                <button class="primary-btn" id="nextPhaseBtn">推进阶段</button>
+                <button class="ghost-btn" id="askDmBtn">请求 DM 提示</button>
+              </div>
+            </section>
+
+            <section class="panel dialogue-panel">
+              <div class="panel-head inline">
+                <div>
+                  <p class="eyebrow">Dialogue Stream</p>
+                  <h2>对话与行动</h2>
+                </div>
+                <button class="ghost-btn small" id="quickQuestionBtn">追问线索</button>
+              </div>
+              <div class="dialogue-list" id="dialogueList"></div>
+            </section>
+
+            <section class="panel evidence-panel">
+              <div class="panel-head inline">
+                <div>
+                  <p class="eyebrow">Evidence Board</p>
+                  <h2>证物板</h2>
+                </div>
+                <span id="evidenceCount">0 / 0</span>
+              </div>
+              <div class="evidence-list" id="evidenceList"></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="view" id="view-agents" aria-label="Agent 阵容">
+          <div class="section-intro">
+            <p class="eyebrow">Agent Casting</p>
+            <h2>不同 Agent 承担不同游戏角色。</h2>
+            <p>保留原项目“Agent 阵容”概念：陪玩、DM、推理、情绪、破局和复盘等类型共同组成一次剧本体验。</p>
+          </div>
+          <div class="agent-layout">
+            <div class="agent-list" id="agentList"></div>
+            <div class="panel agent-detail" id="agentDetail"></div>
+          </div>
+        </section>
+
+        <section class="view" id="view-review" aria-label="复盘进化">
+          <div class="review-grid">
+            <section class="panel score-panel">
+              <p class="eyebrow">Review Report</p>
+              <h2>本局复盘</h2>
+              <div class="score-ring">
+                <strong id="reviewScore">86</strong>
+                <span>推理完成度</span>
+              </div>
+              <p id="reviewSummary"></p>
+            </section>
+            <section class="panel">
+              <div class="panel-head inline">
+                <div>
+                  <p class="eyebrow">Key Moments</p>
+                  <h2>关键时刻</h2>
+                </div>
+              </div>
+              <div class="timeline" id="reviewTimeline"></div>
+            </section>
+            <section class="panel wide">
+              <div class="panel-head inline">
+                <div>
+                  <p class="eyebrow">Evolution</p>
+                  <h2>Agent 进化记录</h2>
+                </div>
+                <button class="ghost-btn small" id="generateCapsuleBtn">生成 Capsule</button>
+              </div>
+              <div class="capsule-grid" id="capsuleGrid"></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="view" id="view-profile" aria-label="个人助手">
+          <div class="profile-grid">
+            <section class="panel">
+              <p class="eyebrow">Player Memory</p>
+              <h2>你的剧本杀偏好画像</h2>
+              <div class="trait-list" id="traitList"></div>
+            </section>
+            <section class="panel">
+              <p class="eyebrow">Next Recommendation</p>
+              <h2>下一局建议</h2>
+              <div class="recommend-card" id="recommendCard"></div>
+            </section>
+            <section class="panel wide">
+              <div class="panel-head inline">
+                <div>
+                  <p class="eyebrow">Assistant</p>
+                  <h2>和 Echo 讨论下一局</h2>
+                </div>
+              </div>
+              <div class="assistant-chat" id="assistantChat"></div>
+              <div class="chat-input">
+                <input id="assistantInput" type="text" placeholder="告诉 Echo 你今晚想玩什么体验" />
+                <button class="primary-btn" id="assistantSend">发送</button>
+              </div>
+            </section>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <dialog id="evidenceDialog">
+      <div id="dialogBody"></div>
+      <button class="ghost-btn" id="dialogClose">关闭</button>
+    </dialog>
+
+    <div class="toast" id="toast" hidden></div>
+
+    <script src="./mock-data.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

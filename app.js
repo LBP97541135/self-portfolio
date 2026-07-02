@@ -31,6 +31,7 @@ const projects = [
     problem: "普通多智能体演示缺少持续思考和策略变化，难以体现真实博弈。",
     product: "让每个角色拥有信念矩阵和预投票意向，发言会影响后续判断与策略。",
     engineering: "根据发言影响力沉淀可复用技巧，在后续对局中作为能力经验继续调用。",
+    mock: "labs/multiagent-werewolf/dist/",
   },
   {
     title: "社里办",
@@ -64,6 +65,17 @@ const projects = [
     problem: "企业文档分散，员工查找资料成本高，普通问答缺少可信来源。",
     product: "答案必须绑定资料来源、更新时间和适用范围，降低误用风险。",
     engineering: "前端模拟检索结果、引用片段和置信度，为后续接入真实检索服务预留结构。",
+  },
+  {
+    title: "进化酒馆",
+    category: "AI 工作流产品",
+    period: "Mock",
+    summary: "把剧本杀互动、陪玩 Agent、DM Agent、长期记忆和行为进化结合起来的 AI 互动叙事产品原型。",
+    tags: ["多智能体", "剧本互动", "长期记忆", "自进化"],
+    result: "剧本库 + Agent 阵容 + 游戏舞台 + 证物推理 + 复盘进化 + 个人助手 六层结构 mock",
+    problem: "传统剧本杀依赖真人 DM 和玩家配合，单人体验弱、复玩价值有限，玩家经验也无法沉淀。",
+    product: "让 Agent 在一次次剧本互动中记住用户、理解偏好，并逐渐进化成更懂你的游戏伙伴。",
+    engineering: "本地 mock 6 个剧本、8 类 Agent、4 级 DM 提示、复盘 → Gene/Capsule 沉淀的端到端流程。",
   },
 ];
 
@@ -146,7 +158,10 @@ function renderProjects() {
               ${project.tags.map((tag) => `<span>${tag}</span>`).join("")}
             </div>
           </div>
-          <p class="project-result">${project.result}</p>
+          <div class="project-side">
+            <p class="project-result">${project.result}</p>
+            ${project.mock ? `<a class="project-mock-link" href="${project.mock}" target="_blank" rel="noreferrer" data-stop="1">Mock 体验 →</a>` : ""}
+          </div>
         </article>
       `,
     )
@@ -181,6 +196,7 @@ function openProject(index) {
           <p>${project.result}</p>
         </section>
       </div>
+      ${project.mock ? `<a class="dialog-mock-link" href="${project.mock}" target="_blank" rel="noreferrer">进入 Mock 体验 →</a>` : ""}
     </div>
   `;
   dialog.showModal();
@@ -195,6 +211,8 @@ filterBar.addEventListener("click", (event) => {
 });
 
 projectGrid.addEventListener("click", (event) => {
+  // Mock 体验链接：自己打开新页面，阻止触发项目详情弹窗
+  if (event.target.closest("[data-stop='1']")) return;
   const item = event.target.closest(".project-item");
   if (!item) return;
   openProject(Number(item.dataset.index));
@@ -202,6 +220,7 @@ projectGrid.addEventListener("click", (event) => {
 
 projectGrid.addEventListener("keydown", (event) => {
   if (event.key !== "Enter" && event.key !== " ") return;
+  if (event.target.closest("[data-stop='1']")) return;
   const item = event.target.closest(".project-item");
   if (!item) return;
   event.preventDefault();

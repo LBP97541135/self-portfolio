@@ -1,1 +1,11 @@
 tmp/
+node_modules/
+**/node_modules/
+*.log
+server.err
+server.log
+build_*.py
+build_*.js
+node_build.js
+ww_*.py
+test*.py
