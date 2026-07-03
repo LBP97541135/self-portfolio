@@ -744,7 +744,7 @@ export const mockGameStatus = {
   },
   error: null,
   result_text: null,
-  has_post_game: false,
+  has_post_game: true,
   has_replay: true,
   post_game_status: null,
   alert_count: 0,

@@ -1,0 +1,862 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>个人作品集项目管理框架 | 吕祎晗</title>
+    <style>:root {
+  color-scheme: light;
+  --bg: #f7f4ee;
+  --bg-soft: #fbfaf7;
+  --ink: #1b1f23;
+  --text: #30363d;
+  --muted: #6f7782;
+  --faint: #a8adb4;
+  --line: rgba(27, 31, 35, 0.13);
+  --accent: #2f7d69;
+  --accent-soft: rgba(47, 125, 105, 0.1);
+  --card: rgba(255, 255, 255, 0.58);
+  --shadow: 0 24px 80px rgba(54, 48, 42, 0.08);
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 18% 8%, rgba(47, 125, 105, 0.11), transparent 28rem),
+    linear-gradient(180deg, #fbfaf7 0%, var(--bg) 58%, #f2eee6 100%);
+  color: var(--text);
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  content: "";
+  background-image:
+    linear-gradient(rgba(27, 31, 35, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(27, 31, 35, 0.035) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(to bottom, black, transparent 78%);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.cursor-light {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  width: 560px;
+  height: 560px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(47, 125, 105, 0.12), transparent 68%);
+  transform: translate3d(-50%, -50%, 0);
+  transition: opacity 240ms var(--ease);
+}
+
+::selection {
+  background: rgba(47, 125, 105, 0.18);
+  color: var(--ink);
+}
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 86px;
+  padding: 0 clamp(24px, 5vw, 72px);
+  background: rgba(247, 244, 238, 0.74);
+  backdrop-filter: blur(18px);
+}
+
+.brand {
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 750;
+}
+
+.nav-links {
+  display: flex;
+  gap: clamp(18px, 3vw, 34px);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.nav-links a,
+.text-link {
+  position: relative;
+  transition: color 180ms var(--ease);
+}
+
+.nav-links a::after,
+.text-link::after {
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 100%;
+  height: 1px;
+  content: "";
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 260ms var(--ease);
+}
+
+.nav-links a:hover,
+.text-link:hover {
+  color: var(--accent);
+}
+
+.nav-links a:hover::after,
+.text-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.doc-shell {
+  width: min(1120px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 132px 0 90px;
+}
+
+.doc-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: clamp(34px, 6vw, 88px);
+  align-items: end;
+  min-height: 56vh;
+  padding-bottom: 70px;
+}
+
+.eyebrow {
+  margin: 0 0 24px;
+  color: var(--accent);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 13px;
+}
+
+.doc-hero h1 {
+  max-width: 860px;
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(42px, 6.5vw, 82px);
+  font-weight: 780;
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+.doc-lead {
+  max-width: 720px;
+  margin: 28px 0 0;
+  color: var(--muted);
+  font-size: clamp(16px, 2vw, 20px);
+  line-height: 1.9;
+}
+
+.doc-meta {
+  display: grid;
+  gap: 12px;
+  border-left: 1px solid var(--line);
+  padding-left: 22px;
+}
+
+.doc-meta span {
+  color: var(--faint);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 12px;
+}
+
+.doc-meta strong {
+  display: block;
+  margin-top: 5px;
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.doc-layout {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: clamp(36px, 7vw, 92px);
+}
+
+.doc-toc {
+  position: sticky;
+  top: 132px;
+  align-self: start;
+  display: grid;
+  gap: 8px;
+  max-height: calc(100vh - 160px);
+  overflow: auto;
+  padding-right: 8px;
+}
+
+.doc-toc-title {
+  margin-bottom: 14px;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 760;
+}
+
+.doc-toc a {
+  display: block;
+  border-left: 1px solid var(--line);
+  color: var(--muted);
+  padding: 6px 0 6px 14px;
+  font-size: 13px;
+  line-height: 1.45;
+  transition:
+    color 180ms var(--ease),
+    border-color 180ms var(--ease);
+}
+
+.doc-toc a:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.doc-content {
+  min-width: 0;
+}
+
+.doc-card {
+  border: 1px solid rgba(27, 31, 35, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.42);
+  box-shadow: var(--shadow);
+  padding: clamp(24px, 5vw, 54px);
+}
+
+.doc-card > *:first-child {
+  margin-top: 0;
+}
+
+.doc-card h1,
+.doc-card h2,
+.doc-card h3,
+.doc-card h4 {
+  color: var(--ink);
+  letter-spacing: 0;
+}
+
+.doc-card h1 {
+  display: none;
+}
+
+.doc-card h2 {
+  margin: 48px 0 18px;
+  border-top: 1px solid var(--line);
+  padding-top: 28px;
+  font-size: clamp(24px, 3vw, 34px);
+  line-height: 1.3;
+}
+
+.doc-card h3 {
+  margin: 34px 0 12px;
+  font-size: 20px;
+}
+
+.doc-card h4 {
+  margin: 26px 0 10px;
+  font-size: 16px;
+}
+
+.doc-card p,
+.doc-card li {
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.9;
+}
+
+.doc-card p {
+  margin: 0 0 18px;
+}
+
+.doc-card ul,
+.doc-card ol {
+  margin: 0 0 24px;
+  padding-left: 22px;
+}
+
+.doc-card li + li {
+  margin-top: 8px;
+}
+
+.doc-card blockquote {
+  margin: 24px 0;
+  border-left: 2px solid var(--accent);
+  background: var(--accent-soft);
+  padding: 16px 20px;
+}
+
+.doc-card blockquote p {
+  margin: 0;
+  color: var(--text);
+  font-weight: 650;
+}
+
+.doc-card code {
+  border: 1px solid rgba(27, 31, 35, 0.08);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.62);
+  color: var(--ink);
+  padding: 2px 6px;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.9em;
+}
+
+.doc-card pre {
+  overflow: auto;
+  margin: 24px 0;
+  border: 1px solid rgba(27, 31, 35, 0.12);
+  border-radius: 8px;
+  background: #1f2528;
+  color: #eef4ef;
+  padding: 18px;
+}
+
+.flow-panel {
+  margin: 26px 0;
+  border: 1px solid rgba(47, 125, 105, 0.18);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.36)),
+    radial-gradient(circle at 0% 0%, rgba(47, 125, 105, 0.1), transparent 32%);
+  padding: 16px;
+}
+
+.flow-panel pre {
+  margin: 0;
+  background: rgba(31, 37, 40, 0.94);
+}
+
+.visual-flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin: 28px 0;
+  border: 1px solid rgba(47, 125, 105, 0.18);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.74), rgba(255, 255, 255, 0.42)),
+    radial-gradient(circle at 8% 0%, rgba(47, 125, 105, 0.1), transparent 34%);
+  padding: 18px;
+}
+
+.flow-step {
+  display: grid;
+  gap: 8px;
+  width: min(210px, 100%);
+  min-height: 94px;
+  border: 1px solid rgba(27, 31, 35, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.62);
+  padding: 16px;
+  box-shadow: 0 12px 36px rgba(54, 48, 42, 0.06);
+}
+
+.flow-step span {
+  color: var(--accent);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 12px;
+}
+
+.flow-step strong {
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.flow-arrow {
+  width: 34px;
+  height: 1px;
+  background: var(--line);
+  position: relative;
+}
+
+.flow-arrow::after {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 7px;
+  height: 7px;
+  border-top: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+  content: "";
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.doc-card pre code {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.entry-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  border: 1px solid rgba(47, 125, 105, 0.38);
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  padding: 0 12px;
+  font-size: 13px;
+  font-weight: 650;
+  transition:
+    background 180ms var(--ease),
+    border-color 180ms var(--ease),
+    color 180ms var(--ease),
+    transform 180ms var(--ease);
+}
+
+.entry-link:hover {
+  background: rgba(47, 125, 105, 0.18);
+  border-color: var(--accent);
+  color: #1f5b4d;
+  transform: translateY(-1px);
+}
+
+.doc-card table {
+  display: block;
+  overflow: auto;
+  width: 100%;
+  margin: 24px 0;
+  border-collapse: collapse;
+}
+
+.doc-card th,
+.doc-card td {
+  border-bottom: 1px solid var(--line);
+  padding: 12px 14px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.doc-card th {
+  color: var(--ink);
+  font-size: 14px;
+}
+
+.doc-card td {
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.doc-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 34px;
+}
+
+.doc-signal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  max-width: 860px;
+  margin-top: 34px;
+}
+
+.doc-signal-grid article {
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+}
+
+.doc-signal-grid span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--accent);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 11px;
+}
+
+.doc-signal-grid strong {
+  display: block;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 720;
+  line-height: 1.65;
+}
+
+.text-link {
+  display: inline-flex;
+  color: var(--ink);
+  font-weight: 760;
+}
+
+.text-link.muted {
+  color: var(--muted);
+}
+
+.loading,
+.error {
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.9;
+}
+
+@media (max-width: 900px) {
+  .doc-hero,
+  .doc-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .doc-hero {
+    min-height: auto;
+  }
+
+  .doc-meta {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    padding: 18px 0 0;
+  }
+
+  .doc-toc {
+    position: static;
+    max-height: none;
+  }
+
+  .doc-signal-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .site-header {
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    height: 82px;
+  }
+
+  .nav-links {
+    width: 100%;
+    justify-content: space-between;
+    gap: 10px;
+    overflow-x: auto;
+  }
+
+  .doc-shell {
+    width: min(100% - 34px, 1120px);
+    padding-top: 124px;
+  }
+
+  .visual-flow {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .flow-step {
+    width: 100%;
+  }
+
+  .flow-arrow {
+    width: 1px;
+    height: 24px;
+    margin-left: 18px;
+  }
+
+  .flow-arrow::after {
+    top: auto;
+    right: auto;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) rotate(135deg);
+  }
+}
+</style>
+  </head>
+  <body>
+    <div class="cursor-light" aria-hidden="true"></div>
+    <header class="site-header">
+      <a class="brand" href="../../index.html#top">吕祎晗</a>
+      <nav class="nav-links" aria-label="main navigation">
+        <a href="../../index.html#work">项目</a>
+        <a href="../../index.html#method">方法</a>
+        <a href="../../index.html#contact">联系</a>
+      </nav>
+    </header>
+    <main id="top" class="doc-shell">
+      <section class="doc-hero">
+        <div>
+          <p class="eyebrow">Portfolio Document</p>
+          <h1 id="docTitle">个人作品集项目管理框架</h1>
+          <p class="doc-lead">本文档用于指导后续作品集项目搭建。目标不是把作品集做成简单的项目列表，而是设计成一个可持续扩展的项目系统：每个项目既能讲清楚产品思考，也能提供一个纯前端 Mock 产品体验。</p>
+          <div class="doc-actions">
+            <a class="text-link" href="../../index.html">返回作品集</a>
+            <a class="text-link muted" href="portfolio-project-framework.md" target="_blank" rel="noreferrer">查看原文</a>
+          </div>
+          
+        </div>
+        <aside class="doc-meta">
+          <div><span>Type</span><strong>Development Standard</strong></div>
+          <div><span>Source</span><strong>portfolio-project-framework.md</strong></div>
+        </aside>
+      </section>
+      <section class="doc-layout">
+        <aside class="doc-toc"><div class="doc-toc-title">目录</div><a href="#1-核心定位" class="toc-level-2">1. 核心定位</a><a href="#2-整体信息架构" class="toc-level-2">2. 整体信息架构</a><a href="#3-项目分类体系" class="toc-level-2">3. 项目分类体系</a><a href="#4-统一项目数据模型" class="toc-level-2">4. 统一项目数据模型</a><a href="#5-项目介绍页模板" class="toc-level-2">5. 项目介绍页模板</a><a href="#6-mock-产品页模板" class="toc-level-2">6. Mock 产品页模板</a><a href="#7-ai-狼人杀-mock-页设计" class="toc-level-2">7. AI 狼人杀 Mock 页设计</a><a href="#8-推荐目录结构" class="toc-level-2">8. 推荐目录结构</a><a href="#9-项目总览页能力" class="toc-level-2">9. 项目总览页能力</a><a href="#10-项目接入流程" class="toc-level-2">10. 项目接入流程</a><a href="#11-设计原则" class="toc-level-2">11. 设计原则</a><a href="#12-最终目标" class="toc-level-2">12. 最终目标</a></aside>
+        <article class="doc-content doc-card"><h1 id="个人作品集项目管理框架">个人作品集项目管理框架</h1>
+<p>本文档用于指导后续作品集项目搭建。目标不是把作品集做成简单的项目列表，而是设计成一个可持续扩展的项目系统：每个项目既能讲清楚产品思考，也能提供一个纯前端 Mock 产品体验。</p>
+<h2 id="1-核心定位">1. 核心定位</h2>
+<p>作品集整体围绕这句话展开：</p>
+<blockquote><p>产品里最懂开发，开发里最懂产品。</p></blockquote>
+<p>对应到网站结构：</p>
+<ul><li>首页：建立个人气质和核心定位</li><li>项目介绍页：证明产品思考和系统设计能力</li><li>Mock 产品页：证明工程交付和前端表达能力</li></ul>
+<p>最终目标是让访问者看到三件事：</p>
+<ul><li>我是谁</li><li>我怎么思考一个项目</li><li>我能把它做成什么样</li></ul>
+<h2 id="2-整体信息架构">2. 整体信息架构</h2>
+<p>建议采用以下路由结构：</p>
+<pre><code>/
+首页：个人定位、精选项目、方法论、经历
+
+/projects
+项目总览：所有项目的筛选、分类、搜索、状态
+
+/projects/:id
+项目介绍页：案例研究，讲清楚为什么做、怎么做、结果如何
+
+/labs/:id
+项目 Mock 前端：纯前端可交互体验，模拟真实产品功能
+
+/about
+可选：更完整的个人经历、技能、荣誉</code></pre>
+<p>以 AI 狼人杀为例：</p>
+<pre><code>/projects/multiagent-werewolf
+/labs/multiagent-werewolf</code></pre>
+<h2 id="3-项目分类体系">3. 项目分类体系</h2>
+<p>不要按短期技术名词分类，例如 MCP、Skill、Dify、LangChain。它们适合作为标签，不适合作为主分类。</p>
+<p>推荐按产品形态和问题类型分类：</p>
+<ul><li>多智能体系统</li><li>AI 工作流产品</li><li>行业解决方案</li><li>智能办公与组织协作</li><li>知识与检索系统</li><li>数据分析与评估系统</li><li>开发者工具</li><li>实验性 AI 产品</li></ul>
+<p>每个项目采用：</p>
+<ul><li>一个主分类</li><li>多个能力标签</li><li>一个成熟度状态</li></ul>
+<p>项目状态建议：</p>
+<ul><li>真实上线</li><li>比赛获奖</li><li>完整 Demo</li><li>Mock 体验</li><li>规划中</li></ul>
+<h2 id="4-统一项目数据模型">4. 统一项目数据模型</h2>
+<p>所有项目都应该注册到统一配置中，避免页面越做越散。</p>
+<p>推荐 TypeScript 数据结构：</p>
+<pre><code>type PortfolioProject = {
+  id: string
+  title: string
+  subtitle: string
+  category: string
+  tags: string[]
+  status: &quot;真实上线&quot; | &quot;比赛获奖&quot; | &quot;完整 Demo&quot; | &quot;Mock 体验&quot; | &quot;规划中&quot;
+  year: string
+  role: string[]
+
+  summary: string
+  problem: string
+  solution: string
+  contribution: string[]
+  results: string[]
+  reflection?: string
+
+  introPath: string
+  labPath: string
+
+  cover?: string
+  repo?: string
+  demo?: string
+}</code></pre>
+<p>AI 狼人杀示例：</p>
+<pre><code>{
+  id: &quot;multiagent-werewolf&quot;,
+  title: &quot;AI 狼人杀&quot;,
+  subtitle: &quot;多智能体博弈与自进化实验系统&quot;,
+  category: &quot;多智能体系统&quot;,
+  tags: [&quot;博弈推理&quot;, &quot;信念矩阵&quot;, &quot;投票意向&quot;, &quot;赛后复盘&quot;],
+  status: &quot;Mock 体验&quot;,
+  year: &quot;2026&quot;,
+  role: [&quot;产品设计&quot;, &quot;核心开发&quot;, &quot;交互设计&quot;],
+
+  summary: &quot;通过狼人杀游戏验证多智能体推理、博弈协作和策略沉淀。&quot;,
+  problem: &quot;普通智能体演示缺少持续思考、身份判断和策略变化。&quot;,
+  solution: &quot;将对局拆成发言、信念更新、投票意向、行动选择和赛后复盘。&quot;,
+  contribution: [
+    &quot;设计信念矩阵机制&quot;,
+    &quot;实现投票意向追踪&quot;,
+    &quot;设计自进化策略沉淀流程&quot;
+  ],
+  results: [
+    &quot;支持多角色多轮对局&quot;,
+    &quot;每轮发言影响身份判断&quot;,
+    &quot;赛后可复盘关键决策链路&quot;
+  ],
+
+  introPath: &quot;/projects/multiagent-werewolf&quot;,
+  labPath: &quot;/labs/multiagent-werewolf&quot;,
+  repo: &quot;https://github.com/kissie-77/MultiAgent-Werewolf&quot;
+}</code></pre>
+<h2 id="5-项目介绍页模板">5. 项目介绍页模板</h2>
+<p>每个项目介绍页保持统一结构，形成专业感和可维护性。</p>
+<pre><code>1. Hero
+项目名、一句话定位、角色、年份、分类、进入 Mock 按钮
+
+2. Overview
+项目背景、目标用户、核心问题
+
+3. Product Thinking
+我是怎么拆解业务、用户、流程的
+
+4. Solution
+产品方案、核心流程、关键模块
+
+5. System Design
+系统架构、数据流、Agent/工具/状态如何协作
+
+6. My Contribution
+我的具体贡献，避免写成团队成果
+
+7. Result
+数据、效果、奖项、用户反馈
+
+8. Reflection
+做完之后的反思和下一版优化方向</code></pre>
+<p>项目介绍页的目标不是堆功能，而是回答：</p>
+<ul><li>为什么这个项目值得做？</li><li>我如何定义问题？</li><li>我如何设计方案？</li><li>我具体做了什么？</li><li>最终产生了什么结果？</li></ul>
+<h2 id="6-mock-产品页模板">6. Mock 产品页模板</h2>
+<p>每个 Mock 产品页都应该像一个可用产品，而不是截图或静态介绍。</p>
+<p>统一页面结构：</p>
+<pre><code>/labs/:id
+
+顶部：项目名、模式、返回介绍页
+左侧：功能导航 / 场景切换
+中间：主要交互区
+右侧：状态面板 / 数据面板 / 日志面板
+底部或弹窗：关键解释、复盘、详情</code></pre>
+<p>Mock 产品页设计原则：</p>
+<ul><li>不接真实后端</li><li>所有数据来自本地 mockData</li><li>交互要完整，不能只是展示</li><li>关键流程必须可走通</li><li>页面要像产品，而不是技术 demo</li></ul>
+<h2 id="7-ai-狼人杀-mock-页设计">7. AI 狼人杀 Mock 页设计</h2>
+<p>AI 狼人杀不应该做成普通聊天室，而应该做成一个多智能体观战和复盘系统。</p>
+<p>推荐模块：</p>
+<pre><code>1. 对局大厅
+选择人数、角色板子、模型阵容、开始模拟
+
+2. 实时对局
+白天/夜晚阶段、玩家发言、系统事件、当前行动
+
+3. Agent 面板
+每个玩家的公开信息、隐藏目标、当前怀疑对象
+
+4. 信念矩阵
+展示每个 Agent 对其他玩家身份的判断变化
+
+5. 投票意向
+展示每轮发言前后，投票对象如何变化
+
+6. 赛后复盘
+胜负结果、关键发言、影响力最高玩家、策略沉淀</code></pre>
+<p>狼人杀介绍页的核心表达：</p>
+<blockquote><p>不是让 Agent 说话，而是让每一次发言影响判断、投票和策略沉淀。</p></blockquote>
+<h2 id="8-推荐目录结构">8. 推荐目录结构</h2>
+<p>如果使用 React/Vite，推荐如下：</p>
+<pre><code>src/
+  app/
+    routes.tsx
+
+  data/
+    projects.ts
+    categories.ts
+
+  pages/
+    HomePage.tsx
+    ProjectIndexPage.tsx
+    ProjectDetailPage.tsx
+
+  labs/
+    multiagent-werewolf/
+      WerewolfLab.tsx
+      mockData.ts
+      components/
+        GameLobby.tsx
+        GameTimeline.tsx
+        AgentPanel.tsx
+        BeliefMatrix.tsx
+        VoteTracker.tsx
+        ReviewPanel.tsx
+
+    merchant-ticket-agent/
+      MerchantTicketLab.tsx
+      mockData.ts
+      components/
+
+  components/
+    layout/
+    project/
+    ui/
+
+  styles/
+    tokens.css
+    globals.css</code></pre>
+<p>核心原则：</p>
+<ul><li>项目元信息放在 <code>src/data/projects.ts</code></li><li>每个项目的 Mock 体验放在 <code>src/labs/:projectId/</code></li><li>公共视觉组件放在 <code>src/components/</code></li><li>每个项目内部维护自己的 mock 数据和子组件</li></ul>
+<h2 id="9-项目总览页能力">9. 项目总览页能力</h2>
+<p>后续项目数量变多后，项目总览页需要支持筛选和管理感。</p>
+<p>建议筛选维度：</p>
+<ul><li>分类</li><li>年份</li><li>项目状态</li><li>我的角色</li><li>项目成熟度</li><li>关键词标签</li></ul>
+<p>角色筛选建议：</p>
+<ul><li>产品设计</li><li>前端开发</li><li>后端开发</li><li>Agent 开发</li><li>FDE</li><li>方案设计</li></ul>
+<p>成熟度筛选建议：</p>
+<ul><li>真实上线</li><li>比赛获奖</li><li>完整 Demo</li><li>Mock 体验</li><li>规划中</li></ul>
+<h2 id="10-项目接入流程">10. 项目接入流程</h2>
+<p>每新增一个项目，按照以下流程接入：</p>
+<pre><code>1. 在 projects.ts 中注册项目元信息
+2. 创建 /projects/:id 的介绍页内容
+3. 创建 /labs/:id 的 Mock 产品页
+4. 编写该项目的 mockData
+5. 将项目加入首页精选或项目总览
+6. 检查桌面端和移动端体验</code></pre>
+<p>每个项目都必须回答两个问题：</p>
+<ul><li>项目介绍页：这个项目为什么重要？</li><li>Mock 产品页：这个项目如果真的交付，会是什么体验？</li></ul>
+<h2 id="11-设计原则">11. 设计原则</h2>
+<p>整体视觉保持克制、高级、有留白。</p>
+<p>建议风格：</p>
+<ul><li>信息密度高，但不拥挤</li><li>交互明确，但不花哨</li><li>动效轻量，服务于状态变化</li><li>技术名词不抢主叙事</li><li>强调产品思考和交付结果</li></ul>
+<p>避免：</p>
+<ul><li>大面积 AI 渐变</li><li>过多发光效果</li><li>只展示技术栈，不讲问题</li><li>每个项目视觉风格完全不一致</li><li>Mock 页只有静态截图，没有可操作流程</li></ul>
+<h2 id="12-最终目标">12. 最终目标</h2>
+<p>整个作品集应形成三层表达：</p>
+<pre><code>首页：我是谁
+项目介绍页：我怎么思考
+Mock 产品页：我能做出来</code></pre>
+<p>这套框架服务于最终个人定位：</p>
+<blockquote><p>Agent Product Engineer / FDE   产品里最懂开发，开发里最懂产品。</p></blockquote></article>
+      </section>
+    </main>
+    <script>
+      const cursorLight = document.querySelector('.cursor-light');
+      if (cursorLight) window.addEventListener('mousemove', (event) => {
+        cursorLight.style.transform = 'translate3d(' + (event.clientX - 280) + 'px, ' + (event.clientY - 280) + 'px, 0)';
+      });
+    </script>
+  </body>
+</html>

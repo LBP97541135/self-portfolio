@@ -7,6 +7,10 @@
  */
 
 import * as M from "./mockData";
+import { mapHomePage } from "../lib/homeMap";
+import { mapModelsPage } from "../lib/modelsMap";
+import { mapReplayPage } from "../lib/replayMap";
+import { mapRoleDetail, mapRolesPage } from "../lib/rolesMap";
 
 const delay = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 
@@ -17,7 +21,11 @@ export class ApiClient {
   }
 
   static async startGame(_req: unknown): Promise<typeof M.mockStartGameResponse> {
-    return this.ok(M.mockStartGameResponse, 50);
+    return this.ok({
+      ...M.mockStartGameResponse,
+      game_page_path: "/?run_id=6p-deepseek-mock-001&view=god",
+      player_token: null,
+    }, 50);
   }
 
   static async getBoardPresets() {
@@ -33,11 +41,11 @@ export class ApiClient {
   }
 
   static async getHomePageData() {
-    return this.ok(M.mockHomeData);
+    return this.ok(mapHomePage(M.mockHomeData));
   }
 
   static async getRolesPageData() {
-    return this.ok(M.mockRolesData);
+    return this.ok(mapRolesPage(M.mockRolesData));
   }
 
   static async getRoleDetail(roleKey: string) {
@@ -49,7 +57,7 @@ export class ApiClient {
     ];
     const found = all.find((r) => r.key === roleKey);
     const base = found ?? all[0];
-    return this.ok({
+    return this.ok(mapRoleDetail({
       ...base,
       instruction: `${base.display_name} 的角色说明：在标准 6 人局中发挥阵营作用。`,
       suggestion: "保持阵营判断 + 信息整合",
@@ -72,11 +80,11 @@ export class ApiClient {
         ? [{ name: "夜间技能", description: "夜晚可执行特定行动", timing: "NIGHT" }]
         : [{ name: "被动技能", description: "白触发", timing: "PASSIVE" }],
       strategies: ["开局保持低调", "中期寻找站队", "末期决定胜负"],
-    });
+    }));
   }
 
   static async getModelsPageData() {
-    return this.ok(M.mockModelsData);
+    return this.ok(mapModelsPage(M.mockModelsData));
   }
 
   static async getModelDetail(modelId: string) {
@@ -89,7 +97,7 @@ export class ApiClient {
   }
 
   static async getReplayData(_runId: string, _source = "runs") {
-    return this.ok(M.mockReplayData);
+    return this.ok(mapReplayPage(M.mockReplayData));
   }
 
   static async getShareReplayData(_runId: string) {

@@ -1,0 +1,1 @@
+function l(n){const e=(n.winner_camp??"").toLowerCase();let a="UNKNOWN";return e.includes("wolf")||e.includes("wolv")?a="WEREWOLF":e==="good"||e.includes("villager")?a="GOOD":(e.includes("draw")||e.includes("平"))&&(a="DRAW"),{runId:n.run_id,winnerCamp:a,playerCount:n.player_count??0,createdAt:n.created_at??"",hasReplay:n.has_replay}}export{l as m};

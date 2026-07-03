@@ -7,6 +7,7 @@ export default defineConfig(({mode}) => {
   const isProd = mode === 'production';
 
   return {
+    base: './',
     plugins: [react(), tailwindcss()],
     build: {
       // 生产环境优化

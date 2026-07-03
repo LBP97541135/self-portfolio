@@ -1,0 +1,1 @@
+function s(e){switch(e.kind){case"seat":return e.skip||e.seat==null?"0":String(e.seat);case"witch":return e.action==="save"?"救":e.action==="poison"?e.seat==null?"none":`毒 [[${e.seat}]]`:"none";case"yesno":return e.yes?"1":"0";case"multi":return e.seats.join(" ");case"speech":return e.text}}export{s as buildHumanPayload};

@@ -61,7 +61,8 @@ class MockEventSource implements EventSource {
         this._fireNamed("end", new MessageEvent("end"));
         return;
       }
-      const ev = mockSseEvents[i++];
+      const raw = mockSseEvents[i++];
+      const ev = this._normalizeEvent(raw);
       const eventName = ev.event_type === "snapshot" ? "snapshot"
         : ev.event_type === "end" ? "end"
         : "message";
@@ -83,6 +84,42 @@ class MockEventSource implements EventSource {
     list.forEach((fn) => {
       try { fn(e); } catch { /* ignore */ }
     });
+  }
+
+  private _normalizeEvent(ev: any) {
+    if (ev?.event_type === "snapshot") {
+      const rawRoster = ev.roster ?? ev.data?.roster ?? [];
+      const roster = Array.isArray(rawRoster)
+        ? rawRoster.map((p: any, index: number) => {
+            const idText = String(p?.player_id ?? "");
+            const match = idText.match(/(\d+)$/);
+            const seat = typeof p?.seat === "number" ? p.seat : match ? Number(match[1]) : index + 1;
+            return {
+              seat,
+              name: p?.name ?? p?.player_name ?? `P${seat}`,
+              role: p?.role ?? p?.role_name ?? null,
+              camp: p?.camp ?? null,
+              is_alive: p?.is_alive ?? true,
+            };
+          })
+        : [];
+      return {
+        ...ev,
+        roster,
+        phase: ev.phase ?? ev.data?.phase,
+        round_number: ev.round_number ?? ev.data?.day ?? 0,
+      };
+    }
+    if (ev?.event_type === "game_ended") {
+      return {
+        ...ev,
+        data: {
+          ...ev.data,
+          winner_camp: ev.data?.winner_camp ?? ev.data?.winner,
+        },
+      };
+    }
+    return ev;
   }
 
   private _fireMessage(e: MessageEvent) {

@@ -1,0 +1,669 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MoneyPrinterTurbo 项目介绍 | 吕祎晗</title>
+    <style>:root {
+  color-scheme: light;
+  --bg: #f7f4ee;
+  --bg-soft: #fbfaf7;
+  --ink: #1b1f23;
+  --text: #30363d;
+  --muted: #6f7782;
+  --faint: #a8adb4;
+  --line: rgba(27, 31, 35, 0.13);
+  --accent: #2f7d69;
+  --accent-soft: rgba(47, 125, 105, 0.1);
+  --card: rgba(255, 255, 255, 0.58);
+  --shadow: 0 24px 80px rgba(54, 48, 42, 0.08);
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 18% 8%, rgba(47, 125, 105, 0.11), transparent 28rem),
+    linear-gradient(180deg, #fbfaf7 0%, var(--bg) 58%, #f2eee6 100%);
+  color: var(--text);
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  content: "";
+  background-image:
+    linear-gradient(rgba(27, 31, 35, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(27, 31, 35, 0.035) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(to bottom, black, transparent 78%);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.cursor-light {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  width: 560px;
+  height: 560px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(47, 125, 105, 0.12), transparent 68%);
+  transform: translate3d(-50%, -50%, 0);
+  transition: opacity 240ms var(--ease);
+}
+
+::selection {
+  background: rgba(47, 125, 105, 0.18);
+  color: var(--ink);
+}
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 86px;
+  padding: 0 clamp(24px, 5vw, 72px);
+  background: rgba(247, 244, 238, 0.74);
+  backdrop-filter: blur(18px);
+}
+
+.brand {
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 750;
+}
+
+.nav-links {
+  display: flex;
+  gap: clamp(18px, 3vw, 34px);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.nav-links a,
+.text-link {
+  position: relative;
+  transition: color 180ms var(--ease);
+}
+
+.nav-links a::after,
+.text-link::after {
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 100%;
+  height: 1px;
+  content: "";
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 260ms var(--ease);
+}
+
+.nav-links a:hover,
+.text-link:hover {
+  color: var(--accent);
+}
+
+.nav-links a:hover::after,
+.text-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.doc-shell {
+  width: min(1120px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 132px 0 90px;
+}
+
+.doc-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: clamp(34px, 6vw, 88px);
+  align-items: end;
+  min-height: 56vh;
+  padding-bottom: 70px;
+}
+
+.eyebrow {
+  margin: 0 0 24px;
+  color: var(--accent);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 13px;
+}
+
+.doc-hero h1 {
+  max-width: 860px;
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(42px, 6.5vw, 82px);
+  font-weight: 780;
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+.doc-lead {
+  max-width: 720px;
+  margin: 28px 0 0;
+  color: var(--muted);
+  font-size: clamp(16px, 2vw, 20px);
+  line-height: 1.9;
+}
+
+.doc-meta {
+  display: grid;
+  gap: 12px;
+  border-left: 1px solid var(--line);
+  padding-left: 22px;
+}
+
+.doc-meta span {
+  color: var(--faint);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 12px;
+}
+
+.doc-meta strong {
+  display: block;
+  margin-top: 5px;
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.doc-layout {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: clamp(36px, 7vw, 92px);
+}
+
+.doc-toc {
+  position: sticky;
+  top: 132px;
+  align-self: start;
+  display: grid;
+  gap: 8px;
+  max-height: calc(100vh - 160px);
+  overflow: auto;
+  padding-right: 8px;
+}
+
+.doc-toc-title {
+  margin-bottom: 14px;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 760;
+}
+
+.doc-toc a {
+  display: block;
+  border-left: 1px solid var(--line);
+  color: var(--muted);
+  padding: 6px 0 6px 14px;
+  font-size: 13px;
+  line-height: 1.45;
+  transition:
+    color 180ms var(--ease),
+    border-color 180ms var(--ease);
+}
+
+.doc-toc a:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.doc-content {
+  min-width: 0;
+}
+
+.doc-card {
+  border: 1px solid rgba(27, 31, 35, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.42);
+  box-shadow: var(--shadow);
+  padding: clamp(24px, 5vw, 54px);
+}
+
+.doc-card > *:first-child {
+  margin-top: 0;
+}
+
+.doc-card h1,
+.doc-card h2,
+.doc-card h3,
+.doc-card h4 {
+  color: var(--ink);
+  letter-spacing: 0;
+}
+
+.doc-card h1 {
+  display: none;
+}
+
+.doc-card h2 {
+  margin: 48px 0 18px;
+  border-top: 1px solid var(--line);
+  padding-top: 28px;
+  font-size: clamp(24px, 3vw, 34px);
+  line-height: 1.3;
+}
+
+.doc-card h3 {
+  margin: 34px 0 12px;
+  font-size: 20px;
+}
+
+.doc-card h4 {
+  margin: 26px 0 10px;
+  font-size: 16px;
+}
+
+.doc-card p,
+.doc-card li {
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.9;
+}
+
+.doc-card p {
+  margin: 0 0 18px;
+}
+
+.doc-card ul,
+.doc-card ol {
+  margin: 0 0 24px;
+  padding-left: 22px;
+}
+
+.doc-card li + li {
+  margin-top: 8px;
+}
+
+.doc-card blockquote {
+  margin: 24px 0;
+  border-left: 2px solid var(--accent);
+  background: var(--accent-soft);
+  padding: 16px 20px;
+}
+
+.doc-card blockquote p {
+  margin: 0;
+  color: var(--text);
+  font-weight: 650;
+}
+
+.doc-card code {
+  border: 1px solid rgba(27, 31, 35, 0.08);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.62);
+  color: var(--ink);
+  padding: 2px 6px;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.9em;
+}
+
+.doc-card pre {
+  overflow: auto;
+  margin: 24px 0;
+  border: 1px solid rgba(27, 31, 35, 0.12);
+  border-radius: 8px;
+  background: #1f2528;
+  color: #eef4ef;
+  padding: 18px;
+}
+
+.flow-panel {
+  margin: 26px 0;
+  border: 1px solid rgba(47, 125, 105, 0.18);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.36)),
+    radial-gradient(circle at 0% 0%, rgba(47, 125, 105, 0.1), transparent 32%);
+  padding: 16px;
+}
+
+.flow-panel pre {
+  margin: 0;
+  background: rgba(31, 37, 40, 0.94);
+}
+
+.visual-flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin: 28px 0;
+  border: 1px solid rgba(47, 125, 105, 0.18);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.74), rgba(255, 255, 255, 0.42)),
+    radial-gradient(circle at 8% 0%, rgba(47, 125, 105, 0.1), transparent 34%);
+  padding: 18px;
+}
+
+.flow-step {
+  display: grid;
+  gap: 8px;
+  width: min(210px, 100%);
+  min-height: 94px;
+  border: 1px solid rgba(27, 31, 35, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.62);
+  padding: 16px;
+  box-shadow: 0 12px 36px rgba(54, 48, 42, 0.06);
+}
+
+.flow-step span {
+  color: var(--accent);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 12px;
+}
+
+.flow-step strong {
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.flow-arrow {
+  width: 34px;
+  height: 1px;
+  background: var(--line);
+  position: relative;
+}
+
+.flow-arrow::after {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 7px;
+  height: 7px;
+  border-top: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+  content: "";
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.doc-card pre code {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.entry-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  border: 1px solid rgba(47, 125, 105, 0.38);
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  padding: 0 12px;
+  font-size: 13px;
+  font-weight: 650;
+  transition:
+    background 180ms var(--ease),
+    border-color 180ms var(--ease),
+    color 180ms var(--ease),
+    transform 180ms var(--ease);
+}
+
+.entry-link:hover {
+  background: rgba(47, 125, 105, 0.18);
+  border-color: var(--accent);
+  color: #1f5b4d;
+  transform: translateY(-1px);
+}
+
+.doc-card table {
+  display: block;
+  overflow: auto;
+  width: 100%;
+  margin: 24px 0;
+  border-collapse: collapse;
+}
+
+.doc-card th,
+.doc-card td {
+  border-bottom: 1px solid var(--line);
+  padding: 12px 14px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.doc-card th {
+  color: var(--ink);
+  font-size: 14px;
+}
+
+.doc-card td {
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.doc-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 34px;
+}
+
+.doc-signal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  max-width: 860px;
+  margin-top: 34px;
+}
+
+.doc-signal-grid article {
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+}
+
+.doc-signal-grid span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--accent);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 11px;
+}
+
+.doc-signal-grid strong {
+  display: block;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 720;
+  line-height: 1.65;
+}
+
+.text-link {
+  display: inline-flex;
+  color: var(--ink);
+  font-weight: 760;
+}
+
+.text-link.muted {
+  color: var(--muted);
+}
+
+.loading,
+.error {
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.9;
+}
+
+@media (max-width: 900px) {
+  .doc-hero,
+  .doc-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .doc-hero {
+    min-height: auto;
+  }
+
+  .doc-meta {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    padding: 18px 0 0;
+  }
+
+  .doc-toc {
+    position: static;
+    max-height: none;
+  }
+
+  .doc-signal-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .site-header {
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    height: 82px;
+  }
+
+  .nav-links {
+    width: 100%;
+    justify-content: space-between;
+    gap: 10px;
+    overflow-x: auto;
+  }
+
+  .doc-shell {
+    width: min(100% - 34px, 1120px);
+    padding-top: 124px;
+  }
+
+  .visual-flow {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .flow-step {
+    width: 100%;
+  }
+
+  .flow-arrow {
+    width: 1px;
+    height: 24px;
+    margin-left: 18px;
+  }
+
+  .flow-arrow::after {
+    top: auto;
+    right: auto;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) rotate(135deg);
+  }
+}
+</style>
+  </head>
+  <body>
+    <div class="cursor-light" aria-hidden="true"></div>
+    <header class="site-header">
+      <a class="brand" href="../../index.html#top">吕祎晗</a>
+      <nav class="nav-links" aria-label="main navigation">
+        <a href="../../index.html#work">项目</a>
+        <a href="../../index.html#method">方法</a>
+        <a href="../../index.html#contact">联系</a>
+      </nav>
+    </header>
+    <main id="top" class="doc-shell">
+      <section class="doc-hero">
+        <div>
+          <p class="eyebrow">Portfolio Document</p>
+          <h1 id="docTitle">MoneyPrinterTurbo 项目介绍</h1>
+          <p class="doc-lead">项目仓库：https://github.com/LBP97541135/MoneyPrinterTurbo</p>
+          <div class="doc-actions">
+            <a class="text-link" href="../../index.html">返回作品集</a>
+            <a class="text-link muted" href="money-printer-turbo.md" target="_blank" rel="noreferrer">查看原文</a>
+          </div>
+          <div class="doc-signal-grid" aria-label="project proof points"><article><span>Product</span><strong>把短视频生产拆成可视化流水线和任务队列</strong></article><article><span>Engineering</span><strong>模拟脚本、素材、配音、字幕、成片和配置状态</strong></article><article><span>Proof</span><strong>展示从选题到成片预览的多步骤生成链路</strong></article></div>
+        </div>
+        <aside class="doc-meta">
+          <div><span>Type</span><strong>Project Case</strong></div>
+          <div><span>Source</span><strong>money-printer-turbo.md</strong></div>
+        </aside>
+      </section>
+      <section class="doc-layout">
+        <aside class="doc-toc"><div class="doc-toc-title">目录</div><a href="#1-项目目标" class="toc-level-2">1. 项目目标</a><a href="#2-用户场景" class="toc-level-2">2. 用户场景</a><a href="#3-核心功能" class="toc-level-2">3. 核心功能</a><a href="#选题与配置" class="toc-level-3">选题与配置</a><a href="#脚本生成" class="toc-level-3">脚本生成</a><a href="#素材编排" class="toc-level-3">素材编排</a><a href="#配音与字幕" class="toc-level-3">配音与字幕</a><a href="#任务队列" class="toc-level-3">任务队列</a><a href="#成片预览" class="toc-level-3">成片预览</a><a href="#4-产品亮点" class="toc-level-2">4. 产品亮点</a><a href="#5-技术与工程亮点" class="toc-level-2">5. 技术与工程亮点</a><a href="#6-核心流程图" class="toc-level-2">6. 核心流程图</a><a href="#7-信息架构" class="toc-level-2">7. 信息架构</a><a href="#8-我在项目中的角色" class="toc-level-2">8. 我在项目中的角色</a><a href="#9-展示入口" class="toc-level-2">9. 展示入口</a></aside>
+        <article class="doc-content doc-card"><h1 id="moneyprinterturbo-项目介绍">MoneyPrinterTurbo 项目介绍</h1>
+<p>项目仓库：https://github.com/LBP97541135/MoneyPrinterTurbo MoneyPrinterTurbo 是一个 AI 短视频自动生成工作台。它围绕“从一个主题到一条可发布短视频”的生产链路，展示选题、脚本、素材、配音、字幕、剪辑和发布配置如何被组织成可视化流水线。</p>
+<h2 id="1-项目目标">1. 项目目标</h2>
+<p>短视频生产不是单点生成问题，而是一条复杂链路：用户要确定主题、生成脚本、匹配素材、配置声音、生成字幕、预览成片，并根据平台要求调整发布信息。 MoneyPrinterTurbo 的目标是把这条链路产品化，让创作者可以用一个工作台理解每一步输入、生成进度、结果质量和可调参数。</p>
+<h2 id="2-用户场景">2. 用户场景</h2>
+<p>目标用户是短视频创作者、内容运营、营销人员和希望批量生产内容的个人用户。 典型场景包括：</p>
+<ul><li>输入一个主题，快速生成短视频方案</li><li>选择内容风格、目标平台和受众</li><li>自动生成脚本、分镜和字幕</li><li>匹配素材、配音和背景音乐</li><li>查看生成进度和任务状态</li><li>预览成片并调整发布配置</li></ul>
+<h2 id="3-核心功能">3. 核心功能</h2>
+<h3 id="选题与配置">选题与配置</h3>
+<p>用户输入主题、关键词、目标平台、视频时长、语言风格和受众定位，系统生成内容任务。</p>
+<h3 id="脚本生成">脚本生成</h3>
+<p>系统根据主题生成标题、开头钩子、分段脚本、画面建议和结尾行动引导。</p>
+<h3 id="素材编排">素材编排</h3>
+<p>系统将脚本拆分成镜头片段，并为每段匹配素材、转场、背景音乐和画面节奏。</p>
+<h3 id="配音与字幕">配音与字幕</h3>
+<p>用户可以选择声音风格、语速、字幕样式和语言，系统模拟生成配音与字幕轨道。</p>
+<h3 id="任务队列">任务队列</h3>
+<p>生成过程以任务队列形式展示，包括脚本生成、素材检索、音频合成、字幕渲染和成片导出。</p>
+<h3 id="成片预览">成片预览</h3>
+<p>用户可以查看最终视频结构、分镜时间线、字幕轨道和发布信息。</p>
+<h2 id="4-产品亮点">4. 产品亮点</h2>
+<ul><li><strong>完整内容生产链路</strong>：从主题到成片，不只展示一个生成按钮。</li><li><strong>流水线可视化</strong>：用户可以看见每一步生成状态和结果。</li><li><strong>创作者可控</strong>：保留风格、平台、时长、声音、字幕等关键配置。</li><li><strong>任务状态清晰</strong>：生成进度、风险提示和结果预览集中展示。</li><li><strong>适合作品集呈现</strong>：能直观体现 AI 内容工具的产品设计和前端表达能力。</li></ul>
+<h2 id="5-技术与工程亮点">5. 技术与工程亮点</h2>
+<p>项目用纯前端 mock 模拟 AI 内容生成流水线，重点展示复杂任务如何被拆解、排队、展示和复盘。 工程上重点包括：</p>
+<ul><li>多步骤任务状态机</li><li>视频生成流程可视化</li><li>素材库与分镜数据结构</li><li>字幕、配音、时间线 mock</li><li>任务队列与进度反馈</li><li>成片预览与配置面板</li><li>无后端场景下的完整演示体验</li></ul>
+<h2 id="6-核心流程图">6. 核心流程图</h2>
+<div class="visual-flow" aria-label="flow diagram"><div class="flow-step"><span>01</span><strong>输入视频主题</strong></div><div class="flow-arrow" aria-hidden="true"></div><div class="flow-step"><span>02</span><strong>配置平台与风格</strong></div><div class="flow-arrow" aria-hidden="true"></div><div class="flow-step"><span>03</span><strong>生成标题和脚本</strong></div><div class="flow-arrow" aria-hidden="true"></div><div class="flow-step"><span>04</span><strong>拆分分镜</strong></div><div class="flow-arrow" aria-hidden="true"></div><div class="flow-step"><span>05</span><strong>匹配素材与音乐</strong></div><div class="flow-arrow" aria-hidden="true"></div><div class="flow-step"><span>06</span><strong>生成配音和字幕</strong></div><div class="flow-arrow" aria-hidden="true"></div><div class="flow-step"><span>07</span><strong>合成视频预览</strong></div><div class="flow-arrow" aria-hidden="true"></div><div class="flow-step"><span>08</span><strong>调整发布配置</strong></div><div class="flow-arrow" aria-hidden="true"></div><div class="flow-step"><span>09</span><strong>导出成片任务</strong></div></div>
+<h2 id="7-信息架构">7. 信息架构</h2>
+<div class="visual-flow" aria-label="flow diagram"><div class="flow-step"><span>01</span><strong>创作首页</strong></div><div class="flow-arrow" aria-hidden="true"></div><div class="flow-step"><span>02</span><strong>主题配置</strong></div><div class="flow-arrow" aria-hidden="true"></div><div class="flow-step"><span>03</span><strong>脚本面板</strong></div><div class="flow-arrow" aria-hidden="true"></div><div class="flow-step"><span>04</span><strong>分镜时间线</strong></div><div class="flow-arrow" aria-hidden="true"></div><div class="flow-step"><span>05</span><strong>素材库</strong></div><div class="flow-arrow" aria-hidden="true"></div><div class="flow-step"><span>06</span><strong>配音字幕</strong></div><div class="flow-arrow" aria-hidden="true"></div><div class="flow-step"><span>07</span><strong>任务队列</strong></div><div class="flow-arrow" aria-hidden="true"></div><div class="flow-step"><span>08</span><strong>成片预览</strong></div><div class="flow-arrow" aria-hidden="true"></div><div class="flow-step"><span>09</span><strong>发布配置</strong></div></div>
+<h2 id="8-我在项目中的角色">8. 我在项目中的角色</h2>
+<p>我负责把 MoneyPrinterTurbo 重新整理成适合作品集展示的 AI 内容生产工作台：梳理生成链路，设计 mock 页面结构，突出任务状态、创作者控制感和最终成片预览。 这个项目体现的是我对 AI 内容工具的理解：好的生成产品不应该只告诉用户“生成中”，而应该把复杂生产过程拆成可理解、可调整、可判断的流程。</p>
+<h2 id="9-展示入口">9. 展示入口</h2>
+<ul><li>Mock 产品页：<a class="entry-link" href="../../labs/money-printer-turbo/">labs/money-printer-turbo/</a></li><li>项目介绍页：<a class="entry-link" href="../../docs/projects/money-printer-turbo.html">docs/projects/money-printer-turbo.html</a></li></ul></article>
+      </section>
+    </main>
+    <script>
+      const cursorLight = document.querySelector('.cursor-light');
+      if (cursorLight) window.addEventListener('mousemove', (event) => {
+        cursorLight.style.transform = 'translate3d(' + (event.clientX - 280) + 'px, ' + (event.clientY - 280) + 'px, 0)';
+      });
+    </script>
+  </body>
+</html>
