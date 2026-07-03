@@ -12,6 +12,8 @@ const projects = [
     problem: "普通多智能体演示往往停在对话层，缺少长期策略、私有信息边界和可解释复盘。",
     product: "用狼人杀的身份、夜间行动、投票和阵营目标，设计一套可观察、可复盘的 Agent 博弈产品体验。",
     engineering: "保留原有 React 前端，替换 API 与 SSE 为本地 mock 数据，前端完整展示启动对局、事件流、战局状态和 post-game 报告。",
+    role: "负责作品集化改造、Mock 数据设计、Demo 入口梳理和多视角展示闭环。",
+    scores: { completeness: 96, innovation: 92, development: 94, productization: 91, complexity: 95, showcase: 96 },
     mock: "labs/multiagent-werewolf/dist/",
     doc: "docs/projects/multiagent-werewolf.html",
   },
@@ -28,6 +30,8 @@ const projects = [
     problem: "传统剧本杀依赖真人 DM 和玩家配合，单人体验弱、复玩价值有限，玩家经验也难以沉淀。",
     product: "让 Agent 在一次次剧本互动中记住用户、理解偏好，并逐渐进化成更懂你的游戏伙伴。",
     engineering: "用本地 mock 数据模拟剧本、角色、证物、对话、复盘与 Gene/Capsule 沉淀，前端完成端到端产品展示。",
+    role: "负责产品结构拆解、证物推理链、复盘进化机制和静态 Mock 前端搭建。",
+    scores: { completeness: 91, innovation: 90, development: 84, productization: 88, complexity: 86, showcase: 92 },
     mock: "labs/evo-murder-game/",
     doc: "docs/projects/evo-murder-game.html",
   },
@@ -44,6 +48,8 @@ const projects = [
     problem: "AI 社交产品如果只有聊天窗口，很难表现角色关系、社区氛围和长期内容价值。",
     product: "把 AI 角色当成有关系、有记忆、有表达风格的社交节点，构建可浏览、可互动、可运营的朋友圈生态。",
     engineering: "纯前端 mock 多视图状态，覆盖 feed、profile、chat、network、memory、ops 等核心模块。",
+    role: "负责全 AI 社交生态定义、朋友圈/群聊/创建 AI 的产品闭环和前端效果增强。",
+    scores: { completeness: 88, innovation: 93, development: 82, productization: 90, complexity: 84, showcase: 91 },
     mock: "labs/haji-ai/",
     doc: "docs/projects/haji-ai.html",
   },
@@ -60,6 +66,8 @@ const projects = [
     problem: "职场反馈通常碎片化，用户很难把一次次任务经历沉淀成持续成长路径。",
     product: "把日常工作输入转化为问题诊断、能力画像、行动建议和周期复盘，让成长变成可管理流程。",
     engineering: "以前端 mock 驱动多模块页面，模拟教练洞察、任务状态、对话建议和复盘报告。",
+    role: "负责训练闭环、画像更新、推荐逻辑和职业成长产品表达。",
+    scores: { completeness: 84, innovation: 82, development: 76, productization: 89, complexity: 75, showcase: 86 },
     mock: "labs/ai-work-coach/",
     doc: "docs/projects/ai-work-coach.html",
   },
@@ -76,6 +84,8 @@ const projects = [
     problem: "短视频生产链路长，创作者需要在脚本、素材、配音、字幕和发布配置之间频繁切换。",
     product: "把内容生产拆成可视化流水线，让用户理解每一步输入、生成结果、风险状态和可调整参数。",
     engineering: "使用 mock 数据模拟任务队列、生成进度、素材池、成片预览和配置面板。",
+    role: "负责视频生产流水线抽象、候选评分、生成控制台和成片资产展示。",
+    scores: { completeness: 86, innovation: 80, development: 82, productization: 87, complexity: 80, showcase: 88 },
     mock: "labs/money-printer-turbo/",
     doc: "docs/projects/money-printer-turbo.html",
   },
@@ -91,6 +101,8 @@ const projects = [
     problem: "商家入驻工单数量大、判断链路长，人工处理消耗高且响应速度慢。",
     product: "将工单处理拆成信息提取、路由分发、场景处理和结果校验，让系统先判断再行动。",
     engineering: "搭建双层智能体架构，引入场景化工具调用，并在写入动作前加入校验机制。",
+    role: "参与从 0 到 1 搭建工单智能体，负责流程拆解、工具调用边界和落地验证。",
+    scores: { completeness: 88, innovation: 84, development: 90, productization: 94, complexity: 89, showcase: 82 },
   },
   {
     id: "ship-agent",
@@ -104,6 +116,8 @@ const projects = [
     problem: "行业数据量大，任务包含规划、计算和报告输出，生产环境模型能力存在边界。",
     product: "将复杂需求拆为信息提取、路线规划和数字处理三个子任务，降低单次推理难度。",
     engineering: "通过知识检索完成线路匹配，使用 Python 工具进行数字计算，最终生成结构化报告。",
+    role: "负责行业任务拆解、检索与计算工具组合、结构化报告输出方案。",
+    scores: { completeness: 82, innovation: 78, development: 84, productization: 88, complexity: 84, showcase: 76 },
   },
   {
     id: "community-agent",
@@ -117,6 +131,8 @@ const projects = [
     problem: "学生社团办公效率低、组织认同感不足，历史经验难以传承。",
     product: "由主智能体统一调配多个业务场景，把流程自动化、个性化记忆和活动创新串起来。",
     engineering: "结合钉钉原生能力、知识库和生成能力，完成面向组织场景的 AI 助理系统。",
+    role: "负责 AI 产品方案设计、场景拆解、协同流程和竞赛表达。",
+    scores: { completeness: 78, innovation: 82, development: 72, productization: 80, complexity: 74, showcase: 75 },
   },
   {
     id: "requirement-workbench",
@@ -130,6 +146,8 @@ const projects = [
     problem: "早期需求信息分散，产品判断容易停留在主观描述。",
     product: "把原始材料转成问题清单、用户旅程、功能边界和验收指标。",
     engineering: "以本地 mock 数据模拟多来源输入，前端完成流程看板、结论卡片和版本对比。",
+    role: "预留为产品工作流案例，后续补充需求材料解析和前端交互。",
+    scores: { completeness: 42, innovation: 76, development: 45, productization: 70, complexity: 58, showcase: 48 },
   },
   {
     id: "knowledge-qa",
@@ -143,7 +161,18 @@ const projects = [
     problem: "企业文档分散，员工查找资料成本高，普通问答缺少可信来源。",
     product: "答案必须绑定资料来源、更新时间和适用范围，降低误用风险。",
     engineering: "前端模拟检索结果、引用片段和置信度，为后续接入真实检索服务预留结构。",
+    role: "预留为知识系统案例，后续补充 RAG、权限和引用追溯演示。",
+    scores: { completeness: 40, innovation: 74, development: 44, productization: 72, complexity: 62, showcase: 46 },
   },
+];
+
+const scoreDimensions = [
+  { key: "completeness", label: "完整度", hint: "是否形成可理解、可体验的闭环" },
+  { key: "innovation", label: "创新性", hint: "想法和场景是否有辨识度" },
+  { key: "development", label: "开发量", hint: "前端、状态、数据和工程工作量" },
+  { key: "productization", label: "产品化", hint: "是否像真实产品而非一次性 Demo" },
+  { key: "complexity", label: "复杂度", hint: "系统、流程和边界处理难度" },
+  { key: "showcase", label: "展示性", hint: "面试官能否快速看懂和点开验证" },
 ];
 
 const experiences = [
@@ -178,6 +207,9 @@ const filterBar = document.querySelector("#filterBar");
 const projectGrid = document.querySelector("#projectGrid");
 const featuredGrid = document.querySelector("#featuredGrid");
 const portfolioStats = document.querySelector("#portfolioStats");
+const dashboardMetrics = document.querySelector("#dashboardMetrics");
+const quickLabGrid = document.querySelector("#quickLabGrid");
+const scoreMatrix = document.querySelector("#scoreMatrix");
 const timeline = document.querySelector("#timeline");
 const dialog = document.querySelector("#projectDialog");
 const dialogContent = document.querySelector("#dialogContent");
@@ -223,6 +255,116 @@ function renderStats() {
     .join("");
 }
 
+function renderDashboardMetrics() {
+  if (!dashboardMetrics) return;
+  const mockProjects = projects.filter((project) => project.mock);
+  const docProjects = projects.filter((project) => project.doc);
+  const realProjects = projects.filter((project) => project.type === "真实经历");
+  const items = [
+    { value: mockProjects.length, label: "可交互 Mock", detail: "进入页面即可体验完整前端流程" },
+    { value: docProjects.length, label: "项目介绍页", detail: "目标、功能、亮点和流程图统一整理" },
+    { value: realProjects.length, label: "真实业务案例", detail: "强调业务结果、流程拆解和落地指标" },
+  ];
+  dashboardMetrics.innerHTML = items
+    .map(
+      (item) => `
+        <article>
+          <strong>${item.value}</strong>
+          <span>${item.label}</span>
+          <p>${item.detail}</p>
+        </article>
+      `,
+    )
+    .join("");
+}
+
+function renderQuickLabs() {
+  if (!quickLabGrid) return;
+  quickLabGrid.innerHTML = projects
+    .filter((project) => project.mock)
+    .map(
+      (project, index) => `
+        <a class="quick-lab" href="${project.mock}" target="_blank" rel="noreferrer">
+          <span>${String(index + 1).padStart(2, "0")}</span>
+          <strong>${project.title}</strong>
+          <em>${project.category}</em>
+        </a>
+      `,
+    )
+    .join("");
+}
+
+function scoreAverage(project) {
+  if (!project.scores) return 0;
+  const values = Object.values(project.scores);
+  return Math.round(values.reduce((sum, value) => sum + value, 0) / values.length);
+}
+
+function topScoreDimension(project) {
+  if (!project.scores) return null;
+  return scoreDimensions
+    .map((dimension) => ({ ...dimension, value: project.scores[dimension.key] || 0 }))
+    .sort((a, b) => b.value - a.value)[0];
+}
+
+function renderScorePills(project) {
+  if (!project.scores) return "";
+  const top = topScoreDimension(project);
+  return `
+    <div class="score-pills" aria-label="${project.title}评分">
+      <span class="score-total">${scoreAverage(project)}</span>
+      <span>${top.label} ${top.value}</span>
+      <span>${project.scores.productization || 0} 产品化</span>
+    </div>
+  `;
+}
+
+function renderScoreBars(project, compact = false) {
+  if (!project.scores) return "";
+  const dimensions = compact ? scoreDimensions.slice(0, 4) : scoreDimensions;
+  return `
+    <div class="score-bars ${compact ? "compact" : ""}">
+      ${dimensions
+        .map(
+          (dimension) => `
+            <div class="score-row">
+              <span>${dimension.label}</span>
+              <i><b style="width:${project.scores[dimension.key] || 0}%"></b></i>
+              <em>${project.scores[dimension.key] || 0}</em>
+            </div>
+          `,
+        )
+        .join("")}
+    </div>
+  `;
+}
+
+function renderScoreMatrix() {
+  if (!scoreMatrix) return;
+  const scoredProjects = projects.filter((project) => project.scores);
+  scoreMatrix.innerHTML = `
+    <div class="score-matrix-head">
+      <span>项目</span>
+      <span>总分</span>
+      ${scoreDimensions.map((dimension) => `<span title="${dimension.hint}">${dimension.label}</span>`).join("")}
+      <span>建议看点</span>
+    </div>
+    ${scoredProjects
+      .map((project) => {
+        const top = topScoreDimension(project);
+        return `
+          <article class="score-matrix-row">
+            <strong>${project.title}</strong>
+            <b>${scoreAverage(project)}</b>
+            ${scoreDimensions.map((dimension) => `<span>${project.scores[dimension.key] || 0}</span>`).join("")}
+            <em>${top.label}突出，${project.mock ? "可直接体验" : project.type}</em>
+          </article>
+        `;
+      })
+      .join("")}
+  `;
+}
+
 function renderFilters() {
   filterBar.innerHTML = categories
     .map((category) => {
@@ -260,12 +402,18 @@ function projectCard(project, modifier = "") {
         <p class="project-meta">${project.period} · ${project.category} · ${project.type}</p>
         <h3 class="project-title">${project.title}${arrowIcon()}</h3>
         <p>${project.summary}</p>
+        <p class="project-role"><strong>我的角色：</strong>${project.role || "负责项目拆解、实现与展示整理。"}</p>
+        ${renderScorePills(project)}
         ${projectProof(project)}
         <div class="tag-list">
           ${project.tags.map((tag) => `<span>${tag}</span>`).join("")}
         </div>
       </div>
       <div class="project-side">
+        <div class="project-kind">
+          <span>${project.mock ? "可体验" : project.doc ? "可阅读" : "案例"}</span>
+          <em>${project.priority === "featured" ? "Featured" : project.type}</em>
+        </div>
         <p class="project-result">${project.result}</p>
         ${projectActions(project)}
       </div>
@@ -297,8 +445,9 @@ function openProject(index) {
     <div class="dialog-body">
       <p class="eyebrow">${project.period} · ${project.category} · ${project.type}</p>
       <h2>${project.title}</h2>
-      <p>${project.summary}</p>
-      <div class="tag-list">
+        <p>${project.summary}</p>
+        <p class="project-role"><strong>我的角色：</strong>${project.role || "负责项目拆解、实现与展示整理。"}</p>
+        <div class="tag-list">
         ${project.tags.map((tag) => `<span>${tag}</span>`).join("")}
       </div>
       <div class="detail-grid">
@@ -319,6 +468,14 @@ function openProject(index) {
           <p>${project.result}</p>
         </section>
       </div>
+      <section class="dialog-score">
+        <div>
+          <p class="eyebrow">Project Score</p>
+          <h3>作品集展示评分</h3>
+          <p>从完整度、创新性、开发量、产品化、复杂度和展示性评估这个项目的含金量。</p>
+        </div>
+        ${renderScoreBars(project)}
+      </section>
       ${projectActions(project)}
     </div>
   `;
@@ -380,6 +537,9 @@ const observer = new IntersectionObserver(
 document.querySelectorAll(".reveal").forEach((item) => observer.observe(item));
 
 renderStats();
+renderDashboardMetrics();
+renderQuickLabs();
+renderScoreMatrix();
 renderTimeline();
 renderFeatured();
 renderFilters();

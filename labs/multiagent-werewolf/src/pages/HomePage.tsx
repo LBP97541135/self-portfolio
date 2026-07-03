@@ -137,6 +137,57 @@ export default function HomePage() {
           </div>
         </motion.div>
 
+        <motion.section
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.28 }}
+          className="rounded-2xl border border-yellow-500/20 bg-zinc-950/70 p-5 md:p-6 shadow-[0_24px_80px_rgba(0,0,0,0.28)]"
+        >
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-5 border-b border-zinc-900 pb-5">
+            <div className="max-w-2xl">
+              <div className="flex items-center gap-2 text-[10px] font-mono tracking-[0.24em] uppercase text-yellow-500/80">
+                <Star className="w-3.5 h-3.5" />
+                Portfolio Demo Console
+              </div>
+              <h2 className="mt-3 text-2xl md:text-3xl font-serif font-black text-zinc-100 tracking-wide">
+                一次性展示多智能体狼人杀的完整产品能力
+              </h2>
+              <p className="mt-3 text-sm text-zinc-400 leading-relaxed">
+                这里不是后端运行态，而是作品集静态 mock：保留原前端的盘面、上帝视角、玩家视角、复盘、角色库和模型评测，让访问者不用配置服务也能看清系统闭环。
+              </p>
+            </div>
+            <Link
+              to="/game?run_id=6p-deepseek-mock-001&view=god"
+              className="inline-flex h-11 items-center justify-center rounded-full border border-yellow-500/40 bg-yellow-500/10 px-5 text-xs font-mono font-bold tracking-widest text-yellow-200 transition hover:border-yellow-300 hover:bg-yellow-500/15"
+            >
+              进入上帝视角 Demo →
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-3 pt-5">
+            <Link to="/game?run_id=6p-deepseek-mock-001&view=god" className="group rounded-xl border border-zinc-800 bg-black/20 p-4 transition hover:border-yellow-500/45">
+              <Play className="mb-4 w-5 h-5 text-yellow-500 group-hover:scale-110 transition-transform" />
+              <h3 className="text-sm font-bold text-zinc-100">上帝视角盘面</h3>
+              <p className="mt-2 text-xs leading-relaxed text-zinc-500">完整观察身份、发言、投票、夜间技能与信念矩阵。</p>
+            </Link>
+            <Link to="/game?run_id=6p-deepseek-mock-001&view=seat&seat=4&token=mock-human-seat-4" className="group rounded-xl border border-zinc-800 bg-black/20 p-4 transition hover:border-blue-500/45">
+              <Shield className="mb-4 w-5 h-5 text-blue-400 group-hover:scale-110 transition-transform" />
+              <h3 className="text-sm font-bold text-zinc-100">玩家视角交互</h3>
+              <p className="mt-2 text-xs leading-relaxed text-zinc-500">展示身份遮蔽、人类行动输入、座位视角和局内提示。</p>
+            </Link>
+            <Link to="/replay/6p-deepseek-2026-06-10-01" className="group rounded-xl border border-zinc-800 bg-black/20 p-4 transition hover:border-orange-500/45">
+              <History className="mb-4 w-5 h-5 text-orange-400 group-hover:scale-110 transition-transform" />
+              <h3 className="text-sm font-bold text-zinc-100">深度复盘</h3>
+              <p className="mt-2 text-xs leading-relaxed text-zinc-500">时间线、MVP、投票摇摆和对局解释集中展示。</p>
+            </Link>
+            <Link to="/models/overall" className="group rounded-xl border border-zinc-800 bg-black/20 p-4 transition hover:border-emerald-500/45">
+              <Server className="mb-4 w-5 h-5 text-emerald-400 group-hover:scale-110 transition-transform" />
+              <h3 className="text-sm font-bold text-zinc-100">模型能力面板</h3>
+              <p className="mt-2 text-xs leading-relaxed text-zinc-500">把多模型胜率、MVP 分和策略表现作为产品资产呈现。</p>
+            </Link>
+          </div>
+        </motion.section>
+
         {/* Main Dashboard Navigation Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 pb-20">
           

@@ -114,6 +114,7 @@
               <div class="action-row">
                 <button class="primary-btn" id="nextPhaseBtn">推进阶段</button>
                 <button class="ghost-btn" id="askDmBtn">请求 DM 提示</button>
+                <button class="ghost-btn" id="autoDemoBtn">一键演示完整局</button>
               </div>
             </section>
 
@@ -137,6 +138,20 @@
                 <span id="evidenceCount">0 / 0</span>
               </div>
               <div class="evidence-list" id="evidenceList"></div>
+            </section>
+
+            <section class="panel insight-panel wide">
+              <div class="panel-head inline">
+                <div>
+                  <p class="eyebrow">Reasoning Desk</p>
+                  <h2>推理链与嫌疑矩阵</h2>
+                </div>
+                <span id="reasoningProgress">0%</span>
+              </div>
+              <div class="reasoning-layout">
+                <div class="chain-list" id="reasoningChain"></div>
+                <div class="suspect-matrix" id="suspectMatrix"></div>
+              </div>
             </section>
           </div>
         </section>
@@ -182,6 +197,15 @@
                 <button class="ghost-btn small" id="generateCapsuleBtn">生成 Capsule</button>
               </div>
               <div class="capsule-grid" id="capsuleGrid"></div>
+            </section>
+            <section class="panel wide">
+              <div class="panel-head inline">
+                <div>
+                  <p class="eyebrow">Truth Graph</p>
+                  <h2>真相链路</h2>
+                </div>
+              </div>
+              <div class="truth-graph" id="truthGraph"></div>
             </section>
           </div>
         </section>

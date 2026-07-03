@@ -41,6 +41,18 @@ function render() {
 
 function renderStudio() {
   $("#view").innerHTML = `
+    <section class="studio-command">
+      <div>
+        <p class="eyebrow">AI Video Production Console</p>
+        <h2>把主题、文案、素材、配音、字幕和合成质量放进一个可观测的视频流水线。</h2>
+        <p>当前版本用 mock 数据还原 MoneyPrinterTurbo 的完整生产路径：参数配置、分镜编辑、流水线推进、候选评分和最终版选择。</p>
+      </div>
+      <div class="production-metrics">
+        <article><strong>${state.project.batchCount}</strong><span>候选批量</span></article>
+        <article><strong>${state.project.resolution}</strong><span>输出规格</span></article>
+        <article><strong>${data.pipeline.length}</strong><span>流水线节点</span></article>
+      </div>
+    </section>
     <div class="studio-grid">
       <aside class="panel">${renderControls()}</aside>
       <section class="panel">
@@ -182,14 +194,17 @@ function runPipeline() {
 function renderPreview() {
   const active = data.candidates.find((c) => c.id === state.activeCandidate) || data.candidates[0];
   const subtitle = state.project.script[0].text.slice(0, 34);
+  const avg = Math.round(Object.values(active.score).reduce((sum, value) => sum + value, 0) / Object.values(active.score).length);
   return `<div class="preview-phone" style="${state.project.aspect === "16:9" ? "aspect-ratio:16/9;width:100%;" : ""}">
     <div class="preview-screen">
       <div class="mock-scene"></div>
+      <div class="scene-topline"><span>${esc(state.project.style)}</span><span>${esc(state.project.aspect)}</span></div>
       <div class="subtitle" style="color:${state.project.subtitle.color};font-size:${Math.max(18, state.project.subtitle.size / 2)}px">${esc(subtitle)}</div>
       <div class="playhead"><span></span></div>
+      <div class="quality-badge">${avg}</div>
     </div>
   </div>
-  <div class="chips"><span class="chip">${esc(active.title)}</span><span class="chip">${active.duration}s</span><span class="chip">${esc(state.project.resolution)}</span></div>`;
+  <div class="chips"><span class="chip">${esc(active.title)}</span><span class="chip">${active.duration}s</span><span class="chip">${esc(state.project.resolution)}</span><span class="chip">Quality ${avg}</span></div>`;
 }
 
 function renderCandidates() {
@@ -225,7 +240,7 @@ function renderTasks() {
 }
 
 function renderGallery() {
-  $("#view").innerHTML = `<section class="panel"><div class="panel-head"><div><p class="eyebrow">Gallery</p><h2>成片库</h2></div><button class="ghost">复制发布文案</button></div><div class="gallery-grid">${data.gallery.map((v) => `<article class="video-card"><div class="cover"></div><h3>${esc(v.title)}</h3><p>${v.aspect} · ${v.duration} · ${v.createdAt}</p><p>${esc(v.model)}</p><div class="chips">${v.tags.map((t) => `<span class="chip">${esc(t)}</span>`).join("")}</div></article>`).join("")}</div></section>`;
+  $("#view").innerHTML = `<section class="gallery-hero"><div><p class="eyebrow">Publishing Assets</p><h2>成片库不仅展示结果，也展示每条视频的可复用生产资产。</h2></div><button class="ghost">复制发布文案</button></section><section class="panel"><div class="gallery-grid">${data.gallery.map((v) => `<article class="video-card"><div class="cover"></div><h3>${esc(v.title)}</h3><p>${v.aspect} · ${v.duration} · ${v.createdAt}</p><p>${esc(v.model)}</p><div class="chips">${v.tags.map((t) => `<span class="chip">${esc(t)}</span>`).join("")}</div></article>`).join("")}</div></section>`;
 }
 
 function renderSettings() {

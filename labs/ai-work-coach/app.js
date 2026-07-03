@@ -44,6 +44,18 @@ function render() {
 
 function renderToday() {
   $("#view").innerHTML = `
+    <section class="coach-command">
+      <div>
+        <p class="eyebrow">Adaptive Coaching Loop</p>
+        <h2>把职业成长拆成可训练、可批改、可更新画像的每日闭环。</h2>
+        <p>当前 mock 保留完整状态：生成训练、作答草稿、AI 批改、画像补丁和下一步推荐，适合展示产品思维与前端状态编排能力。</p>
+      </div>
+      <div class="command-metrics">
+        <article><strong>${data.profile.streakDays}</strong><span>连续训练</span></article>
+        <article><strong>${Math.round(data.profile.completionRate * 100)}%</strong><span>完成率</span></article>
+        <article><strong>${data.lesson.estimatedMinutes}m</strong><span>预计时长</span></article>
+      </div>
+    </section>
     <div class="grid today-grid">
       <aside class="panel">
         <div class="panel-head"><div><p class="eyebrow">Lesson</p><h3>${data.lesson.date}</h3></div><span class="pill">${data.lesson.difficulty}</span></div>
@@ -232,6 +244,15 @@ function typeLabel(type) {
 
 function renderProfile() {
   $("#view").innerHTML = `
+    <section class="profile-hero">
+      <div>
+        <p class="eyebrow">Learning Memory</p>
+        <h2>画像不是静态标签，而是每次训练后都会被证据更新的能力模型。</h2>
+      </div>
+      <div class="profile-pulse">
+        ${data.grading.profilePatch.map((p) => `<span style="--v:${p.after}%"><i></i>${escapeHtml(p.topic)}</span>`).join("")}
+      </div>
+    </section>
     <div class="grid two-grid">
       <section class="panel"><p class="eyebrow">Learning Profile</p><h2>能力雷达与主题掌握</h2>${data.profile.topicScores.map(([name, score, trend]) => `<div class="bar-row"><strong>${escapeHtml(name)}</strong><div class="bar"><span style="width:${score}%"></span></div><span>${score} ${trend}</span></div>`).join("")}</section>
       <aside class="panel soft"><h3>下一步推荐</h3><p><strong>${escapeHtml(data.profile.recommendation.topic)}</strong></p><p>${escapeHtml(data.profile.recommendation.reason)}</p><div class="tag-row"><span class="tag">${escapeHtml(data.profile.recommendation.difficulty)}</span><span class="tag">${escapeHtml(data.profile.recommendation.type)}</span></div></aside>
@@ -254,6 +275,10 @@ function renderHistory() {
 
 function renderInsights() {
   $("#view").innerHTML = `
+    <section class="logic-strip">
+      <div><p class="eyebrow">Recommendation Engine</p><h2>推荐不是随机出题，而是由掌握度、补强优先级和新近资料共同决定。</h2></div>
+      <div class="formula">topic score = weight + gap + recency - repeat - mastery</div>
+    </section>
     <div class="grid two-grid">
       <section class="panel"><p class="eyebrow">Adaptive Logic</p><h2>今日推荐为什么生成</h2>${data.insights.map((item) => `<div class="insight-row"><strong>${escapeHtml(item.label)}</strong><span>${item.value > 0 ? "+" : ""}${item.value}</span><p>${escapeHtml(item.desc)}</p></div>`).join("")}</section>
       <aside class="panel soft"><h3>选题公式</h3><p>主题分数 = 权重 + 建议补强加成 + 新近资料加成 - 重复惩罚 - 掌握惩罚</p><h3>画像更新</h3><p>新证据权重 0.7，旧证据权重 0.3，topicScores 限幅 0-100。</p></aside>

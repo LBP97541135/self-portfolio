@@ -105,6 +105,7 @@ function renderStage() {
   const messages = [
     ...data.dialogues,
     ...(state.phaseIndex >= 3 ? [{ speaker: "沈禾", role: "角色", text: "如果你们真的看过名单，就该知道那三分钟不是误差。" }] : []),
+    ...(state.phaseIndex >= 5 ? [{ speaker: "铁幕裁判", role: "规则 Agent", text: "当前证据链闭合：时间、空间、行动痕迹和动机都已指向同一条责任转移路径。" }] : []),
     ...(state.phaseIndex >= 4
       ? [{ speaker: "Echo", role: "复盘 Agent", text: "当前推理链条：名单时间异常 -> 钥匙近期使用 -> 录音地点伪装。" }]
       : []),
@@ -125,19 +126,59 @@ function renderStage() {
   $("#evidenceCount").textContent = `${state.discovered.size} / ${data.evidences.length}`;
   $("#evidenceList").innerHTML = data.evidences
     .map(
-      (item) => `
-        <button class="evidence-card" data-evidence="${item.id}">
+      (item) => {
+        const visible = state.discovered.has(item.id) || item.status === "公开";
+        return `
+        <button class="evidence-card ${visible ? "unlocked" : "locked"}" data-evidence="${item.id}">
           <span class="tag">${item.type}</span>
           <h3>${item.title}</h3>
-          <p>${state.discovered.has(item.id) || item.status === "公开" ? item.status : "未发现"}</p>
+          <p>${visible ? item.status : "未发现"}</p>
         </button>
-      `,
+      `;
+      },
     )
     .join("");
 
   $$(".evidence-card").forEach((card) => {
     card.addEventListener("click", () => openEvidence(card.dataset.evidence));
   });
+  renderReasoningDesk();
+}
+
+function renderReasoningDesk() {
+  const unlocked = data.reasoning.filter((item) => item.unlockPhase <= state.phaseIndex);
+  const progress = Math.round(((state.phaseIndex + 1) / data.phases.length) * 100);
+  $("#reasoningProgress").textContent = `${progress}%`;
+  $("#reasoningChain").innerHTML = data.reasoning
+    .map((item) => {
+      const active = unlocked.includes(item);
+      return `
+        <article class="chain-item ${active ? "active" : ""}">
+          <span>${active ? "已纳入" : "待验证"}</span>
+          <strong>${item.evidence}</strong>
+          <p>${active ? item.claim : "推进剧情后解锁该推理节点。"}</p>
+          <div class="confidence"><i style="width:${active ? item.confidence : 18}%"></i></div>
+        </article>
+      `;
+    })
+    .join("");
+  $("#suspectMatrix").innerHTML = data.suspects
+    .map(
+      (item) => `
+        <article class="suspect-row">
+          <div>
+            <strong>${item.name}</strong>
+            <p>${item.motive}</p>
+          </div>
+          <span>${item.status}</span>
+          <div class="mini-bars">
+            <i style="width:${Math.min(item.timeline + state.phaseIndex * 3, 100)}%"></i>
+            <i style="width:${Math.min(item.pressure + state.phaseIndex * 4, 100)}%"></i>
+          </div>
+        </article>
+      `,
+    )
+    .join("");
 }
 
 function openEvidence(id) {
@@ -226,6 +267,9 @@ function renderReview() {
   $("#reviewTimeline").innerHTML = data.review.moments
     .map(([time, text]) => `<div class="timeline-item"><time>${time}</time><p>${text}</p></div>`)
     .join("");
+  $("#truthGraph").innerHTML = data.truthGraph
+    .map(([label, text], index) => `<div class="truth-node"><span>${String(index + 1).padStart(2, "0")}</span><strong>${label}</strong><p>${text}</p></div>`)
+    .join("");
   renderCapsules();
 }
 
@@ -274,7 +318,14 @@ function bindEvents() {
   $("#nextPhaseBtn").addEventListener("click", () => {
     state.phaseIndex = Math.min(state.phaseIndex + 1, data.phases.length - 1);
     if (state.phaseIndex >= 3) state.discovered.add("ev-3");
+    if (state.phaseIndex >= 5) state.discovered.add("ev-4");
     renderStage();
+  });
+  $("#autoDemoBtn").addEventListener("click", () => {
+    state.phaseIndex = data.phases.length - 1;
+    data.evidences.forEach((item) => state.discovered.add(item.id));
+    toast("已切到完整演示：证物、推理链与复盘全部解锁");
+    switchView("review");
   });
   $("#askDmBtn").addEventListener("click", () => toast("L1 提示：先比较名单时间和录音背景音。"));
   $("#quickQuestionBtn").addEventListener("click", () => {

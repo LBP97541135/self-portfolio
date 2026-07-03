@@ -52,6 +52,23 @@
           <a class="text-link" href="#work">查看项目</a>
           <a class="text-link muted" href="#about">了解方法</a>
         </div>
+        <div class="visitor-path" aria-label="访问路径建议">
+          <a href="labs/multiagent-werewolf/dist/" target="_blank" rel="noreferrer">
+            <span>01</span>
+            <strong>先看最完整 Demo</strong>
+            <em>AI 狼人杀 · 上帝视角 / 复盘 / 模型面板</em>
+          </a>
+          <a href="#work">
+            <span>02</span>
+            <strong>再看项目矩阵</strong>
+            <em>5 个 Mock 产品 + 真实业务案例</em>
+          </a>
+          <a href="docs/projects/multiagent-werewolf.html" target="_blank" rel="noreferrer">
+            <span>03</span>
+            <strong>最后看项目介绍</strong>
+            <em>目标 / 功能 / 亮点 / 核心流程</em>
+          </a>
+        </div>
         <div class="portfolio-stats" id="portfolioStats" aria-label="作品集概览"></div>
       </section>
 
@@ -121,8 +138,43 @@
             </article>
           </div>
 
+          <div class="work-dashboard" aria-label="作品集项目总览">
+            <div class="dashboard-copy">
+              <p class="eyebrow">Portfolio Map</p>
+              <h3>进入项目区后，你可以按“可体验程度”而不是技术名词来浏览。</h3>
+              <p>最适合面试官或合作方的路径：先打开 Mock 产品感受交互，再看项目介绍理解目标和架构，最后回到真实经历看业务结果。</p>
+            </div>
+            <div class="dashboard-metrics" id="dashboardMetrics"></div>
+          </div>
+
+          <div class="quick-lab-panel">
+            <div>
+              <p class="eyebrow">Fast Entry</p>
+              <h3>五个可直接体验的 Mock 产品</h3>
+            </div>
+            <div class="quick-lab-grid" id="quickLabGrid"></div>
+          </div>
+
+          <div class="score-board">
+            <div class="score-board-head">
+              <div>
+                <p class="eyebrow">Project Scoreboard</p>
+                <h3>用作品集目标来评估项目含金量</h3>
+              </div>
+              <p>评分不是绝对排名，而是帮助访问者快速判断：这个项目有多完整、多产品化、开发量和展示价值在哪里。</p>
+            </div>
+            <div class="score-matrix" id="scoreMatrix" aria-label="项目评分矩阵"></div>
+          </div>
+
           <div class="featured-grid" id="featuredGrid" aria-label="重点项目"></div>
 
+          <div class="catalog-head">
+            <div>
+              <p class="eyebrow">Project Catalog</p>
+              <h3>完整项目目录</h3>
+            </div>
+            <p>点击卡片查看案例摘要；有 Mock 或项目介绍的卡片可以直接跳转。</p>
+          </div>
           <div class="filter-bar" id="filterBar" aria-label="项目分类筛选"></div>
           <div class="project-list" id="projectGrid"></div>
         </div>

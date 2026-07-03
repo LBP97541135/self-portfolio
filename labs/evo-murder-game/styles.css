@@ -314,6 +314,17 @@ button {
   transform: translateY(-2px);
 }
 
+.evidence-card.locked {
+  border-style: dashed;
+  opacity: 0.66;
+}
+
+.evidence-card.unlocked {
+  background:
+    linear-gradient(135deg, rgba(201, 166, 107, 0.1), transparent 55%),
+    var(--card);
+}
+
 .toolbar {
   display: grid;
   grid-template-columns: 1fr 180px 180px;
@@ -449,9 +460,108 @@ select {
 .evidence-list,
 .timeline,
 .capsule-grid,
-.assistant-chat {
+.assistant-chat,
+.chain-list,
+.suspect-matrix,
+.truth-graph {
   display: grid;
   gap: 10px;
+}
+
+.reasoning-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.chain-item,
+.suspect-row,
+.truth-node {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 14px;
+}
+
+.chain-item {
+  position: relative;
+  overflow: hidden;
+}
+
+.chain-item.active {
+  border-color: rgba(201, 166, 107, 0.42);
+  background: rgba(201, 166, 107, 0.07);
+}
+
+.chain-item span,
+.suspect-row > span,
+.truth-node span {
+  color: var(--gold);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.chain-item strong,
+.suspect-row strong,
+.truth-node strong {
+  display: block;
+  margin-top: 5px;
+  color: var(--text);
+}
+
+.confidence,
+.mini-bars {
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.confidence {
+  height: 6px;
+  margin-top: 12px;
+}
+
+.confidence i,
+.mini-bars i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--red), var(--gold));
+}
+
+.suspect-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+}
+
+.suspect-row p {
+  margin: 4px 0 0;
+}
+
+.mini-bars {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 4px;
+  height: 18px;
+  background: transparent;
+}
+
+.mini-bars i {
+  height: 7px;
+}
+
+.mini-bars i:nth-child(2) {
+  background: linear-gradient(90deg, var(--green), var(--gold));
+}
+
+.truth-graph {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.truth-node {
+  min-height: 150px;
 }
 
 .message {
@@ -629,7 +739,9 @@ select {
   .stage-grid,
   .review-grid,
   .profile-grid,
-  .agent-layout {
+  .agent-layout,
+  .reasoning-layout,
+  .truth-graph {
     grid-template-columns: 1fr;
   }
 

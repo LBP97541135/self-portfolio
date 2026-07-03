@@ -99,6 +99,23 @@ window.EVO_MOCK = {
     { id: "ev-3", type: "物品", title: "备用钥匙", status: "待发现", detail: "钥匙齿面有新鲜铁锈，说明它近期被用于打开旧仓库。" },
     { id: "ev-4", type: "场景", title: "宿舍墙面划痕", status: "待发现", detail: "划痕高度与工具箱边缘吻合，墙后藏着一张被撕开的值班表。" },
   ],
+  reasoning: [
+    { id: "r1", evidence: "夜班名单", claim: "事故记录被延后了三分钟", confidence: 84, unlockPhase: 1 },
+    { id: "r2", evidence: "车间噪声片段", claim: "录音地点并非主厂房，而是二号管道附近", confidence: 76, unlockPhase: 2 },
+    { id: "r3", evidence: "备用钥匙", claim: "有人在事故后进入旧仓库处理痕迹", confidence: 68, unlockPhase: 3 },
+    { id: "r4", evidence: "宿舍墙面划痕", claim: "被撕开的值班表才是动机链核心", confidence: 91, unlockPhase: 5 },
+  ],
+  suspects: [
+    { name: "沈禾", motive: "隐瞒签名时间", timeline: 72, pressure: 64, status: "重点追问" },
+    { name: "陆砚", motive: "掌握旧仓库钥匙", timeline: 86, pressure: 78, status: "高危嫌疑" },
+    { name: "陈珀", motive: "维修记录缺页", timeline: 54, pressure: 42, status: "暂缓观察" },
+  ],
+  truthGraph: [
+    ["时间异常", "夜班名单出现 23:14 到 23:17 的空白"],
+    ["空间错位", "录音中的蒸汽阀声指向二号管道"],
+    ["行动痕迹", "备用钥匙近期打开过旧仓库"],
+    ["动机落点", "值班表被撕开，说明有人试图改写责任归属"],
+  ],
   agents: [
     {
       id: "wugang",
