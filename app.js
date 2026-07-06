@@ -267,6 +267,7 @@ window.addEventListener("keydown", (e) => {
   if ((e.metaKey || e.ctrlKey) && e.key === "k") {
     e.preventDefault();
     cmdPalette.showModal();
+    document.body.style.overflow = "hidden";
     cmdInput.focus();
     cmdIndex = 0;
     updateCmdResults();
@@ -550,9 +551,24 @@ featuredGrid?.addEventListener("click", handleProjectOpen);
   });
 });
 
-dialogClose.addEventListener("click", () => dialog.close());
+dialogClose.addEventListener("click", () => {
+  dialog.close();
+});
+
 dialog.addEventListener("click", (event) => {
   if (event.target === dialog) dialog.close();
+});
+
+dialog.addEventListener("close", () => {
+  document.body.style.overflow = "";
+});
+
+cmdPalette.addEventListener("click", (e) => {
+  if (e.target === cmdPalette) cmdPalette.close();
+});
+
+cmdPalette.addEventListener("close", () => {
+  document.body.style.overflow = "";
 });
 
 // Custom Cursor and Scroll Progress
