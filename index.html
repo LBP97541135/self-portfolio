@@ -74,7 +74,7 @@
       </div>
     </dialog>
 
-    <header class="fixed top-0 inset-x-0 z-50 h-20 flex items-center justify-between px-8 md:px-16 bg-white/70 backdrop-blur-xl border-b border-black/[0.03]">
+    <header class="fixed top-0 inset-x-0 z-50 h-20 flex items-center justify-between px-6 md:px-16 bg-white/70 backdrop-blur-xl border-b border-black/[0.03]">
       <a class="flex items-center gap-3 group" href="#top">
         <div class="flex flex-col">
           <span class="text-sm font-black tracking-tighter leading-none group-hover:text-accent transition-colors">lv yihan</span>
@@ -82,49 +82,50 @@
         </div>
       </a>
       
-      <div class="hidden md:flex items-center gap-12">
-        <div class="flex items-center gap-3 px-4 py-2 bg-bgsoft rounded-full border border-black/[0.03]">
+      <div class="flex items-center gap-4 md:gap-12">
+        <div class="hidden sm:flex items-center gap-3 px-4 py-2 bg-bgsoft rounded-full border border-black/[0.03]">
           <div class="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></div>
           <span class="text-[10px] font-bold tracking-widest text-muted uppercase font-mono">System Operational</span>
         </div>
-        <nav class="flex gap-8 text-[11px] font-bold uppercase tracking-widest text-muted/60">
+        <nav class="hidden md:flex gap-8 text-[11px] font-bold uppercase tracking-widest text-muted/60">
           <a class="hover:text-ink transition-colors" href="#about">About</a>
           <a class="hover:text-ink transition-colors" href="#experience">History</a>
           <a class="hover:text-ink transition-colors" href="#work">Systems</a>
           <a class="hover:text-ink transition-colors" href="#contact">Connect</a>
         </nav>
-        <button class="px-4 py-2 bg-ink text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-accent transition-all duration-300" onclick="window.dispatchEvent(new KeyboardEvent('keydown', {key: 'k', metaKey: true}))">
-          Cmd + K
+        <button class="px-4 py-2 bg-ink text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-accent transition-all duration-300 flex items-center gap-2" onclick="window.dispatchEvent(new KeyboardEvent('keydown', {key: 'k', metaKey: true}))">
+          <span class="hidden sm:inline">Cmd + K</span>
+          <svg class="w-4 h-4 sm:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
         </button>
       </div>
     </header>
 
     <main id="top" class="max-w-[1400px] mx-auto px-6 pt-24 pb-24">
       <!-- Bento Hero Section -->
-      <section class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-24 min-h-[calc(100vh-160px)] items-center">
+      <section class="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 mb-24 min-h-[calc(100vh-160px)] items-center">
         <!-- Main Bio Section (No Box) -->
         <div class="md:col-span-8 flex flex-col justify-center group reveal relative">
           <div class="relative z-10">
-            <div class="flex flex-col gap-4 mb-10 reveal stagger-1">
+            <div class="flex flex-col gap-4 mb-8 md:mb-10 reveal stagger-1">
               <div class="flex items-baseline gap-4">
-                <span class="text-4xl font-black tracking-tighter text-ink font-display">吕祎晗</span>
-                <span class="text-xl font-bold tracking-[0.3em] text-accent uppercase font-mono italic">lv yihan</span>
+                <span class="text-3xl md:text-4xl font-black tracking-tighter text-ink font-display">吕祎晗</span>
+                <span class="text-lg md:text-xl font-bold tracking-[0.3em] text-accent uppercase font-mono italic">lv yihan</span>
               </div>
-              <div class="flex items-center gap-4">
+              <div class="flex flex-wrap items-center gap-3 md:gap-4">
                 <span class="px-3 py-1 bg-accent text-white text-[9px] font-bold tracking-widest uppercase font-mono rounded italic">Product Engineer / PE</span>
                 <span class="px-3 py-1 bg-bgsoft text-muted text-[9px] font-bold tracking-widest uppercase font-mono rounded border border-black/[0.05] italic">Frontend Engineer / FDE</span>
               </div>
             </div>
             
-            <div class="mb-10">
-              <h1 class="text-display font-black text-ink reveal stagger-2 text-reveal-active font-display flex flex-col gap-4">
+            <div class="mb-8 md:mb-10">
+              <h1 class="text-display font-black text-ink reveal stagger-2 text-reveal-active font-display flex flex-col gap-2 md:gap-4">
                 <span class="tracking-tight">产品里最懂开发</span>
                 <span class="font-serif italic text-muted/10 group-hover:text-accent/20 transition-all duration-1000 inline-block hover:translate-x-4 transition-transform duration-700 tracking-wider">开发里最懂产品</span>
               </h1>
             </div>
 
             <div class="flex flex-col gap-6 max-w-2xl reveal stagger-3">
-              <p class="text-xl md:text-2xl font-medium text-muted leading-tight tracking-tight">
+              <p class="text-lg md:text-2xl font-medium text-muted leading-tight tracking-tight">
                 不是只做 <span class="line-through decoration-1 opacity-30">AI Demo</span>，<br/>
                 而是把 <span class="text-ink font-bold relative inline-block group/text">
                   AI 能力产品化
@@ -135,37 +136,37 @@
             </div>
           </div>
           
-          <div class="flex flex-wrap gap-6 mt-12 relative z-10 reveal stagger-4">
-            <a href="#work" class="group relative px-10 py-5 bg-ink text-white rounded-full font-bold text-sm overflow-hidden shadow-2xl shadow-ink/20 transition-all duration-500 hover:scale-105">
+          <div class="flex flex-wrap gap-4 md:gap-6 mt-10 md:mt-12 relative z-10 reveal stagger-4">
+            <a href="#work" class="group relative px-8 md:px-10 py-4 md:py-5 bg-ink text-white rounded-full font-bold text-sm overflow-hidden shadow-2xl shadow-ink/20 transition-all duration-500 hover:scale-105">
               <span class="relative z-10">查看交付系统</span>
               <div class="absolute inset-0 bg-accent translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
             </a>
-            <a href="#about" class="px-10 py-5 bg-white/50 backdrop-blur-sm border border-black/[0.05] text-ink rounded-full font-bold text-sm hover:bg-white transition-all duration-500 hover:shadow-lg">阅读产品论点</a>
+            <a href="#about" class="px-8 md:px-10 py-4 md:py-5 bg-white/50 backdrop-blur-sm border border-black/[0.05] text-ink rounded-full font-bold text-sm hover:bg-white transition-all duration-500 hover:shadow-lg text-center">阅读产品论点</a>
           </div>
         </div>
 
         <!-- Metric Section (No Box) -->
-        <div class="md:col-span-4 flex flex-col justify-center gap-12 border-l border-black/[0.03] pl-16">
+        <div class="md:col-span-4 flex flex-col justify-center gap-8 md:gap-12 border-t md:border-t-0 md:border-l border-black/[0.03] pt-12 md:pt-0 md:pl-16">
           <div class="group reveal stagger-1">
-            <span class="text-[10px] font-bold tracking-[0.3em] text-accent uppercase font-mono mb-4 block">Labs / 01</span>
+            <span class="text-[9px] font-bold tracking-[0.2em] text-muted uppercase font-mono mb-4 block">Labs / 01</span>
             <div class="relative">
-              <strong class="block text-7xl font-black text-ink mb-2 group-hover:text-accent transition-colors duration-700 tracking-tighter hover:scale-110 transition-transform origin-left">05</strong>
-              <p class="text-[11px] font-bold text-muted leading-relaxed tracking-widest uppercase opacity-60 group-hover:opacity-100 transition-opacity">完整闭环可体验的<br/>产品原型系统</p>
+              <strong class="block text-6xl md:text-7xl font-black text-ink mb-2 group-hover:text-accent transition-colors duration-700 tracking-tighter hover:scale-110 transition-transform origin-left">05</strong>
+              <p class="text-[10px] md:text-[11px] font-bold text-muted leading-relaxed tracking-widest uppercase opacity-60 group-hover:opacity-100 transition-opacity">完整闭环可体验的<br/>产品原型系统</p>
             </div>
           </div>
           
           <div class="group reveal stagger-2">
             <span class="text-[10px] font-bold tracking-[0.3em] text-accent uppercase font-mono mb-4 block">POC / 02</span>
             <div class="relative">
-              <strong class="block text-7xl font-black text-ink mb-2 group-hover:text-accent transition-colors duration-700 tracking-tighter hover:scale-110 transition-transform origin-left">10+</strong>
-              <p class="text-[11px] font-bold text-muted leading-relaxed tracking-widest uppercase opacity-60 group-hover:opacity-100 transition-opacity">跨行业场景的<br/>企业级 Agent 落地</p>
+              <strong class="block text-6xl md:text-7xl font-black text-ink mb-2 group-hover:text-accent transition-colors duration-700 tracking-tighter hover:scale-110 transition-transform origin-left">10+</strong>
+              <p class="text-[10px] md:text-[11px] font-bold text-muted leading-relaxed tracking-widest uppercase opacity-60 group-hover:opacity-100 transition-opacity">跨行业场景的<br/>企业级 Agent 落地</p>
             </div>
           </div>
 
           <div class="group reveal stagger-3">
             <span class="text-[10px] font-bold tracking-[0.3em] text-accent uppercase font-mono mb-4 block">Impact / 03</span>
             <div class="relative">
-              <strong class="block text-7xl font-black text-ink mb-2 group-hover:text-accent transition-colors duration-700 tracking-tighter hover:scale-110 transition-transform origin-left">60%</strong>
+              <strong class="block text-6xl md:text-7xl font-black text-ink mb-2 group-hover:text-accent transition-colors duration-700 tracking-tighter hover:scale-110 transition-transform origin-left">60%</strong>
               <p class="text-[11px] font-bold text-muted leading-relaxed tracking-widest uppercase opacity-60 group-hover:opacity-100 transition-opacity">核心业务流程<br/>提效自动化闭环</p>
             </div>
           </div>
