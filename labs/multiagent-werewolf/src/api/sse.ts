@@ -9,14 +9,20 @@ import { mockSseEvents } from "./mockData";
 
 export type StreamView = "god" | "seat";
 
+const INITIAL_EVENT_DELAY_MS = 700;
+const EVENT_DELAY_MS = 1600;
+
 /** Build the SSE stream URL for a run. Always returns a local URL. */
 export function streamUrl(
   _runId: string,
-  _view: StreamView = "god",
-  _seat?: number,
-  _token?: string,
+  view: StreamView = "god",
+  seat?: number,
+  token?: string,
 ): string {
-  return "mock-sse://stream";
+  const params = new URLSearchParams({ view });
+  if (seat != null) params.set("seat", String(seat));
+  if (token) params.set("token", token);
+  return `mock-sse://stream?${params.toString()}`;
 }
 
 // ============================================================
@@ -41,9 +47,18 @@ class MockEventSource implements EventSource {
   private listeners: Record<string, Listener[]> = {};
   private namedListeners: Record<string, NamedListener[]> = {};
   private timer: ReturnType<typeof setTimeout> | null = null;
+  private streamView: StreamView = "god";
+  private seat: number | null = null;
+  private resumeAfterInput: (() => void) | null = null;
 
   constructor(url: string, _init?: EventSourceInit) {
     this.url = url;
+    const query = url.includes("?") ? url.slice(url.indexOf("?") + 1) : "";
+    const params = new URLSearchParams(query);
+    this.streamView = params.get("view") === "seat" ? "seat" : "god";
+    const parsedSeat = Number(params.get("seat"));
+    this.seat = Number.isFinite(parsedSeat) ? parsedSeat : null;
+    globalThis.addEventListener?.("ww:mock-human-input", this._resumeFromHumanInput);
     // 模拟连接建立
     setTimeout(() => this._open(), 50);
   }
@@ -53,15 +68,18 @@ class MockEventSource implements EventSource {
     // 派发 open 事件
     this._fireNamed("open", new MessageEvent("open"));
     // 逐条派发 mock 事件
+    const events = this.streamView === "seat"
+      ? withSeatInputEvents(mockSseEvents, this.seat ?? 1)
+      : mockSseEvents;
     let i = 0;
     const tick = () => {
       if (this.readyState !== MockEventSource.OPEN) return;
-      if (i >= mockSseEvents.length) {
+      if (i >= events.length) {
         // 派发 end
         this._fireNamed("end", new MessageEvent("end"));
         return;
       }
-      const raw = mockSseEvents[i++];
+      const raw = events[i++];
       const ev = this._normalizeEvent(raw);
       const eventName = ev.event_type === "snapshot" ? "snapshot"
         : ev.event_type === "end" ? "end"
@@ -73,10 +91,17 @@ class MockEventSource implements EventSource {
       } else {
         this._fireMessage(me);
       }
+      if (ev.event_type === "awaiting_input" && this.streamView === "seat") {
+        this.resumeAfterInput = () => {
+          if (this.readyState !== MockEventSource.OPEN) return;
+          this.timer = setTimeout(tick, EVENT_DELAY_MS);
+        };
+        return;
+      }
       // 间隔
-      this.timer = setTimeout(tick, 250);
+      this.timer = setTimeout(tick, EVENT_DELAY_MS);
     };
-    this.timer = setTimeout(tick, 80);
+    this.timer = setTimeout(tick, INITIAL_EVENT_DELAY_MS);
   }
 
   private _fireNamed(name: string, e: MessageEvent) {
@@ -129,6 +154,12 @@ class MockEventSource implements EventSource {
     });
   }
 
+  private _resumeFromHumanInput = () => {
+    const resume = this.resumeAfterInput;
+    this.resumeAfterInput = null;
+    resume?.();
+  };
+
   addEventListener(type: string, listener: Listener | null, _options?: boolean | AddEventListenerOptions): void {
     if (!listener) return;
     if (!this.namedListeners[type]) this.namedListeners[type] = [];
@@ -173,10 +204,42 @@ class MockEventSource implements EventSource {
   close(): void {
     this.readyState = MockEventSource.CLOSED;
     if (this.timer) clearTimeout(this.timer);
+    globalThis.removeEventListener?.("ww:mock-human-input", this._resumeFromHumanInput);
   }
 }
 
 // 在模块加载时把全局 EventSource 替换为 mock
+function withSeatInputEvents(events: unknown[], seat: number): unknown[] {
+  const targetMeta = [
+    { seat: 1, name: "墨白" },
+    { seat: 2, name: "夜行" },
+    { seat: 3, name: "沐辰" },
+    { seat: 4, name: "若谷" },
+    { seat: 5, name: "听雪" },
+    { seat: 6, name: "云归" },
+  ].filter((p) => p.seat !== seat);
+
+  const pending = {
+    event_type: "awaiting_input",
+    seat,
+    request_id: `mock-seat-${seat}-night-1`,
+    kind: "seat",
+    title: "狼人夜间行动",
+    question: "轮到你选择今夜袭击目标",
+    prompt: "你是狼人阵营的一员。请选择一个今夜要袭击的目标，也可以弃权。",
+    ui_hint: "点击盘面或底部目标卡选择座位，确认后会展示技能动画与提交音效。",
+    valid_targets: targetMeta.map((p) => p.seat),
+    target_meta: targetMeta,
+    allow_skip: true,
+    self_role: "Werewolf",
+    deadline: 180,
+  };
+
+  const next = [...events];
+  next.splice(Math.min(3, next.length), 0, pending);
+  return next;
+}
+
 if (typeof globalThis !== "undefined" && !(globalThis as any).__wwMockEventSourceInstalled) {
   (globalThis as any).EventSource = MockEventSource;
   (globalThis as any).__wwMockEventSourceInstalled = true;

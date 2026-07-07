@@ -1,3 +1,5 @@
+import { publicAssetPath } from "../lib/assetPath";
+
 // Role art is served from `frontend/public/{material,tarot}/<PascalCase>.png`.
 //（与后端角色名匹配的规范词干）。作为纯绝对 URL 引用 — 不要从 `public/` 导入（Vite 会返回 SPA 回退 HTML）。
 // `material` = 对局内肖像，`tarot` = 开局塔罗牌。
@@ -42,5 +44,5 @@ function stemFor(role: string): string {
   return "Villager";
 }
 
-export const getRoleImage = (role: string) => `/material/${stemFor(role)}.png`;
-export const getTarotImage = (role: string) => `/tarot/${stemFor(role)}.png`;
+export const getRoleImage = (role: string) => publicAssetPath(`material/${stemFor(role)}.png`);
+export const getTarotImage = (role: string) => publicAssetPath(`tarot/${stemFor(role)}.png`);

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Sun, Moon, Clock, Flame, LogOut, Home, Volume2, VolumeX } from "lucide-react";
 import { useGameStore } from "../store";
 
@@ -17,6 +18,7 @@ export default React.memo(function TopHeader({
   const sfxVolume = useGameStore((s) => s.sfxVolume);
   const setAudioMuted = useGameStore((s) => s.setAudioMuted);
   const setSfxVolume = useGameStore((s) => s.setSfxVolume);
+  const navigate = useNavigate();
 
   const [localSecondsLeft, setLocalSecondsLeft] = useState<number>(30);
   const [confirmExit, setConfirmExit] = useState(false);
@@ -130,7 +132,7 @@ export default React.memo(function TopHeader({
 
         <button
           type="button"
-          onClick={() => { window.location.href = "/home"; }}
+          onClick={() => { navigate("/home"); }}
           aria-label="回到主界面"
           className="h-7 px-2.5 rounded border border-indigo-900/60 transition-all duration-200 bg-indigo-950/30 hover:bg-indigo-900/40 text-blue-200 text-[10px] font-mono hover:text-white uppercase tracking-widest cursor-pointer whitespace-nowrap flex items-center gap-1.5"
         >

@@ -1,5 +1,6 @@
 import type { EffectType } from "../types";
 import type { CoarseStage } from "../lib/phaseStage";
+import { publicAssetPath } from "../lib/assetPath";
 
 export type SfxId = string;
 
@@ -90,7 +91,7 @@ export const ALL_SFX_IDS: SfxId[] = [
 ];
 
 export function sfxPath(id: SfxId): string {
-  return `/audio/${id}.mp3`;
+  return publicAssetPath(`audio/${id}.mp3`);
 }
 
 /** 滑窗 burst 门：窗口内允许至多 max 次，超出抑制。 */

@@ -18,7 +18,7 @@ import type { WolfCampMindV2 } from "./lib/godRoleIntel";
 
 function readAudioPref(): { muted: boolean; volume: number; bgmVolume: number } {
   // 作品集 Mock 模式：默认静音，避免进入页面就有背景音乐
-  return { muted: true, volume: 0.8, bgmVolume: 0.5 };
+  return { muted: false, volume: 0.8, bgmVolume: 0.45 };
 }
 function writeAudioPref(p: { muted: boolean; volume: number; bgmVolume: number }): void {
   try { localStorage.setItem("ww_audio", JSON.stringify(p)); } catch { /* ignore */ }
@@ -129,7 +129,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
   exitGame: () => {
     set({ isLoading: false, pendingInput: null, humanInputError: null });
     get().disconnectSpectate();
-    window.location.href = "/";
+    window.location.hash = "/";
   },
 
   spectateSource: null,

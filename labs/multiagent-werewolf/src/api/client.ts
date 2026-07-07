@@ -14,17 +14,97 @@ import { mapRoleDetail, mapRolesPage } from "../lib/rolesMap";
 
 const delay = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 
+function mapContentSections(sections: any[] | undefined) {
+  return (sections ?? []).map((section) => ({
+    title: section.title ?? section.heading ?? "章节",
+    value: section.value ?? section.body ?? "",
+  }));
+}
+
+function mapNightPhasePage(data: any) {
+  return {
+    title: data.title,
+    subtitle: data.subtitle ?? "NIGHT ACTIONS",
+    description: data.description ?? data.summary ?? "",
+    sections: mapContentSections(data.sections),
+    steps: (data.steps ?? []).map((step: any, index: number) => ({
+      seq: step.seq ?? step.order ?? index + 1,
+      title: step.title,
+      description: step.description,
+    })),
+    involved_roles: Array.isArray(data.involved_roles)
+      ? data.involved_roles
+      : Object.entries(data.involved_roles ?? {}).map(([name, actions]) => ({
+          name,
+          action_description: Array.isArray(actions) ? actions.join(" / ") : String(actions ?? ""),
+        })),
+    visibility_rules: (data.visibility_rules ?? []).map((rule: any) => ({
+      title: rule.title ?? rule.heading ?? "规则",
+      rule: rule.rule ?? rule.body ?? "",
+    })),
+    timeout_hints: Array.isArray(data.timeout_hints)
+      ? data.timeout_hints
+      : Object.entries(data.timeout_hints ?? {}).map(([key, value]) => `${key}: ${value}s`),
+  };
+}
+
+function tipText(tip: any): string {
+  if (typeof tip === "string") return tip;
+  return [tip.title, tip.content].filter(Boolean).join("。");
+}
+
+function mapStrategyPage(data: any) {
+  const campEntries = Array.isArray(data.role_tips_by_camp)
+    ? data.role_tips_by_camp
+    : Object.entries(data.role_tips_by_camp ?? {}).map(([camp, tips]) => ({ camp, tips }));
+  return {
+    title: data.title,
+    subtitle: data.subtitle ?? "STRATEGY HANDBOOK",
+    description: data.description ?? data.summary ?? "围绕发言、站边、技能释放与阵营协作的策略手册。",
+    sections: mapContentSections(data.sections),
+    general_tips: (data.general_tips ?? []).map(tipText),
+    phase_tips: (data.phase_tips ?? []).map((tip: any) => ({
+      phase: tip.phase ?? tip.title ?? "阶段",
+      tips: Array.isArray(tip.tips) ? tip.tips : [tip.content ?? tipText(tip)],
+    })),
+    role_tips: (data.role_tips ?? []).map((tip: any) => ({
+      role: tip.role ?? tip.title ?? tip.role_key ?? "角色",
+      tips: Array.isArray(tip.tips) ? tip.tips : [tip.content ?? tipText(tip)],
+    })),
+    role_tips_by_camp: campEntries.map((entry: any) => ({
+      camp: entry.camp,
+      tips: (Array.isArray(entry.tips) ? entry.tips : []).map(tipText),
+    })),
+  };
+}
+
 export class ApiClient {
   private static async ok<T>(data: T, ms = 30): Promise<T> {
     await delay(ms);
     return data;
   }
 
-  static async startGame(_req: unknown): Promise<typeof M.mockStartGameResponse> {
+  static async startGame(req: unknown): Promise<typeof M.mockStartGameResponse> {
+    const body = (req ?? {}) as {
+      human?: { seat?: number; role?: string };
+      player_count?: number;
+      config_id?: string;
+      badge_flow?: boolean;
+    };
+    const humanSeat = body.human?.seat;
+    const isHumanRun = typeof humanSeat === "number";
+    const runId = isHumanRun ? "6p-human-mock-001" : "6p-deepseek-mock-001";
     return this.ok({
       ...M.mockStartGameResponse,
-      game_page_path: "/?run_id=6p-deepseek-mock-001&view=god",
-      player_token: null,
+      run_id: runId,
+      config_id: body.config_id ?? M.mockStartGameResponse.config_id,
+      player_count: body.player_count ?? M.mockStartGameResponse.player_count,
+      badge_flow: body.badge_flow ?? M.mockStartGameResponse.badge_flow,
+      game_page_path: isHumanRun ? `/game?run_id=${runId}` : `/game?run_id=${runId}&view=god`,
+      player_token: isHumanRun ? `mock-human-seat-${humanSeat}` : null,
+      seat_page_path: isHumanRun ? `/game?run_id=${runId}&view=seat&seat=${humanSeat}` : null,
+      replay_page_path: `/replay/${runId}`,
+      status_path: `/runs/${runId}`,
     }, 50);
   }
 
@@ -33,6 +113,9 @@ export class ApiClient {
   }
 
   static async sendInput(_runId: string, _body: unknown) {
+    if (typeof globalThis !== "undefined") {
+      globalThis.dispatchEvent(new CustomEvent("ww:mock-human-input", { detail: _body }));
+    }
     return this.ok({ run_id: "mock", accepted: true, message: "Mock 已接收", reject_code: null }, 20);
   }
 
@@ -117,11 +200,11 @@ export class ApiClient {
   }
 
   static async getNightPhasePageData() {
-    return this.ok(M.mockNightPhaseData);
+    return this.ok(mapNightPhasePage(M.mockNightPhaseData));
   }
 
   static async getStrategyPageData() {
-    return this.ok(M.mockStrategyData);
+    return this.ok(mapStrategyPage(M.mockStrategyData));
   }
 
   static async getRunsPageData(_page = 1, _pageSize = 20) {

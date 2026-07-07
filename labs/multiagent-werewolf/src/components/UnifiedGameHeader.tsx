@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Sun, Moon, Hourglass, LogOut, Home, BrainCircuit, MessageCircle, Swords } from "lucide-react";
 import { useGameStore } from "../store";
 import { stageBadge } from "../lib/phaseStage";
@@ -218,6 +219,7 @@ export default React.memo(function UnifiedGameHeader({
   const humanSeat = useGameStore((state) => state.humanSeat);
   const pendingInput = useGameStore((state) => state.pendingInput);
   const exitGame = useGameStore((state) => state.exitGame);
+  const navigate = useNavigate();
 
   const phase = gameState?.phase;
   const dayNumber = gameState?.dayNumber || 1;
@@ -478,7 +480,7 @@ export default React.memo(function UnifiedGameHeader({
           type="button"
           onClick={() => {
             soundManager.playUi("ui_click");
-            window.location.href = "/home";
+            navigate("/home");
           }}
           className="h-7 px-2.5 rounded border border-indigo-900/60 transition-all duration-200 bg-indigo-950/30 hover:bg-indigo-900/40 text-blue-200 text-[10px] font-mono hover:text-white uppercase tracking-widest cursor-pointer whitespace-nowrap flex items-center gap-1.5"
         >
