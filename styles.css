@@ -1,17 +1,19 @@
 :root {
   color-scheme: light;
   --bg: #f7f4ee;
-  --bg-soft: #fbfaf7;
+  --bg-soft: #f2efe8;
   --ink: #1b1f23;
   --text: #30363d;
   --muted: #6f7782;
   --faint: #a8adb4;
-  --line: rgba(27, 31, 35, 0.1);
+  --line: rgba(27, 31, 35, 0.08);
   --accent: #2f7d69;
   --accent-soft: rgba(47, 125, 105, 0.08);
-  --card: rgba(255, 255, 255, 0.6);
+  --card: rgba(255, 255, 255, 0.7);
   --shadow: 0 24px 80px rgba(54, 48, 42, 0.06);
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --radius-lg: 24px;
+  --radius-sm: 12px;
 }
 
 * {
@@ -49,150 +51,55 @@ h1, h2, h3, .font-display {
   color: white;
 }
 
-/* Ambient Background Elements */
+/* Ambient Background */
 body::before {
   position: fixed;
   inset: 0;
   z-index: -3;
   pointer-events: none;
   content: "";
-  background-image: 
-    radial-gradient(circle at 0% 0%, rgba(47, 125, 105, 0.05), transparent 50%),
-    radial-gradient(circle at 100% 100%, rgba(47, 125, 105, 0.05), transparent 50%),
-    linear-gradient(rgba(27, 31, 35, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(27, 31, 35, 0.02) 1px, transparent 1px);
-  background-size: 100% 100%, 100% 100%, 100px 100px, 100px 100px;
-  mask-image: radial-gradient(circle at center, black, transparent 80%);
+  background-image:
+    radial-gradient(circle at 15% 10%, rgba(47, 125, 105, 0.06), transparent 45%),
+    radial-gradient(circle at 85% 90%, rgba(47, 125, 105, 0.04), transparent 45%);
+  background-size: 100% 100%, 100% 100%;
 }
 
-/* Blueprint Grid Overlay */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -2;
-  pointer-events: none;
-  opacity: 0.015;
-  background-image: 
-    linear-gradient(var(--accent) 0.5px, transparent 0.5px),
-    linear-gradient(90deg, var(--accent) 0.5px, transparent 0.5px);
-  background-size: 40px 40px;
-  mask-image: radial-gradient(circle at center, black, transparent 90%);
-}
-
-.cursor-light {
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: -1;
-  width: 1000px;
-  height: 1000px;
-  border-radius: 50%;
-  pointer-events: none;
-  background: radial-gradient(circle, rgba(47, 125, 105, 0.15), transparent 70%);
-  transform: translate3d(-50%, -50%, 0);
-  transition: opacity 1s var(--ease);
-}
-
-/* Orchestrated Motion */
+/* Reveal Motion */
 .reveal {
   opacity: 0;
-  transform: translateY(80px) skewY(2deg);
-  filter: blur(30px);
-  transition: 
-    opacity 1.8s var(--ease), 
-    transform 1.8s var(--ease), 
-    filter 1.8s var(--ease);
-  will-change: transform, opacity, filter;
+  transform: translateY(24px);
+  transition:
+    opacity 0.8s var(--ease),
+    transform 0.8s var(--ease);
+  will-change: transform, opacity;
 }
 
 .reveal.active {
   opacity: 1;
-  transform: translateY(0) skewY(0);
-  filter: blur(0);
+  transform: translateY(0);
 }
 
-/* Floating Animation */
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
-}
-
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-
-.animate-float-delayed {
-  animation: float 8s ease-in-out infinite 1s;
-}
-
-/* Hover Shine Effect */
-.hover-shine {
-  position: relative;
-  overflow: hidden;
-}
-
-.hover-shine::after {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
-  transform: scale(0);
-  transition: transform 0.8s var(--ease);
-  pointer-events: none;
-}
-
-.hover-shine:hover::after {
-  transform: scale(1);
-}
-
-/* Enhanced Magnetic-like hover */
-.magnetic-hover {
-  transition: transform 0.5s var(--ease);
-}
-
-.magnetic-hover:hover {
-  transform: translate(10px, -10px);
-}
-
-/* Custom Typography tension */
-.tracking-tighter { letter-spacing: -0.05em; }
-
-/* Vertical Text Utility */
-.vertical-text {
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-}
+/* Stagger delays */
+.stagger-1 { transition-delay: 0ms; }
+.stagger-2 { transition-delay: 80ms; }
+.stagger-3 { transition-delay: 160ms; }
+.stagger-4 { transition-delay: 240ms; }
+.stagger-5 { transition-delay: 320ms; }
 
 /* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--bg);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--line);
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--muted);
-}
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--line); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }
 
 /* Hide scrollbar utility */
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-/* Dialog specific */
+/* Dialog */
 dialog::backdrop {
-  background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(12px);
 }
 
 .project-dialog {
@@ -207,18 +114,67 @@ dialog::backdrop {
   overflow-y: auto;
 }
 
-/* Interactive elements */
+/* Focus */
 button:focus-visible, a:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 4px;
 }
 
-/* Image-like card transition */
+/* Project card */
 .project-item {
   transform-origin: center;
   backface-visibility: hidden;
+  border-radius: var(--radius-lg) !important;
 }
 
 .project-item:active {
-  transform: scale(0.98);
+  transform: scale(0.99);
+}
+
+/* QR card hover */
+.qr-card {
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+.qr-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+
+/* Toast */
+#toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  background: var(--ink);
+  color: white;
+  padding: 0.6rem 1.4rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-family: "IBM Plex Mono", monospace;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s var(--ease);
+  z-index: 9999;
+}
+#toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Tracking override */
+.tracking-tighter { letter-spacing: -0.05em; }
+
+/* Featured grid: odd last card spans full width on desktop */
+@media (min-width: 768px) {
+  #featuredGrid > *:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Vertical text */
+.vertical-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
 }

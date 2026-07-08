@@ -3,7 +3,7 @@ const projects = [
     id: "multiagent-werewolf",
     title: "AI 狼人杀",
     tagline: "多智能体博弈系统 · 自进化与评测框架设计",
-    category: "多智能体系统",
+    category: "多智能体",
     type: "字节挑战赛 · 赛道第一",
     period: "2026",
     priority: "featured",
@@ -23,7 +23,7 @@ const projects = [
     id: "evo-murder-game",
     title: "进化酒馆",
     tagline: "AI 娱乐化商机验证 · 玩法产品从 0 到 1",
-    category: "AI 叙事产品",
+    category: "多智能体",
     type: "黑客松 · 最佳人气奖",
     period: "2026",
     priority: "featured",
@@ -43,7 +43,7 @@ const projects = [
     id: "haji-ai",
     title: "Haji AI",
     tagline: "AI Native 社交范式 · 自研 Multi-Agent 框架",
-    category: "AI 社交生态",
+    category: "多智能体",
     type: "Mock 已完成",
     period: "2026",
     priority: "featured",
@@ -63,7 +63,7 @@ const projects = [
     id: "ai-work-coach",
     title: "AI Work Coach",
     tagline: "个性化 AI 学习中心 · 用户成长闭环产品",
-    category: "AI 工作流产品",
+    category: "AI 产品",
     type: "Mock 已完成",
     period: "2026",
     priority: "featured",
@@ -83,7 +83,7 @@ const projects = [
     id: "money-printer-turbo",
     title: "MoneyPrinterTurbo",
     tagline: "提示词工程 · 内容生产流水线自动化",
-    category: "AI 内容生产",
+    category: "AI 产品",
     type: "Mock 已完成",
     period: "2026",
     priority: "featured",
@@ -103,7 +103,7 @@ const projects = [
     id: "aigc-test-image",
     title: "测品图生图评测体系",
     tagline: "双层视觉评测体系 · AI 生图合规工程",
-    category: "AI 内容生产",
+    category: "AI 产品",
     type: "真实经历",
     period: "2026",
     summary: "为小红书商家测品笔记的 AI 生图链路构建双层视觉评测体系，从 20,000 张图中筛选 6,700+ 标杆素材，将 AI 违规率从 11% 压降至 1.7%。",
@@ -119,7 +119,7 @@ const projects = [
     id: "work-order-agent",
     title: "商家工单助手",
     tagline: "企业工单自动化 · Human-in-the-Loop 全链路",
-    category: "业务智能体",
+    category: "企业落地",
     type: "真实经历",
     period: "2026",
     summary: "面向小红书商家入驻工单的自动化处理系统，Java + Darwin 框架搭建双层 Agent，实现两级分类、Human-in-the-Loop 授权与数据库回查验证。",
@@ -135,7 +135,7 @@ const projects = [
     id: "ship-agent",
     title: "船舶运货助手",
     tagline: "弱模型 × 任务拆分 · 受限场景工程策略",
-    category: "行业解决方案",
+    category: "企业落地",
     type: "真实经历",
     period: "2025",
     summary: "在生产环境模型（DeepSeek V3-8b）受限条件下，通过任务拆分完成船舶运货路线规划、数据计算与结构化报告生成。",
@@ -151,7 +151,7 @@ const projects = [
     id: "invoice-agent",
     title: "发票报销 Agent",
     tagline: "税务 API 集成 · 企业财务 Agent 多维核验",
-    category: "业务智能体",
+    category: "企业落地",
     type: "真实经历",
     period: "2025",
     summary: "企业财务场景下的全链路发票核验系统，接入税务局 API 校验真伪，多维交叉核对发票信息，预录入 + 自动匹配确保每张发票切实真实，重复报销拦截率 100%。",
@@ -167,7 +167,7 @@ const projects = [
     id: "material-agent",
     title: "物资管理 Agent",
     tagline: "自然语言驱动 · 企微官方市场上线产品",
-    category: "业务智能体",
+    category: "企业落地",
     type: "真实经历",
     period: "2025",
     summary: "基于企微官方 API 独立开发的物资管理 Agent，上线企微官方市场，覆盖物资进出、存放、位置变更与危机告警全流程，效率提升 18 倍。",
@@ -183,7 +183,7 @@ const projects = [
     id: "chart-mcp",
     title: "Chart MCP Server",
     tagline: "协议层手写实现 · 私有化 MCP 图表服务",
-    category: "开源工具",
+    category: "开发者工具",
     type: "开源项目",
     period: "2025",
     summary: "独立实现的 TypeScript MCP Server，基于 AntV 图表渲染，支持 25+ 图表类型与 stdio / SSE / Streamable 三种协议，私有化部署于云服务器，确保隐私数据全程不出域。",
@@ -200,7 +200,7 @@ const projects = [
     id: "her-catalyst",
     title: "HER 催化剂定向生成",
     tagline: "EGNN + 扩散模型 · AI for Materials Science",
-    category: "AI 科研",
+    category: "AI 产品",
     type: "科研项目",
     period: "2025",
     summary: "用等变图神经网络（EGNN）与多任务引导扩散模型，定向生成兼具高催化活性、热力学稳定性和实验可合成性的新型二维析氢催化材料。",
@@ -217,7 +217,7 @@ const projects = [
     id: "community-agent",
     title: "社里办",
     tagline: "Multi-Agent 架构设计 · 低代码竞赛落地",
-    category: "AI 产品设计",
+    category: "多智能体",
     type: "竞赛项目",
     period: "2025",
     summary: "基于钉钉 DEAP 低代码平台的高校社团 Multi-Agent 系统，深度结合社团业务搭建 30+ 工作流、4 个知识库、4 个 Agent，设计 Agent 间信息传递机制，实现内部管理、团队建设和活动创新全流程覆盖。",
@@ -229,8 +229,6 @@ const projects = [
     role: "负责 AI 产品方案设计、Multi-Agent 架构设计、工作流拆解、知识库建设与 Agent 提示词编写。",
     scores: { business: 88, depth: 78, product: 90, innovation: 78, contribution: 88, verifiable: 95 },
   },
-  {
-    id: "boss-assistant",
 ];
 
 const scoreDimensions = [
@@ -245,14 +243,27 @@ const scoreDimensions = [
 const experiences = [
   {
     time: "2026.03 - 2026.05",
-    title: '小红书 <span class="font-mono italic text-ink tracking-tight ml-2">产品工程师</span> <span class="text-base text-muted font-bold ml-1">(实习)</span>',
-    description:
-      "参与商家技术组双线工作：主导测品笔记生图评测体系，从 20,000 张图中构建 6,700+ 标杆素材库，将 AI 违规率从 11% 压降至 1.7%；同步从 0 搭建商家工单自动化处理系统（Java + Darwin 框架），商家入驻类工单覆盖率超 50%，处理时间 11h → 4h。",
+    title: '小红书 <span class="font-mono italic text-ink tracking-tight ml-2">产品工程师</span>',
+    description: "电商商家技术组，以全栈工程师身份独立交付两条业务线。测品评测体系是主导工作：从 20,000 张图中筛选 6,700+ 标杆素材，设计双层视觉评测 pipeline，将 AI 违规率从 11% 压降至 1.7%。工单自动化系统是自主推动落地的项目：基于 Java + Darwin 框架搭建双层 Agent，Human-in-the-Loop 保障写入安全，覆盖率超 50%，处理用时从 11h 缩短至 4h。",
+    expandable: true,
+    detail: "以 PE（Product Engineer）身份嵌入商家技术组，PE 角色横跨工程交付与业务判断——既写代码，也推动需求落地。两条业务线均为独立主导，从方案设计到上线验收全程负责。",
+    projects: ["aigc-test-image", "work-order-agent"],
   },
   {
     time: "2025.11 - 2026.02",
     title: '珠海环界云计算 <span class="font-mono italic text-ink tracking-tight ml-2">AI 解决方案工程师</span>',
-    description: "为客户定制 Agent 解决方案，落地 12+ 企业项目，覆盖制造、金融、物流等行业。代表成果：物资管理 Agent 效率提升 18 倍，发票报销 Agent 重复拦截率 100%。",
+    description: "独立对客交付，全程一人负责从需求调研、方案设计、工作流搭建到上线验收。服务客户涵盖制造、能源、金融、跨境等行业，并参与企业微信官方合作项目。代表成果：物资管理 Agent 上架企微官方市场，效率提升 18 倍；发票报销 Agent 重复拦截率 100%。",
+    expandable: true,
+    detail: "核心工作是个性化处理客户 POC 需求，直接对客沟通，将 AI 能力翻译成客户可用的业务方案。积累了跨行业 Agent 落地与完整客户交付方法论。",
+    clients: [
+      { name: "大连天亿", tag: "精密仪器制造" },
+      { name: "连用科技", tag: "数据管理平台" },
+      { name: "Renogy", tag: "美国太阳能品牌" },
+      { name: "Phitomas", tag: "马来西亚 ERP" },
+      { name: "Apifiny", tag: "加密资产交易" },
+      { name: "企业微信", tag: "腾讯官方合作" },
+    ],
+    projects: ["invoice-agent", "material-agent", "ship-agent"],
   },
   {
     time: "2023 - 2027",
@@ -261,13 +272,7 @@ const experiences = [
   },
 ];
 
-const capabilities = [
-  { value: "5个", label: "完整闭环项目", detail: "已完成可直接体验的 Mock 产品原型，证明产品闭环能力" },
-  { value: "10+", label: "企业级 POC", detail: "覆盖商家工单、行业规划、社交生态等多场景 Agent 落地" },
-  { value: "60%+", label: "业务流程提效", detail: "真实经历验证：将人工处理用时从 11h 缩短至 4h" },
-];
-
-const categories = ["全部", ...new Set(projects.map((project) => project.category))];
+const categories = ["全部", "多智能体", "AI 产品", "企业落地", "开发者工具"];
 let activeCategory = "全部";
 
 const filterBar = document.querySelector("#filterBar");
@@ -289,7 +294,7 @@ let filteredCommands = [];
 const navigationCommands = [
   { id: "nav-about", title: "Profile / 关于我", icon: "👤", action: () => scrollToId("about") },
   { id: "nav-experience", title: "History / 经历", icon: "📜", action: () => scrollToId("experience") },
-  { id: "nav-work", title: "Systems / 项目系统", icon: "💻", action: () => scrollToId("work") },
+  { id: "nav-work", title: "作品 / 项目", icon: "💻", action: () => scrollToId("work") },
   { id: "nav-method", title: "Thesis / 方法论", icon: "🧠", action: () => scrollToId("method") },
   { id: "nav-contact", title: "Connect / 开始交流", icon: "✉️", action: () => scrollToId("contact") },
 ];
@@ -381,19 +386,104 @@ function topScoreDimension(project) {
 }
 
 function renderTimeline() {
-  timeline.innerHTML = experiences
-    .map(
-      (item) => `
-        <article class="group relative pl-12 pb-16 last:pb-0 reveal">
-          <div class="absolute left-0 top-0 bottom-0 w-px bg-black/[0.05] group-last:bg-transparent"></div>
-          <div class="absolute left-[-5px] top-2 w-2.5 h-2.5 rounded-full bg-accent ring-8 ring-white transition-all duration-500 group-hover:scale-150 group-hover:bg-ink"></div>
-          <time class="block text-[10px] font-bold font-mono text-accent italic uppercase tracking-widest mb-4">${item.time}</time>
-          <h3 class="text-2xl font-black text-ink mb-4 tracking-tighter flex items-baseline flex-wrap">${item.title}</h3>
-          <p class="text-muted text-lg font-medium leading-relaxed max-w-2xl">${item.description}</p>
-        </article>
-      `,
-    )
-    .join("");
+  timeline.innerHTML = experiences.map((item, idx) => {
+    const isExpandable = item.expandable;
+
+    const clientsHtml = item.clients ? `
+      <div class="mt-6">
+        <span class="text-[10px] font-bold tracking-[0.2em] text-muted uppercase font-mono block mb-3">服务客户</span>
+        <div class="flex flex-wrap gap-2">
+          ${item.clients.map(c => `
+            <div class="flex items-center gap-2 px-3 py-1.5 bg-white border border-black/[0.05] rounded-full">
+              <span class="text-xs font-bold text-ink">${c.name}</span>
+              <span class="text-[10px] text-muted font-mono">${c.tag}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    ` : '';
+
+    const relatedProjectsHtml = item.projects ? `
+      <div class="mt-6">
+        <span class="text-[10px] font-bold tracking-[0.2em] text-muted uppercase font-mono block mb-3">关联项目</span>
+        <div class="flex flex-wrap gap-3">
+          ${item.projects.map(pid => {
+            const p = projects.find(p => p.id === pid);
+            if (!p) return '';
+            return `
+              <button class="text-left px-4 py-3 bg-bgsoft hover:bg-white border border-black/[0.05] hover:border-accent/20 rounded-2xl transition-all duration-300 group/proj" data-open-project="${projects.indexOf(p)}">
+                <div class="text-xs font-black text-ink group-hover/proj:text-accent transition-colors">${p.title}</div>
+                <div class="text-[10px] font-mono text-muted mt-0.5">${p.tagline || p.type}</div>
+              </button>
+            `;
+          }).join('')}
+        </div>
+      </div>
+    ` : '';
+
+    const expandContent = isExpandable ? `
+      <div class="timeline-expand overflow-hidden transition-all duration-500 ease-out" style="max-height: 0; opacity: 0;">
+        <div class="mt-6 pt-6 border-t border-black/[0.04]">
+          <p class="text-base text-muted font-medium leading-relaxed">${item.detail || ''}</p>
+          ${clientsHtml}
+          ${relatedProjectsHtml}
+        </div>
+      </div>
+    ` : '';
+
+    const expandBtn = isExpandable ? `
+      <button class="timeline-toggle mt-4 flex items-center gap-2 text-[10px] font-bold text-muted hover:text-accent transition-colors uppercase tracking-widest font-mono">
+        <span class="toggle-label">展开详情</span>
+        <svg class="toggle-icon w-3 h-3 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+      </button>
+    ` : '';
+
+    const isFirst = idx === 0;
+    return `
+      <article class="group relative pl-12 pb-16 last:pb-0 reveal">
+        <div class="absolute left-0 top-0 bottom-0 w-px bg-black/[0.05] group-last:bg-transparent"></div>
+        <div class="absolute left-[-5px] top-2 w-2.5 h-2.5 rounded-full ${isFirst ? 'bg-accent ring-8 ring-white scale-125' : 'bg-accent ring-8 ring-white'} transition-all duration-500 group-hover:scale-150 group-hover:bg-ink"></div>
+        ${isFirst ? '<span class="hidden md:block absolute left-[-28px] top-0 text-[9px] font-bold text-accent font-mono uppercase tracking-widest" style="writing-mode:vertical-rl">Latest</span>' : ''}
+        <time class="block text-[10px] font-bold font-mono text-accent italic uppercase tracking-widest mb-4">${item.time}</time>
+        <h3 class="text-2xl font-black text-ink mb-4 tracking-tighter flex items-baseline flex-wrap">${item.title}</h3>
+        <p class="text-muted text-lg font-medium leading-relaxed max-w-2xl">${item.description}</p>
+        ${expandBtn}
+        ${expandContent}
+      </article>
+    `;
+  }).join('');
+
+  // 展开/收起交互
+  timeline.querySelectorAll('.timeline-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const article = btn.closest('article');
+      const expand = article.querySelector('.timeline-expand');
+      const label = btn.querySelector('.toggle-label');
+      const icon = btn.querySelector('.toggle-icon');
+      const isOpen = expand.style.maxHeight !== '0px' && expand.style.maxHeight !== '';
+
+      if (isOpen) {
+        expand.style.maxHeight = '0';
+        expand.style.opacity = '0';
+        label.textContent = '展开详情';
+        icon.style.transform = 'rotate(0deg)';
+      } else {
+        expand.style.maxHeight = expand.scrollHeight + 'px';
+        expand.style.opacity = '1';
+        label.textContent = '收起';
+        icon.style.transform = 'rotate(180deg)';
+      }
+    });
+  });
+
+  // 关联项目点击
+  timeline.querySelectorAll('[data-open-project]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx = parseInt(btn.dataset.openProject);
+      openProject(idx);
+    });
+  });
+
   observeReveals();
 }
 
@@ -422,7 +512,7 @@ function projectActions(project) {
 
 function projectCard(project, modifier = "") {
   return `
-    <article class="project-item reveal group cursor-pointer bg-white/40 backdrop-blur-sm p-10 rounded-[40px] hover:bg-white shadow-sm hover:shadow-ambient-hover transition-all duration-700 hover:scale-[1.02] border border-black/[0.03] hover-shine" data-index="${projects.indexOf(project)}" tabindex="0" role="button">
+    <article class="project-item reveal group cursor-pointer bg-white/40 backdrop-blur-sm p-7 rounded-3xl hover:bg-white shadow-sm hover:shadow-ambient-hover transition-all duration-500 border border-black/[0.03] hover:border-black/[0.08]" data-index="${projects.indexOf(project)}" tabindex="0" role="button">
       <div class="flex flex-col h-full justify-between relative z-10">
         <div>
           <div class="flex items-center justify-between mb-8">
@@ -455,9 +545,11 @@ function projectCard(project, modifier = "") {
 
 function renderFeatured() {
   if (!featuredGrid) return;
-  featuredGrid.innerHTML = projects
-    .filter((project) => project.priority === "featured")
-    .slice(0, 2)
+  const visibleFeatured = projects.filter(p =>
+    p.priority === "featured" &&
+    (activeCategory === "全部" || p.category === activeCategory)
+  );
+  featuredGrid.innerHTML = visibleFeatured
     .map((project, idx) => {
       const card = projectCard(project, "featured-card");
       return card.replace('reveal', `reveal stagger-${idx + 1}`);
@@ -470,7 +562,7 @@ function renderProjects() {
   const visibleProjects =
     activeCategory === "全部"
       ? projects.filter((project) => project.priority !== "featured")
-      : projects.filter((project) => project.category === activeCategory);
+      : projects.filter((project) => project.category === activeCategory && project.priority !== "featured");
 
   projectGrid.innerHTML = visibleProjects.map((project, idx) => {
     const card = projectCard(project);
@@ -484,18 +576,18 @@ function openProject(index) {
   const topDim = topScoreDimension(project);
   
   dialogContent.innerHTML = `
-    <div class="flex flex-col md:flex-row h-[85vh] overflow-hidden">
+    <div class="flex flex-col md:flex-row md:h-[85vh] md:overflow-hidden">
       <!-- Left Sidebar: Technical Specs -->
-      <div class="md:w-80 bg-bgsoft p-10 border-r border-black/[0.03] flex flex-col justify-between overflow-y-auto no-scrollbar">
+      <div class="md:w-80 bg-bgsoft p-6 md:p-10 border-b md:border-b-0 md:border-r border-black/[0.03] flex flex-col justify-between md:overflow-y-auto no-scrollbar">
         <div>
           <div class="mb-12">
-            <span class="text-[10px] font-bold tracking-[0.3em] text-accent uppercase font-mono block mb-4">Project ID</span>
-            <code class="text-xs font-mono bg-white px-3 py-1.5 rounded border border-black/[0.05] text-ink">${project.id.toUpperCase()}</code>
+            <span class="text-[10px] font-bold tracking-[0.3em] text-accent uppercase font-mono block mb-4">分类</span>
+            <code class="text-xs font-mono bg-white px-3 py-1.5 rounded border border-black/[0.05] text-ink">${project.category}</code>
           </div>
           
           <div class="space-y-8">
             <div>
-              <span class="text-[10px] font-bold tracking-[0.3em] text-muted uppercase font-mono block mb-4">Core Dimensions</span>
+              <span class="text-[10px] font-bold tracking-[0.3em] text-muted uppercase font-mono block mb-4">评分维度</span>
               <div class="space-y-4">
                 ${scoreDimensions.map(d => `
                   <div class="group/score">
@@ -521,22 +613,18 @@ function openProject(index) {
         </div>
 
         <div class="pt-10 border-t border-black/[0.05]">
-          <div class="flex items-center gap-3 text-accent mb-4">
-            <div class="w-2 h-2 rounded-full bg-accent animate-pulse"></div>
-            <span class="text-[10px] font-bold tracking-widest uppercase font-mono">System Active</span>
-          </div>
           ${projectActions(project)}
         </div>
       </div>
 
       <!-- Main Content: System Report -->
-      <div class="flex-1 p-12 md:p-20 overflow-y-auto no-scrollbar bg-white relative">
+      <div class="flex-1 p-6 md:p-20 md:overflow-y-auto no-scrollbar bg-white relative">
         <div class="max-w-3xl">
           <header class="mb-20">
             <div class="flex items-center gap-4 mb-6">
-              <span class="text-xs font-mono text-accent">Report / ${project.period}</span>
+              <span class="text-xs font-mono text-accent">${project.period}</span>
               <span class="w-1 h-1 rounded-full bg-black/10"></span>
-              <span class="text-xs font-mono text-muted uppercase tracking-widest">${project.category}</span>
+              <span class="text-xs font-mono text-muted uppercase tracking-widest">${project.type}</span>
             </div>
             <h2 class="text-6xl font-black tracking-tighter text-ink leading-tight mb-3">${project.title}</h2>
             ${project.tagline ? `<p class="font-mono text-sm text-accent tracking-widest mb-6">${project.tagline}</p>` : ''}
@@ -559,9 +647,9 @@ function openProject(index) {
               </div>
             </div>
 
-            <div class="bg-bgsoft rounded-[40px] p-12 reveal stagger-3 border border-black/[0.03]">
+            <div class="bg-bgsoft rounded-3xl p-12 reveal stagger-3 border border-black/[0.03]">
               <h4 class="text-[10px] font-bold tracking-[0.4em] text-accent uppercase font-mono mb-8 flex items-center gap-3">
-                <span class="w-8 h-px bg-accent/20"></span> Engineering Thesis
+                <span class="w-8 h-px bg-accent/20"></span> 工程实现
               </h4>
               <p class="text-xl text-ink leading-relaxed font-medium mb-10">${project.engineering}</p>
               <div class="grid grid-cols-2 gap-8 border-t border-black/[0.05] pt-10">
@@ -604,6 +692,7 @@ filterBar.addEventListener("click", (event) => {
   if (!button) return;
   activeCategory = button.dataset.category;
   renderFilters();
+  renderFeatured();
   renderProjects();
 });
 
@@ -689,3 +778,37 @@ renderFeatured();
 renderFilters();
 renderProjects();
 observeReveals();
+
+// WeChat copy
+function copyWechat() {
+  navigator.clipboard.writeText('Bluish_Stardust').then(() => {
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2200);
+  });
+}
+
+// Capability cards — JS-driven height animation for smooth expand
+document.querySelectorAll('.capability-card').forEach(card => {
+  const desc = card.querySelector('.capability-desc');
+  if (!desc) return;
+  desc.style.maxHeight = '0';
+  desc.style.overflow = 'hidden';
+  desc.style.opacity = '0';
+  desc.style.marginTop = '0';
+  desc.style.transition = 'max-height 0.35s cubic-bezier(0.16,1,0.3,1), opacity 0.3s ease, margin-top 0.35s ease';
+
+  const open = () => { desc.style.maxHeight = desc.scrollHeight + 'px'; desc.style.opacity = '1'; desc.style.marginTop = '0.75rem'; };
+  const close = () => { desc.style.maxHeight = '0'; desc.style.opacity = '0'; desc.style.marginTop = '0'; };
+
+  if (window.matchMedia('(hover: none)').matches) {
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', () => {
+      const isOpen = desc.style.maxHeight !== '0px' && desc.style.maxHeight !== '';
+      isOpen ? close() : open();
+    });
+  } else {
+    card.addEventListener('mouseenter', open);
+    card.addEventListener('mouseleave', close);
+  }
+});
