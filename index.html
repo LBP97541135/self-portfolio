@@ -353,11 +353,11 @@
     <div id="toast">微信号已复制</div>
 
     <dialog class="project-dialog p-0 bg-transparent backdrop:bg-black/20 backdrop:backdrop-blur-xl" id="projectDialog">
-      <div class="relative max-w-[90vw] md:max-w-6xl mx-auto my-[5vh] bg-white rounded-[48px] shadow-2xl overflow-hidden border border-black/[0.05]">
-        <button class="absolute top-10 right-10 w-12 h-12 flex items-center justify-center bg-bgsoft rounded-full text-muted hover:text-ink transition-all z-50 hover:scale-110 active:scale-95" id="dialogClose">
+      <div class="relative max-w-[90vw] md:max-w-6xl mx-auto my-[5vh] bg-white rounded-[48px] shadow-2xl overflow-hidden border border-black/[0.05] max-h-[90vh]">
+        <button class="absolute top-8 right-8 w-11 h-11 flex items-center justify-center bg-bgsoft rounded-full text-muted hover:text-ink transition-all z-50 hover:scale-110 active:scale-95" id="dialogClose">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
         </button>
-        <div id="dialogContent"></div>
+        <div id="dialogContent" class="max-h-[90vh] overflow-y-auto no-scrollbar"></div>
       </div>
     </dialog>
 

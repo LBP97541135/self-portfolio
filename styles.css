@@ -178,3 +178,62 @@ button:focus-visible, a:focus-visible {
   writing-mode: vertical-rl;
   text-orientation: mixed;
 }
+
+/* Mini score matrix in project cards */
+.score-matrix-mini {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.score-row-mini {
+  display: grid;
+  grid-template-columns: 2rem 1fr 2rem;
+  align-items: center;
+  gap: 6px;
+}
+
+.score-label-mini {
+  font-size: 9px;
+  font-weight: 700;
+  font-family: "IBM Plex Mono", "JetBrains Mono", monospace;
+  color: var(--muted);
+  text-align: right;
+  letter-spacing: 0.05em;
+}
+
+.score-track-mini {
+  height: 3px;
+  background: var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.score-fill-mini {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 999px;
+  opacity: 0.65;
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.group:hover .score-fill-mini {
+  opacity: 1;
+}
+
+.score-num-mini {
+  font-size: 9px;
+  font-weight: 700;
+  font-family: "IBM Plex Mono", "JetBrains Mono", monospace;
+  color: var(--muted);
+  text-align: left;
+}
+
+/* Module cards in project dialog */
+.module-card {
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.module-card:hover {
+  transform: translateY(-2px);
+}

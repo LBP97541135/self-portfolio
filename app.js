@@ -15,6 +15,11 @@ const projects = [
     engineering: "AgentScope 作为 Agent 执行底座 + 自建 GameEngine；信念系统实现一阶/二阶信念追踪；Prompt/Skill 沉淀到对应身份；Fleet 模式支持同时开多局批量评测；FastAPI + React/Three.js + SSE 实时直播。",
     role: "负责博弈模块（信念矩阵、预投票意向实时更新）、自进化模块（Skill 沉淀机制）与 Fleet 批量评测设计。",
     scores: { business: 75, depth: 95, product: 91, innovation: 95, contribution: 80, verifiable: 99 },
+    modules: [
+      { title: "信念矩阵与博弈推理", detail: "每轮白天发言后，Agent 实时更新对其他玩家身份可信度的一阶/二阶信念，并同步修正预投票意向，让每次发言都驱动真实策略变化。", metric: "7 阶段完整博弈链路" },
+      { title: "Skill 自进化机制", detail: "通过预投票意向的变化识别最具影响力的发言，结合 Agent 实时思考链，将发言策略和逻辑沉淀为角色专属 Skill，下一局自动调用。", metric: null },
+      { title: "Fleet 批量评测", detail: "支持多局并行开跑，横向对比不同 Skill 配置下的胜率变化，量化自进化收益——对应 AgentOps 中 Agent 效果评测场景。", metric: "可量化 Skill 迭代效果" },
+    ],
     mock: "labs/multiagent-werewolf/dist/",
     doc: "docs/projects/multiagent-werewolf.html",
     github: "https://github.com/kissie-77/MultiAgent-Werewolf",
@@ -35,6 +40,11 @@ const projects = [
     engineering: "后端 Python + FastAPI + SQLite，完整实现剧本管理、角色状态、对话记录与 Gene/Capsule 进化数据持久化；前端完成剧本库、游戏舞台、证物推理、复盘进化和个人助理六层产品结构的端到端体验。",
     role: "负责产品结构拆解、证物推理链、复盘进化机制和静态 Mock 前端搭建。",
     scores: { business: 88, depth: 92, product: 94, innovation: 85, contribution: 93, verifiable: 98 },
+    modules: [
+      { title: "DM Agent 全程主持", detail: "负责开场引导、各阶段线索释放、投票组织，模拟人类 DM 的节奏控制，维持玩家沉浸感。", metric: null },
+      { title: "证物推理链", detail: "玩家调查证物后，系统从多角色视角生成推理路径，追踪每条证据与嫌疑人的关联度变化。", metric: null },
+      { title: "Gene/Capsule 进化记忆", detail: "每局结束生成进化报告，将玩家风格偏好和 Agent 行为模式封装为 Capsule，下一局自动加载，让 Agent 越玩越懂你。", metric: "跨局记忆持久化" },
+    ],
     mock: "labs/evo-murder-game/",
     doc: "docs/projects/evo-murder-game.html",
     github: "https://github.com/LBP97541135/evo-murder-game",
@@ -55,6 +65,12 @@ const projects = [
     engineering: "Python 3.11+ + FastAPI 全异步后端，React (TypeScript + Tailwind) 前端；自研 haiji 框架实现三种 Agent 执行模式、Skill 向量相似度语义动态检索、Memory 持久化（重启不失忆）；AST 静态分析 + 受限沙箱确保代码安全执行；自然语言 → Agent 定义自动化创建；群聊支持意愿驱动发言，Agent 可主动发朋友圈。",
     role: "独立完成全栈开发，从框架核心（agent / memory / workflow 模块）到前端产品体验全部自主实现。",
     scores: { business: 60, depth: 81, product: 90, innovation: 92, contribution: 100, verifiable: 90 },
+    modules: [
+      { title: "自研 Multi-Agent 框架", detail: "三种执行模式（顺序 / 并行 / 条件分支），Skill 通过向量相似度语义检索动态匹配，框架与业务逻辑完全解耦。", metric: "574 个测试全通过" },
+      { title: "Memory 持久化", detail: "Agent 记忆写入数据库，重启后完整恢复，支持跨对话上下文延续，角色关系不随进程终止而丢失。", metric: null },
+      { title: "AST 沙箱安全执行", detail: "代码生成后经 AST 静态分析过滤危险调用，在受限沙箱内执行，防止 Agent 越权操作宿主系统。", metric: null },
+      { title: "意愿驱动群聊", detail: "Agent 根据自身目标和当前话题热度主动决定是否发言，而非被动响应，群聊氛围更接近真实社交节奏。", metric: null },
+    ],
     mock: "labs/haji-ai/",
     doc: "docs/projects/haji-ai.html",
     github: "https://github.com/LBP97541135/haji-ai",
@@ -75,6 +91,11 @@ const projects = [
     engineering: "TypeScript 全栈（apps/web 前端 + services/api 后端 + data 数据层），完整实现教练对话、任务追踪、复盘分析与洞察看板；每一个产品决策都以用户体验为核心驱动。",
     role: "负责训练闭环、画像更新、推荐逻辑和职业成长产品表达。",
     scores: { business: 78, depth: 70, product: 97, innovation: 80, contribution: 100, verifiable: 95 },
+    modules: [
+      { title: "教练对话与问题诊断", detail: "通过结构化提问引导用户复盘工作，识别卡点根因，生成针对具体场景的行动建议，而不是通用建议。", metric: null },
+      { title: "任务追踪看板", detail: "可视化管理每日 / 周期性目标，记录进展与复盘节点，把碎片化工作经历转化为结构化成长路径。", metric: null },
+      { title: "能力画像与洞察", detail: "根据历史任务输入持续更新用户的能力维度画像，结合薄弱项推荐针对性行动，而非静态测评。", metric: null },
+    ],
     mock: "labs/ai-work-coach/",
     doc: "docs/projects/ai-work-coach.html",
     github: "https://github.com/LBP97541135/ai-work-coach",
@@ -95,6 +116,11 @@ const projects = [
     engineering: "基于开源 MoneyPrinterTurbo 本地部署，重新设计提示词策略：主题 → 关键词扩写（用于素材搜索）→ 结合主题与关键词生成视频文案，将原本分散的多步骤配置整合为单一输入的自动化流水线。",
     role: "负责视频生产流水线抽象、候选评分、生成控制台和成片资产展示。",
     scores: { business: 80, depth: 65, product: 82, innovation: 76, contribution: 60, verifiable: 88 },
+    modules: [
+      { title: "关键词扩写层", detail: "用户仅需输入主题，系统自动扩展为多维度关键词，覆盖内容角度、受众痛点和热门标签，桥接主题意图与素材检索之间的语义 gap。", metric: null },
+      { title: "素材自动匹配", detail: "以扩写关键词为检索 query，批量匹配素材库，按相关度排序后进入视频合成队列，全程无需手动筛选。", metric: null },
+      { title: "提示词工程优化", detail: "重新设计生成策略：先扩写关键词，再结合主题与关键词共同生成视频文案，解决原工具需大量手动配置的问题。", metric: "单主题输入→全链路自动化" },
+    ],
     mock: "labs/money-printer-turbo/",
     doc: "docs/projects/money-printer-turbo.html",
     github: "https://github.com/LBP97541135/MoneyPrinterTurbo",
@@ -114,6 +140,11 @@ const projects = [
     engineering: "小模型（现有视觉模型 + 精细 prompt）承担高速初筛，大模型负责多维细节评分；将人脸区域与光影质量纳入关键评测维度，从评测源头降低 AI 违规风险；生图链路基于 SeedDream 改图与 Redfire 上色。",
     role: "负责标杆素材库筛选体系设计与执行，构建双层视觉评测 pipeline，编写评测 prompt，将 AI 违规风险维度纳入评分框架。",
     scores: { business: 92, depth: 85, product: 91, innovation: 80, contribution: 80, verifiable: 80 },
+    modules: [
+      { title: "标杆素材库建设", detail: "从 20,000 张商家测品图中制定筛选标准（构图、人脸质量、光影、服装清晰度），建立 6,700+ 张高质量参考库，为生图提供方向锚点。", metric: "6,700+ 张入库" },
+      { title: "小模型快速初筛", detail: "用现有视觉模型 + 精细 prompt 实现高速二分类（合格/不合格）和粗分类，过滤掉明显不达标的生图，大幅降低大模型调用成本。", metric: null },
+      { title: "大模型细粒度打分", detail: "对通过初筛的图片进行多维度评分，核心创新是将人脸区域和光影质量纳入评测维度——这是 AI 检测系统的主要违规触发点，也是本方案的工程难点。", metric: "违规率 11% → 1.7%" },
+    ],
   },
   {
     id: "work-order-agent",
@@ -130,6 +161,11 @@ const projects = [
     engineering: "Java + Darwin 框架（小红书内部），React 自主模式；写入操作前通过内部 IM（Hi）向值班人员发送包含工单信息与处理原因的卡片，确认后执行；操作完成后主动查询数据库验证变更真实生效。",
     role: "从 0 到 1 完成项目一期搭建，负责两级分类设计、场景 Skill 编排、Hi 卡片人工确认机制与数据库回查校验。",
     scores: { business: 98, depth: 92, product: 88, innovation: 80, contribution: 95, verifiable: 80 },
+    modules: [
+      { title: "双层分类路由", detail: "第一层用小模型按大类（商家入驻/账号资质/开放平台/转人工）做快速路由；第二层 Agent 以 React 自主模式探索细分场景，动态调用对应 Skill 处理。", metric: "覆盖率 >50%" },
+      { title: "Human-in-the-Loop 安全机制", detail: "所有写入操作执行前，通过内部 IM 向值班人员推送包含工单信息和处理原因的确认卡片，人工审核通过后才执行，杜绝误操作风险。", metric: null },
+      { title: "数据库回查验证", detail: "操作完成后主动查询数据库，验证变更是否真实生效，不依赖工具返回值作为唯一凭证，保证系统可信度。", metric: "处理用时 11h → 4h" },
+    ],
   },
   {
     id: "ship-agent",
@@ -146,6 +182,11 @@ const projects = [
     engineering: "生产环境限制使用 DeepSeek V3-8b 本地小模型，无法依赖强模型能力；核心工程判断是将任务拆分为信息提取 / 路线规划 / 数字处理三个独立子任务，让每个子任务的推理难度降至小模型可处理范围；Langflow + RAG 完成线路匹配，Python tool 处理数字计算，最终在受限条件下实现 98%+ 准确率并支持特殊地点处理。",
     role: "负责行业任务拆解设计、RAG 线路匹配、Python 数字计算工具编排与结构化报告输出方案。",
     scores: { business: 95, depth: 75, product: 90, innovation: 70, contribution: 95, verifiable: 60 },
+    modules: [
+      { title: "任务拆分策略", detail: "将单次复杂请求拆分为信息提取 / 路线规划 / 数字处理三个独立子任务，将每个子任务难度降至 DeepSeek V3-8b 可处理范围，不依赖强模型。", metric: "准确率 98%+" },
+      { title: "RAG 线路匹配", detail: "用 Langflow 构建线路数据检索流，以起点 + 目的地为 query 向量检索最优航线，返回结构化路线参数供后续计算使用。", metric: null },
+      { title: "Python 数字计算工具", detail: "将货运量、时间估算等精确计算从 LLM 推理中剥离，以 Python tool 独立处理，避免大模型幻觉影响数字结果准确性。", metric: "一周调用 1 万+" },
+    ],
   },
   {
     id: "invoice-agent",
@@ -162,6 +203,11 @@ const projects = [
     engineering: "FastGPT + OCR + Python + WeCom API，接入税务局 API 进行发票真伪校验；核心工程难点在于企微多维表之间的数据关联设计（预录入信息、发票记录、报销状态、财务台账多表联动），以及多条件交叉核验逻辑的准确性保障。",
     role: "独立完成全部开发，包括税务局接口集成、多维核验逻辑、多维表数据结构设计与前台看板搭建。",
     scores: { business: 90, depth: 82, product: 80, innovation: 70, contribution: 100, verifiable: 92 },
+    modules: [
+      { title: "税务局 API 真伪核验", detail: "接入国家税务局 API，发票到达后自动校验真实性，从源头拦截假发票，免去财务人工查验的重复劳动。", metric: "重复报销拦截 100%" },
+      { title: "多维交叉核对", detail: "发票信息与预录入基准数据进行四维核对：开票公司 / 金额 / 时间 / 报销额度，全部通过才进入自动录入，任一异常触发告警。", metric: null },
+      { title: "企微多维表联动", detail: "设计四表联动数据结构：预录入信息、发票记录、报销状态、财务台账，多表实时同步，前台看板实时汇总，财务人员全程无需手动核查。", metric: null },
+    ],
   },
   {
     id: "material-agent",
@@ -178,6 +224,11 @@ const projects = [
     engineering: "完全基于企微官方 API 构建，FastGPT + SmartSheet + WeCom API；核心工程难点在于多维表之间的数据关联设计，覆盖物资进出、存放位置、换位记录与库存阈值告警的多表联动。",
     role: "独立完成全部开发，从物资操作流程拆解、多维表数据结构设计到 Agent 推理 prompt 与企微市场上架。",
     scores: { business: 92, depth: 85, product: 85, innovation: 72, contribution: 100, verifiable: 92 },
+    modules: [
+      { title: "自然语言操作解析", detail: "员工用自然语言描述物资需求，Agent 多步推理拆解为具体操作指令，调用企微多维表 API 执行，无需培训，使用门槛极低。", metric: "效率提升 18 倍" },
+      { title: "物资全周期管理", detail: "覆盖物资入库、出库、存放位置变更和库存阈值告警四类操作，多维表多表联动维护实时库存状态，防止漏记和重复操作。", metric: null },
+      { title: "企微官方市场上架", detail: "完全基于企微官方 API 构建，通过企微官方应用审核并上线应用市场，具备商业化交付能力，证明方案可复制性。", metric: "上线企微官方市场" },
+    ],
   },
   {
     id: "chart-mcp",
@@ -194,6 +245,11 @@ const projects = [
     engineering: "TypeScript 独立实现完整 MCP Server，支持 stdio / SSE / Streamable 三种传输协议；图表渲染层使用 AntV 包，MCP 协议层、工具注册、请求路由与响应封装全部自主实现；Docker 容器化后部署于云服务器，对外提供私有图表服务。",
     role: "独立完成 MCP Server 设计与实现、AntV 渲染集成、三种协议适配、Docker 容器化与云服务器部署。",
     scores: { business: 75, depth: 88, product: 82, innovation: 88, contribution: 90, verifiable: 92 },
+    modules: [
+      { title: "三协议 MCP 手写实现", detail: "完整实现 stdio、SSE、Streamable HTTP 三种 MCP 传输协议，不依赖第三方 MCP SDK，协议层/工具注册/请求路由/响应封装全部自主实现。", metric: "25+ 图表类型" },
+      { title: "AntV 渲染集成", detail: "对接 AntV 图表库，AI 应用通过标准 MCP 工具调用传参即可触发渲染，支持折线、柱状、饼图、散点、热力图等多种类型。", metric: null },
+      { title: "私有化部署方案", detail: "Docker 容器化后部署至云服务器，敏感业务数据（财务、客户、内部指标）全程在私有环境内完成渲染，不经过任何第三方服务。", metric: "数据不出域" },
+    ],
     github: "https://github.com/LBP97541135/mcp-server-chart",
   },
   {
@@ -211,6 +267,11 @@ const projects = [
     engineering: "EGNN 维持晶体结构生成中的物理不变性，多任务引导优化同时约束多个材料性质目标，PyTorch + torch-geometric + pymatgen + ase 完整实现。",
     role: "独立完成模型设计、EGNN 实现、扩散生成流程与材料性质优化目标设定。",
     scores: { business: 50, depth: 92, product: 62, innovation: 92, contribution: 90, verifiable: 95 },
+    modules: [
+      { title: "EGNN 物理不变性建模", detail: "用等变图神经网络维持晶体结构生成中的旋转/平移不变性，确保生成的原子坐标满足物理对称性约束，而非随机噪声输出。", metric: null },
+      { title: "多任务引导扩散生成", detail: "在扩散过程中同时施加催化活性（|ΔG_H|）、热力学稳定性和实验可合成性三个优化目标，通过梯度引导平衡多目标冲突。", metric: "|ΔG_H| 逼近 Sabatier 理想值" },
+      { title: "材料空间定向探索", detail: "从随机噪声逐步恢复具有特定对称性的二维晶体结构，替代传统实验试错路径，系统性搜索高性能 HER 催化材料候选。", metric: null },
+    ],
     github: "https://github.com/LBP97541135/her-catalyst-diffusion",
   },
   {
@@ -228,6 +289,11 @@ const projects = [
     engineering: "在钉钉 DEAP 平台上设计 Multi-Agent 架构：30+ 工作流覆盖社团核心业务，4 个知识库分类沉淀社团经验，4 个 Agent 各司其职，重点设计 Agent 间上下文传递机制，确保跨 Agent 任务信息不丢失。",
     role: "负责 AI 产品方案设计、Multi-Agent 架构设计、工作流拆解、知识库建设与 Agent 提示词编写。",
     scores: { business: 88, depth: 78, product: 90, innovation: 78, contribution: 88, verifiable: 95 },
+    modules: [
+      { title: "Multi-Agent 调度架构", detail: "主 Agent 统一接收请求，根据意图路由至内部管理/团队建设/活动创新三个专属 Agent，重点设计跨 Agent 上下文传递机制，确保信息不丢失。", metric: "30+ 工作流" },
+      { title: "工作流自动化", detail: "结合钉钉原生接口，将报批、通知、归档等传统社团管理流程封装为工作流，一条指令触发完整执行链。", metric: null },
+      { title: "知识库沉淀与活动创新", detail: "建立 4 个分类知识库沉淀社团历史经验，结合 LLM 生成能力，在历史活动模板基础上输出创新方案，让新生代可以快速继承前人经验。", metric: "4 个知识库" },
+    ],
   },
 ];
 
@@ -511,32 +577,45 @@ function projectActions(project) {
 }
 
 function projectCard(project, modifier = "") {
+  const s = project.scores || {};
+  const dims = [
+    { key: "business", label: "业务" },
+    { key: "depth",    label: "技术" },
+    { key: "product",  label: "产品" },
+    { key: "innovation", label: "创新" },
+    { key: "contribution", label: "贡献" },
+    { key: "verifiable", label: "验证" },
+  ];
+  const matrixHtml = `
+    <div class="score-matrix-mini mt-4 mb-6">
+      ${dims.map(d => `
+        <div class="score-row-mini">
+          <span class="score-label-mini">${d.label}</span>
+          <div class="score-track-mini"><div class="score-fill-mini" style="width:${s[d.key] || 0}%"></div></div>
+          <span class="score-num-mini">${s[d.key] || 0}</span>
+        </div>
+      `).join('')}
+    </div>
+  `;
   return `
     <article class="project-item reveal group cursor-pointer bg-white/40 backdrop-blur-sm p-7 rounded-3xl hover:bg-white shadow-sm hover:shadow-ambient-hover transition-all duration-500 border border-black/[0.03] hover:border-black/[0.08]" data-index="${projects.indexOf(project)}" tabindex="0" role="button">
       <div class="flex flex-col h-full justify-between relative z-10">
         <div>
-          <div class="flex items-center justify-between mb-8">
+          <div class="flex items-center justify-between mb-5">
             <span class="text-[10px] font-bold tracking-[0.3em] text-accent uppercase font-mono">${project.category}</span>
             <span class="text-[10px] font-mono text-muted/50">${project.period}</span>
           </div>
-          <h3 class="text-3xl font-black text-ink mb-2 flex items-center gap-3 group-hover:text-accent transition-colors duration-500 tracking-tighter group-hover:translate-x-2 transition-transform">
+          <h3 class="text-2xl font-black text-ink mb-1 flex items-center gap-3 group-hover:text-accent transition-colors duration-500 tracking-tighter group-hover:translate-x-1 transition-transform">
             ${project.title}
-            <svg class="w-6 h-6 opacity-0 -translate-x-3 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>
+            <svg class="w-5 h-5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>
           </h3>
-          ${project.tagline ? `<p class="font-mono text-xs text-accent/70 tracking-wide mb-4">${project.tagline}</p>` : '<div class="mb-4"></div>'}
-          <p class="text-muted text-base font-medium leading-relaxed mb-8 line-clamp-3 group-hover:text-ink transition-colors">${project.summary}</p>
-          <div class="flex flex-wrap gap-2 mb-10">
-            ${project.tags.slice(0, 3).map(tag => `<span class="px-4 py-1.5 bg-black/5 rounded-full text-[10px] font-bold text-muted/80 uppercase tracking-wider group-hover:bg-accent/10 group-hover:text-accent transition-all">${tag}</span>`).join('')}
-          </div>
+          ${project.tagline ? `<p class="font-mono text-[10px] text-accent/70 tracking-wide mb-3">${project.tagline}</p>` : '<div class="mb-3"></div>'}
+          <p class="text-muted text-sm font-medium leading-relaxed line-clamp-2 group-hover:text-ink transition-colors mb-2">${project.summary}</p>
+          ${matrixHtml}
         </div>
-        <div>
-          <div class="pt-8 border-t border-black/[0.03] group-hover:border-accent/20 transition-colors">
-            <p class="text-[10px] font-bold text-muted uppercase tracking-[0.2em] mb-2 font-mono">Key Outcome</p>
-            <p class="text-lg text-ink font-bold tracking-tight group-hover:text-accent transition-colors">${project.result}</p>
-          </div>
-          <div class="overflow-hidden max-h-0 group-hover:max-h-20 transition-all duration-700 ease-in-out">
-            ${projectActions(project)}
-          </div>
+        <div class="pt-5 border-t border-black/[0.04] group-hover:border-accent/20 transition-colors">
+          <p class="text-[10px] font-bold text-muted uppercase tracking-[0.2em] mb-1 font-mono">Key Outcome</p>
+          <p class="text-sm text-ink font-bold tracking-tight group-hover:text-accent transition-colors leading-snug">${project.result}</p>
         </div>
       </div>
     </article>
@@ -573,98 +652,95 @@ function renderProjects() {
 
 function openProject(index) {
   const project = projects[index];
-  const topDim = topScoreDimension(project);
-  
-  dialogContent.innerHTML = `
-    <div class="flex flex-col md:flex-row md:h-[85vh] md:overflow-hidden">
-      <!-- Left Sidebar: Technical Specs -->
-      <div class="md:w-80 bg-bgsoft p-6 md:p-10 border-b md:border-b-0 md:border-r border-black/[0.03] flex flex-col justify-between md:overflow-y-auto no-scrollbar">
-        <div>
-          <div class="mb-12">
-            <span class="text-[10px] font-bold tracking-[0.3em] text-accent uppercase font-mono block mb-4">分类</span>
-            <code class="text-xs font-mono bg-white px-3 py-1.5 rounded border border-black/[0.05] text-ink">${project.category}</code>
-          </div>
-          
-          <div class="space-y-8">
-            <div>
-              <span class="text-[10px] font-bold tracking-[0.3em] text-muted uppercase font-mono block mb-4">评分维度</span>
-              <div class="space-y-4">
-                ${scoreDimensions.map(d => `
-                  <div class="group/score">
-                    <div class="flex justify-between text-[10px] font-bold mb-1.5">
-                      <span class="text-muted group-hover/score:text-accent transition-colors">${d.label}</span>
-                      <span class="text-ink font-mono">${project.scores?.[d.key] || 0}%</span>
-                    </div>
-                    <div class="h-1 bg-black/[0.05] rounded-full overflow-hidden">
-                      <div class="h-full bg-accent transition-all duration-1000 ease-out" style="width: 0%" data-width="${project.scores?.[d.key] || 0}%"></div>
-                    </div>
-                  </div>
-                `).join('')}
-              </div>
-            </div>
 
-            <div>
-              <span class="text-[10px] font-bold tracking-[0.3em] text-muted uppercase font-mono block mb-4">Tech Stack</span>
-              <div class="flex flex-wrap gap-2">
-                ${project.tags.map(tag => `<span class="px-2.5 py-1 bg-white border border-black/[0.05] rounded text-[10px] font-bold text-ink">${tag}</span>`).join('')}
-              </div>
+  const modulesHtml = project.modules ? `
+    <div class="mt-10">
+      <h4 class="text-[10px] font-bold tracking-[0.4em] text-accent uppercase font-mono mb-6 flex items-center gap-3">
+        <span class="w-8 h-px bg-accent/20"></span> 功能模块拆解
+      </h4>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        ${project.modules.map((m, i) => `
+          <div class="module-card bg-bgsoft rounded-2xl p-6 border border-black/[0.04] hover:border-accent/20 transition-colors">
+            <div class="flex items-start justify-between gap-3 mb-3">
+              <span class="text-sm font-black text-ink leading-tight">${m.title}</span>
+              <span class="text-[9px] font-bold font-mono text-accent/60 flex-shrink-0">0${i+1}</span>
             </div>
+            <p class="text-xs text-muted font-medium leading-relaxed">${m.detail}</p>
+            ${m.metric ? `<div class="mt-3 pt-3 border-t border-black/[0.05]"><span class="text-xs font-bold text-accent font-mono">${m.metric}</span></div>` : ''}
           </div>
-        </div>
-
-        <div class="pt-10 border-t border-black/[0.05]">
-          ${projectActions(project)}
-        </div>
+        `).join('')}
       </div>
+    </div>
+  ` : '';
 
-      <!-- Main Content: System Report -->
-      <div class="flex-1 p-6 md:p-20 md:overflow-y-auto no-scrollbar bg-white relative">
-        <div class="max-w-3xl">
-          <header class="mb-20">
-            <div class="flex items-center gap-4 mb-6">
-              <span class="text-xs font-mono text-accent">${project.period}</span>
-              <span class="w-1 h-1 rounded-full bg-black/10"></span>
-              <span class="text-xs font-mono text-muted uppercase tracking-widest">${project.type}</span>
-            </div>
-            <h2 class="text-6xl font-black tracking-tighter text-ink leading-tight mb-3">${project.title}</h2>
-            ${project.tagline ? `<p class="font-mono text-sm text-accent tracking-widest mb-6">${project.tagline}</p>` : ''}
-            <p class="text-2xl font-medium text-muted leading-relaxed tracking-tight">${project.summary}</p>
-          </header>
+  const actionsHtml = (() => {
+    const a = [];
+    if (project.mock) a.push(`<a class="px-5 py-2.5 bg-accent text-white rounded-full text-xs font-bold hover:scale-105 transition-transform" href="${project.mock}" target="_blank" rel="noreferrer">体验 Mock →</a>`);
+    if (project.doc) a.push(`<a class="px-5 py-2.5 bg-bgsoft text-ink rounded-full text-xs font-bold hover:bg-black/[0.06] transition-all" href="${project.doc}" target="_blank" rel="noreferrer">项目介绍</a>`);
+    if (project.github) a.push(`<a class="px-5 py-2.5 bg-bgsoft text-ink rounded-full text-xs font-bold hover:bg-black/[0.06] transition-all flex items-center gap-1.5" href="${project.github}" target="_blank" rel="noreferrer"><svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>GitHub</a>`);
+    return a.length ? `<div class="flex flex-wrap gap-3">${a.join('')}</div>` : '';
+  })();
 
-          <section class="space-y-20">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-              <div class="reveal stagger-1">
-                <h4 class="text-[10px] font-bold tracking-[0.4em] text-accent uppercase font-mono mb-6 flex items-center gap-3">
-                  <span class="w-8 h-px bg-accent/20"></span> Problem
-                </h4>
-                <p class="text-lg text-ink leading-relaxed font-medium">${project.problem}</p>
-              </div>
-              <div class="reveal stagger-2">
-                <h4 class="text-[10px] font-bold tracking-[0.4em] text-accent uppercase font-mono mb-6 flex items-center gap-3">
-                  <span class="w-8 h-px bg-accent/20"></span> Solution
-                </h4>
-                <p class="text-lg text-ink leading-relaxed font-medium">${project.product}</p>
-              </div>
-            </div>
+  dialogContent.innerHTML = `
+    <div class="bg-white">
+      <div class="p-8 md:p-14 max-w-4xl mx-auto">
 
-            <div class="bg-bgsoft rounded-3xl p-12 reveal stagger-3 border border-black/[0.03]">
-              <h4 class="text-[10px] font-bold tracking-[0.4em] text-accent uppercase font-mono mb-8 flex items-center gap-3">
-                <span class="w-8 h-px bg-accent/20"></span> 工程实现
-              </h4>
-              <p class="text-xl text-ink leading-relaxed font-medium mb-10">${project.engineering}</p>
-              <div class="grid grid-cols-2 gap-8 border-t border-black/[0.05] pt-10">
-                <div>
-                  <span class="text-[10px] font-bold text-muted uppercase tracking-widest block mb-2">My Role</span>
-                  <p class="text-sm font-bold text-ink">${project.role}</p>
-                </div>
-                <div>
-                  <span class="text-[10px] font-bold text-muted uppercase tracking-widest block mb-2">Primary Result</span>
-                  <p class="text-sm font-bold text-accent">${project.result}</p>
-                </div>
-              </div>
+        <!-- Header -->
+        <header class="mb-10 pb-8 border-b border-black/[0.05]">
+          <div class="flex flex-wrap items-center gap-3 mb-4">
+            <span class="text-[10px] font-mono text-accent uppercase tracking-widest">${project.period}</span>
+            <span class="w-1 h-1 rounded-full bg-black/15"></span>
+            <span class="text-[10px] font-mono text-muted uppercase tracking-widest">${project.type}</span>
+            <span class="w-1 h-1 rounded-full bg-black/15"></span>
+            <span class="text-[10px] font-mono text-muted uppercase tracking-widest">${project.category}</span>
+          </div>
+          <h2 class="text-4xl md:text-5xl font-black tracking-tighter text-ink leading-tight mb-2">${project.title}</h2>
+          ${project.tagline ? `<p class="font-mono text-xs text-accent tracking-widest mb-4">${project.tagline}</p>` : ''}
+          <p class="text-lg font-medium text-muted leading-relaxed mb-5">${project.summary}</p>
+          <div class="flex flex-wrap gap-2">
+            ${project.tags.map(tag => `<span class="px-3 py-1 bg-bgsoft border border-black/[0.05] rounded-full text-[10px] font-bold text-ink">${tag}</span>`).join('')}
+          </div>
+        </header>
+
+        <!-- 背景 -->
+        <section class="mb-10">
+          <h4 class="text-[10px] font-bold tracking-[0.4em] text-accent uppercase font-mono mb-4 flex items-center gap-3">
+            <span class="w-8 h-px bg-accent/20"></span> 背景与问题
+          </h4>
+          <p class="text-base text-ink leading-relaxed font-medium">${project.problem}</p>
+        </section>
+
+        <!-- 工作内容 -->
+        <section class="mb-2">
+          <h4 class="text-[10px] font-bold tracking-[0.4em] text-accent uppercase font-mono mb-4 flex items-center gap-3">
+            <span class="w-8 h-px bg-accent/20"></span> 工作内容
+          </h4>
+          <p class="text-base text-ink leading-relaxed font-medium mb-1">${project.product}</p>
+          <p class="text-sm text-muted font-medium leading-relaxed">${project.engineering}</p>
+        </section>
+
+        <!-- 功能模块 -->
+        ${modulesHtml}
+
+        <!-- 产出 -->
+        <section class="mt-10 pt-8 border-t border-black/[0.05]">
+          <h4 class="text-[10px] font-bold tracking-[0.4em] text-accent uppercase font-mono mb-6 flex items-center gap-3">
+            <span class="w-8 h-px bg-accent/20"></span> 产出与结果
+          </h4>
+          <div class="bg-accent/5 border border-accent/15 rounded-2xl p-6 mb-6">
+            <p class="text-xl font-black text-ink tracking-tight leading-snug">${project.result}</p>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+            <div>
+              <span class="text-[10px] font-bold text-muted uppercase tracking-widest block mb-1">我的角色</span>
+              <p class="text-sm font-medium text-ink">${project.role}</p>
             </div>
-          </section>
-        </div>
+            <div>
+              ${actionsHtml}
+            </div>
+          </div>
+        </section>
+
       </div>
     </div>
   `;
