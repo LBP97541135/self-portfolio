@@ -166,13 +166,6 @@ button:focus-visible, a:focus-visible {
 /* Tracking override */
 .tracking-tighter { letter-spacing: -0.05em; }
 
-/* Featured grid: odd last card spans full width on desktop */
-@media (min-width: 768px) {
-  #featuredGrid > *:last-child:nth-child(odd) {
-    grid-column: 1 / -1;
-  }
-}
-
 /* Vertical text */
 .vertical-text {
   writing-mode: vertical-rl;

@@ -833,15 +833,11 @@ const observer = new IntersectionObserver(
       if (entry.isIntersecting) {
         entry.target.classList.add("active");
       } else {
-        // 允许动效在滑出视口后重置，从而实现多次触发
         entry.target.classList.remove("active");
       }
     });
   },
-  { 
-    threshold: 0.15,
-    rootMargin: "-50px 0px -50px 0px" // 稍微增加边距，防止在边缘频繁闪烁
-  },
+  { threshold: 0.05 },
 );
 
 function observeReveals() {
