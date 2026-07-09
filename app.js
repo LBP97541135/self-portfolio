@@ -7,18 +7,18 @@ const projects = [
     type: "字节挑战赛 · 赛道第一",
     period: "2026",
     priority: "featured",
-    summary: "把狼人杀做成多智能体博弈实验场，AgentScope 底座 + 自建 GameEngine，实现一阶/二阶信念追踪、Skill 自进化与 Fleet 批量评测。",
+    summary: "把狼人杀做成多智能体博弈实验场——信念矩阵追踪每个 Agent 的阵营判断，成功策略自动沉淀为 Skill，Fleet 并发评测量化自进化收益。",
     tags: ["多智能体", "信念矩阵", "Skill 自进化", "Fleet 评测", "AgentScope"],
     result: "字节跳动 AI 全栈挑战赛「多智能体协作与博弈」赛道第一，卓越项目奖，奖金 2 万",
     problem: "普通多智能体演示往往停在对话层，缺少长期策略、私有信息边界、可解释复盘，且无法批量评测多 Agent 博弈质量。",
-    product: "用狼人杀的身份、夜间行动、投票和阵营目标，设计一套可观察、可复盘、可批量测评的 Agent 博弈产品体验。",
-    engineering: "AgentScope 作为 Agent 执行底座 + 自建 GameEngine；信念系统实现一阶/二阶信念追踪；Prompt/Skill 沉淀到对应身份；Fleet 模式支持同时开多局批量评测；FastAPI + React/Three.js + SSE 实时直播。",
+    product: "22 个角色覆盖狼人、好人、中立三大阵营，每个角色有独立 Prompt 版本和 Skill 体系；上帝视角可实时观察全局信念矩阵和策略演进，玩家视角模拟真实身份遮蔽和博弈感；复盘面板提供时间线、MVP 评分图表和投票摇摆矩阵，让每局博弈都可量化分析。",
+    engineering: "核心挑战是让 Agent 真正参与博弈——而不只是生成对话。自建博弈引擎维护完整的游戏状态机（身份/行动/投票/胜负判断），每轮发言驱动 Agent 实时更新对每位玩家身份的信念估计和预投票倾向；Fleet 并发评测模式把主观游戏体验转化为可量化的 Skill 迭代收益，让自进化效果有数据说话。",
     role: "负责博弈模块（信念矩阵、预投票意向实时更新）、自进化模块（Skill 沉淀机制）与 Fleet 批量评测设计。",
     scores: { business: 75, depth: 95, product: 91, innovation: 95, contribution: 80, verifiable: 99 },
     modules: [
-      { title: "信念矩阵与博弈推理", detail: "每轮白天发言后，Agent 实时更新对其他玩家身份可信度的一阶/二阶信念，并同步修正预投票意向，让每次发言都驱动真实策略变化。", metric: "7 阶段完整博弈链路" },
-      { title: "Skill 自进化机制", detail: "通过预投票意向的变化识别最具影响力的发言，结合 Agent 实时思考链，将发言策略和逻辑沉淀为角色专属 Skill，下一局自动调用。", metric: null },
-      { title: "Fleet 批量评测", detail: "支持多局并行开跑，横向对比不同 Skill 配置下的胜率变化，量化自进化收益——对应 AgentOps 中 Agent 效果评测场景。", metric: "可量化 Skill 迭代效果" },
+      { title: "信念矩阵与博弈推理", detail: "每轮白天发言后，Agent 实时更新对其他玩家身份可信度的一阶/二阶信念，并同步修正预投票意向，让每次发言都驱动真实策略变化；上帝视角可实时观察全局信念矩阵，玩家视角模拟身份遮蔽下的真实博弈感。", metric: "7 阶段完整博弈链路" },
+      { title: "Skill 自进化机制", detail: "通过预投票意向的变化识别最具影响力的发言，结合 Agent 实时思考链，将发言策略和逻辑沉淀为角色专属 Skill，下一局自动调用；22 个角色各有独立 Prompt 版本和 Skill 体系，覆盖三大阵营的差异化博弈逻辑。", metric: "22 角色 · 三大阵营" },
+      { title: "Fleet 批量评测", detail: "支持多局并行开跑，横向对比不同 Skill 配置下的胜率、发言影响力和 MVP 得分率变化；复盘面板展示投票摇摆矩阵和时间线，将主观博弈体验转化为可量化的自进化收益数据。", metric: "胜率 · MVP · 影响力三维度" },
     ],
     mock: "labs/multiagent-werewolf/dist/",
     doc: "docs/projects/multiagent-werewolf.html",
@@ -36,14 +36,14 @@ const projects = [
     tags: ["剧本互动", "DM Agent", "长期记忆", "行为进化"],
     result: "evomap 黑客松最佳人气奖，完整前后端 + 数据库落地，验证商业化潜力",
     problem: "传统剧本杀依赖真人 DM 和玩家配合，单人体验弱、复玩价值有限，玩家经验也难以沉淀。",
-    product: "让 Agent 在一次次剧本互动中记住用户、理解偏好，并逐渐进化成更懂你的游戏伙伴。",
-    engineering: "后端 Python + FastAPI + SQLite，完整实现剧本管理、角色状态、对话记录与 Gene/Capsule 进化数据持久化；前端完成剧本库、游戏舞台、证物推理、复盘进化和个人助理六层产品结构的端到端体验。",
-    role: "负责产品结构拆解、证物推理链、复盘进化机制和静态 Mock 前端搭建。",
+    product: "3 类 Agent（DM 主持 / 角色陪玩 / 私人助理）分工协作，驱动 8 阶段完整游戏流程（开场→阅本→调查→推理→投票→揭幕→复盘）；证物系统支持 3 层信息深度解锁和证物组合推理；DM 具备 L1–L4 分级提示能力，掌控节奏但绝不剧透；Agent 跨局记住玩家风格，逐局进化为更懂你的游戏伙伴。",
+    engineering: "工程核心难点有两个。一是「信息边界」：5 种角色（侦探/嫌疑人/证人/凶手/NPC）在 8 个游戏阶段各有不同的信息可见范围——凶手在调查阶段额外可见 murder_plan，证人始终看不到线索，私聊在不阻塞公共讨论的情况下并发进行。二是「跨局记忆」：Experience/Skill 系统将玩家行为沉淀为 draft 状态的 Skill，经 DM 审核生效后按优先级注入下局 Prompt，effectiveness_score 滑动平均追踪技能实际效果；三层 LLM 管道（初始生成 → 反剧透 critique → 精炼）则确保 Agent 发言不意外暴露关键剧情。",
+    role: "负责产品结构拆解、证物推理链、复盘进化机制和展示前端搭建。",
     scores: { business: 88, depth: 92, product: 94, innovation: 85, contribution: 93, verifiable: 98 },
     modules: [
-      { title: "DM Agent 全程主持", detail: "负责开场引导、各阶段线索释放、投票组织，模拟人类 DM 的节奏控制，维持玩家沉浸感。", metric: null },
-      { title: "证物推理链", detail: "玩家调查证物后，系统从多角色视角生成推理路径，追踪每条证据与嫌疑人的关联度变化。", metric: null },
-      { title: "Gene/Capsule 进化记忆", detail: "每局结束生成进化报告，将玩家风格偏好和 Agent 行为模式封装为 Capsule，下一局自动加载，让 Agent 越玩越懂你。", metric: "跨局记忆持久化" },
+      { title: "DM Agent 全程主持", detail: "负责 8 阶段游戏流程的节奏掌控（开场→阅本→调查→推理→投票→揭幕→复盘）；具备 L1–L4 分级提示系统，L1 只提方向，L4 接近答案但绝不说出凶手名字；三层 LLM 管道（初始生成→反剧透审核→精炼输出）保证 Agent 发言不意外泄露关键剧情。", metric: "8 阶段 · L1–L4 分级提示" },
+      { title: "证物推理链", detail: "证物具备 3 层信息深度（基础描述/详细信息/深层细节），需解锁条件才能查看；5 种角色的信息可见范围在 8 个阶段各不相同；支持证物组合推理（至少 2 件组合生成 combo）；Agent 发言后可自动触发出示证物和喊话，形成链式对话树。", metric: "3 层深度 · 角色可见矩阵" },
+      { title: "Experience/Skill 进化记忆", detail: "每局复盘后将行为模式沉淀为 draft 状态的 Skill，经 DM 审核生效后按优先级注入下局 Prompt；effectiveness_score 通过滑动平均持续追踪技能实际效果，SkillUsageLog 记录每次注入的 token 消耗和阶段，让进化可量化可审计。", metric: "跨局 Skill 自动注入" },
     ],
     mock: "labs/evo-murder-game/",
     doc: "docs/projects/evo-murder-game.html",
@@ -54,22 +54,22 @@ const projects = [
     title: "Haji AI",
     tagline: "AI Native 社交范式 · 自研 Multi-Agent 框架",
     category: "多智能体",
-    type: "Mock 已完成",
+    type: "个人项目 · 独立开发",
     period: "2026",
     priority: "featured",
-    summary: "自研 Python Multi-Agent 框架 + AI 社交平台，实现 Skill 向量检索、Memory 持久化、AST 沙箱安全执行与意愿驱动群聊，让 AI 角色真正「活」在朋友圈里。",
+    summary: "自研 Python Multi-Agent 框架（15 个核心模块、574 个测试全通过），构建 AI 社交平台：Skill 向量语义检索、JSON 文件 Memory 持久化、AST 双阶段安全沙箱、意愿驱动群聊，让 8 个 AI 角色真正「活」在朋友圈里。",
     tags: ["自研框架", "Skill 向量检索", "Memory 持久化", "AST 沙箱", "意愿驱动"],
     result: "574 个测试全通过，覆盖 Agent 核心框架、群聊、朋友圈、记忆与运营面板完整闭环",
     problem: "AI 社交产品如果只有聊天窗口，很难表现角色关系、社区氛围和长期内容价值。",
     product: "把 AI 角色当成有关系、有记忆、有表达风格的社交节点，构建可浏览、可互动、可运营的朋友圈生态。",
-    engineering: "Python 3.11+ + FastAPI 全异步后端，React (TypeScript + Tailwind) 前端；自研 haiji 框架实现三种 Agent 执行模式、Skill 向量相似度语义动态检索、Memory 持久化（重启不失忆）；AST 静态分析 + 受限沙箱确保代码安全执行；自然语言 → Agent 定义自动化创建；群聊支持意愿驱动发言，Agent 可主动发朋友圈。",
+    engineering: "选择从零搭建框架而非套用现有方案——现有框架无法同时满足「语义化 Skill 检索 + 持久记忆 + 代码安全执行」三个需求。框架极简依赖设计：核心只依赖 6 个包，无 numpy/langchain/faiss，向量余弦相似度纯 Python 手写；三种执行模式（DIRECT/REACT/PLAN_AND_EXECUTE）通过统一调度接口组合；AST 静态分析（14 个安全模块白名单、35 个危险模块黑名单）先行验证，通过后在约 50 个安全内置函数的受限沙箱中执行；Agent 支持 CRON/EVENT/WEBHOOK/CONDITION 四种触发机制，可在特定时刻或外部事件驱动下主动发朋友圈。",
     role: "独立完成全栈开发，从框架核心（agent / memory / workflow 模块）到前端产品体验全部自主实现。",
     scores: { business: 60, depth: 81, product: 90, innovation: 92, contribution: 100, verifiable: 90 },
     modules: [
-      { title: "自研 Multi-Agent 框架", detail: "三种执行模式（顺序 / 并行 / 条件分支），Skill 通过向量相似度语义检索动态匹配，框架与业务逻辑完全解耦。", metric: "574 个测试全通过" },
-      { title: "Memory 持久化", detail: "Agent 记忆写入数据库，重启后完整恢复，支持跨对话上下文延续，角色关系不随进程终止而丢失。", metric: null },
-      { title: "AST 沙箱安全执行", detail: "代码生成后经 AST 静态分析过滤危险调用，在受限沙箱内执行，防止 Agent 越权操作宿主系统。", metric: null },
-      { title: "意愿驱动群聊", detail: "Agent 根据自身目标和当前话题热度主动决定是否发言，而非被动响应，群聊氛围更接近真实社交节奏。", metric: null },
+      { title: "自研 Multi-Agent 框架", detail: "15 个核心模块，DIRECT/REACT/PLAN_AND_EXECUTE 三种执行模式统一调度；Skill 通过纯 Python 余弦相似度向量检索动态匹配（无 numpy/faiss 依赖），降级时自动切换关键词命中率匹配；QwenEmbedder 专为内部 MaaS 平台适配（4096 维，batch_size=32）。", metric: "574 个测试全通过" },
+      { title: "Memory 持久化", detail: "对话记忆写入 JSON 文件（workspace/sessions/），启动时 glob 恢复全部 session，完整还原 tool_calls 等字段；群聊消息以 JSONL append-only 格式持久化，取末尾 100 行读取，写入原子性好；对话结束后异步提取有价值信息作为公开记忆，按 low/medium/high 三档风险分级处理。", metric: "重启不失忆" },
+      { title: "AST 双阶段安全沙箱", detail: "代码执行前先经 AST 静态分析：14 个安全模块白名单、35 个危险模块黑名单（subprocess/os/sys/importlib 等），exec/eval/__import__ 调用一律拦截；通过验证后在约 50 个安全内置函数的受限沙箱中运行，daemon 线程执行并设超时上限防止阻塞。", metric: "静态分析 + 受限执行双保险" },
+      { title: "意愿驱动群聊 + 主动触发", detail: "群聊中未被 @ 的 Agent 向 LLM 发送 YES/NO 决策 prompt，根据自身目标和话题热度主动决定是否插话；支持 CRON/EVENT/WEBHOOK/CONDITION 四种触发机制，Agent 可在特定时刻或外部事件下主动发朋友圈，纯 Python 手写 cron 解析器（无第三方调度库）。", metric: "4 种主动触发机制" },
     ],
     mock: "labs/haji-ai/",
     doc: "docs/projects/haji-ai.html",
@@ -80,21 +80,21 @@ const projects = [
     title: "AI Work Coach",
     tagline: "个性化 AI 学习中心 · 用户成长闭环产品",
     category: "AI 产品",
-    type: "Mock 已完成",
+    type: "个人项目 · 产品设计",
     period: "2026",
     priority: "featured",
     summary: "面向职场成长的 AI 教练工作台，帮助用户复盘任务、拆解问题、制定行动计划并追踪状态。",
     tags: ["工作复盘", "成长教练", "行动计划", "仪表盘"],
-    result: "已完成 mock 数据和页面美化，覆盖目标、复盘、教练建议、任务追踪与洞察看板",
+    result: "完整实现目标设定、任务追踪、教练对话、复盘分析与洞察看板五层产品功能，可交互演示",
     problem: "职场反馈通常碎片化，用户很难把一次次任务经历沉淀成持续成长路径。",
     product: "把日常工作输入转化为问题诊断、能力画像、行动建议和周期复盘，让成长变成可管理流程。",
-    engineering: "TypeScript 全栈（apps/web 前端 + services/api 后端 + data 数据层），完整实现教练对话、任务追踪、复盘分析与洞察看板；每一个产品决策都以用户体验为核心驱动。",
+    engineering: "核心设计难点有两个。一是「推荐可解释性」：题目推荐基于显式公式（薄弱项加成 +0.25、新内容加成 +0.1、近期重复惩罚 -0.3、已掌握惩罚 -0.2），洞察面板向用户展示「今天为什么推荐这个话题」，让 AI 决策透明可信。二是「画像动态收敛」：批改结果输出 profilePatch，以新旧证据 7:3 加权合并更新各维度分数（限幅 0–100），避免单次训练剧烈波动，保证画像稳定跟随真实水平。",
     role: "负责训练闭环、画像更新、推荐逻辑和职业成长产品表达。",
     scores: { business: 78, depth: 70, product: 97, innovation: 80, contribution: 100, verifiable: 95 },
     modules: [
-      { title: "教练对话与问题诊断", detail: "通过结构化提问引导用户复盘工作，识别卡点根因，生成针对具体场景的行动建议，而不是通用建议。", metric: null },
-      { title: "任务追踪看板", detail: "可视化管理每日 / 周期性目标，记录进展与复盘节点，把碎片化工作经历转化为结构化成长路径。", metric: null },
-      { title: "能力画像与洞察", detail: "根据历史任务输入持续更新用户的能力维度画像，结合薄弱项推荐针对性行动，而非静态测评。", metric: null },
+      { title: "自适应每日训练", detail: "基于显式评分公式动态选题（薄弱项加成/新内容加成/重复惩罚/掌握惩罚），支持单选/多选/判断/文本/案例/架构/产品 7 种题型；AI 批改输出结构化报告，包含总分、逐题反馈、强项、薄弱点和「面试可表达语言」。", metric: "7 种题型 · 可解释选题" },
+      { title: "任务追踪与历史复盘", detail: "可视化管理每日目标和周期训练记录，支持按主题（Agent/工程/产品/综合）筛选历史，把碎片化训练经历转化为带分数的结构化成长路径。", metric: null },
+      { title: "能力画像与洞察面板", detail: "5 个维度的能力分以新旧证据 7:3 加权合并更新（限幅 0–100），保证画像稳定收敛；洞察面板展示推荐公式的具体计分分解，让用户理解「AI 为什么今天推荐这个话题」——可解释 AI 设计。", metric: "动态画像 · 推荐可解释" },
     ],
     mock: "labs/ai-work-coach/",
     doc: "docs/projects/ai-work-coach.html",
@@ -105,7 +105,7 @@ const projects = [
     title: "MoneyPrinterTurbo",
     tagline: "提示词工程 · 内容生产流水线自动化",
     category: "AI 产品",
-    type: "Mock 已完成",
+    type: "开源定制",
     period: "2026",
     priority: "featured",
     summary: "基于开源 MoneyPrinterTurbo 的本地化深度定制，用户只需输入一个主题，系统自动完成关键词扩写、素材检索与视频文案生成，将复杂的短视频生产流水线压缩为一步输入。",
@@ -137,7 +137,7 @@ const projects = [
     result: "AI 违规率 11% → 1.7%，标杆素材库收录 6,700+ 张",
     problem: "AI 生图在测品笔记场景中频繁触发平台违规，人脸与光影特征容易被检测识别，同时缺少高质量参考素材库支撑生图方向。",
     product: "建立双层评测体系：小模型做快速合格性过滤与粗分类，大模型对通过初筛的素材进行细粒度维度打分，以 6,700+ 标杆图构建高质量素材库。",
-    engineering: "小模型（现有视觉模型 + 精细 prompt）承担高速初筛，大模型负责多维细节评分；将人脸区域与光影质量纳入关键评测维度，从评测源头降低 AI 违规风险；生图链路基于 SeedDream 改图与 Redfire 上色。",
+    engineering: "关键工程判断是「在哪里加维度」：AI 图片违规的主要触发点是人脸和光影处理，而原评测体系从未将其纳入打分维度，意味着生图方向本身就在向高风险区域倾斜。将这两个维度纳入评测后，生图链路从源头被引导向更安全的方向；双层架构则是成本与精度的平衡设计——小模型高速过滤明显不合格图，大模型只对候选进行细粒度多维打分。",
     role: "负责标杆素材库筛选体系设计与执行，构建双层视觉评测 pipeline，编写评测 prompt，将 AI 违规风险维度纳入评分框架。",
     scores: { business: 92, depth: 85, product: 91, innovation: 80, contribution: 80, verifiable: 80 },
     modules: [
@@ -153,12 +153,12 @@ const projects = [
     category: "企业落地",
     type: "真实经历",
     period: "2026",
-    summary: "面向小红书商家入驻工单的自动化处理系统，Java + Darwin 框架搭建双层 Agent，实现两级分类、Human-in-the-Loop 授权与数据库回查验证。",
+    summary: "面向小红书商家入驻工单的自动化处理系统，双层 Agent 架构实现两级分类路由，Human-in-the-Loop 机制保障写入安全，执行后数据库回查确认变更真实生效。",
     tags: ["工单自动化", "两级分类", "Human-in-the-Loop", "Darwin 框架"],
     result: "商家入驻类工单覆盖率超 50%，处理平均用时从 11h 缩短至 4h",
     problem: "商家入驻工单数量大、判断链路长，人工处理消耗高且响应速度慢；写入操作风险高，需要安全兜底机制。",
     product: "双层架构：第一层小模型按大类（商家入驻/账号资质/开放平台/转人工）快速路由；第二层 Agent 以 React 自主模式探索细分场景 Skill，执行对应工具调用。",
-    engineering: "Java + Darwin 框架（小红书内部），React 自主模式；写入操作前通过内部 IM（Hi）向值班人员发送包含工单信息与处理原因的卡片，确认后执行；操作完成后主动查询数据库验证变更真实生效。",
+    engineering: "工单自动化最大的工程挑战是「安全兜底」——Agent 自主执行写入操作时，任何误判都会直接影响商家的实际业务状态。核心设计是在每次写入前通过内部 IM 推送包含工单信息和处理原因的确认卡片，由值班人员人工授权后才执行；执行后主动回查数据库验证变更是否真实生效，不以工具返回值为唯一凭证，全链路可追溯。",
     role: "从 0 到 1 完成项目一期搭建，负责两级分类设计、场景 Skill 编排、Hi 卡片人工确认机制与数据库回查校验。",
     scores: { business: 98, depth: 92, product: 88, innovation: 80, contribution: 95, verifiable: 80 },
     modules: [
@@ -174,12 +174,12 @@ const projects = [
     category: "企业落地",
     type: "真实经历",
     period: "2025",
-    summary: "在生产环境模型（DeepSeek V3-8b）受限条件下，通过任务拆分完成船舶运货路线规划、数据计算与结构化报告生成。",
+    summary: "在生产环境仅能使用小模型的受限条件下，通过任务拆分将复杂运货场景分解为信息提取 / 路线规划 / 数字计算三个独立子任务，实现 98%+ 准确率与一周 1 万+ 调用量。",
     tags: ["任务拆分", "RAG 检索", "受限模型适配", "报告生成"],
     result: "一周调用 1w+，准确率 98%+，回复效率提升 70%",
     problem: "行业数据量大，任务包含规划、计算和报告输出，生产环境模型能力（DeepSeek V3-8b）存在边界，单次推理难以覆盖全流程。",
     product: "将复杂需求拆为信息提取 / 路线规划 / 数字处理三个子任务，降低单次推理难度，适配受限模型能力。",
-    engineering: "生产环境限制使用 DeepSeek V3-8b 本地小模型，无法依赖强模型能力；核心工程判断是将任务拆分为信息提取 / 路线规划 / 数字处理三个独立子任务，让每个子任务的推理难度降至小模型可处理范围；Langflow + RAG 完成线路匹配，Python tool 处理数字计算，最终在受限条件下实现 98%+ 准确率并支持特殊地点处理。",
+    engineering: "生产环境的核心约束是模型能力边界：平台限制只能使用本地轻量模型，无法依赖强模型做端到端推理。工程判断是「降低每步难度」而非「换更强的工具」——将单次复杂请求拆分为信息提取 / 路线规划 / 数字处理三个独立子任务，让每个子任务难度降至轻量模型可稳定处理的范围；数字计算从 LLM 推理中完全剥离，交由代码工具处理，彻底消除幻觉对精确数字结果的影响。",
     role: "负责行业任务拆解设计、RAG 线路匹配、Python 数字计算工具编排与结构化报告输出方案。",
     scores: { business: 95, depth: 75, product: 90, innovation: 70, contribution: 95, verifiable: 60 },
     modules: [
@@ -200,7 +200,7 @@ const projects = [
     result: "重复报销拦截率 100%，发票全流程自动核验，前台看板实时可查",
     problem: "人工审核发票依赖经验，税务真伪核验繁琐，重复报销、虚假发票难以系统性拦截，财务人员操作成本高。",
     product: "提前录入待开票信息作为基准；发票到达后自动触发：税务局 API 真伪校验 → 发票信息核对 → 需报销额度核对 → 开票公司/时间核对 → 自动录入或异常告警；前台看板汇总全部状态，财务人员全程无需手动核查。",
-    engineering: "FastGPT + OCR + Python + WeCom API，接入税务局 API 进行发票真伪校验；核心工程难点在于企微多维表之间的数据关联设计（预录入信息、发票记录、报销状态、财务台账多表联动），以及多条件交叉核验逻辑的准确性保障。",
+    engineering: "核心工程难点是多表状态的一致性保障：发票全链路涉及预录入信息、核验记录、报销状态、财务台账四张表，任意节点写入失败都会造成状态不一致——在财务场景中这是不可接受的。设计了多维表联动结构确保操作原子性；接入税务局 API 从核验源头拦截假发票，而非依赖人工经验识别。",
     role: "独立完成全部开发，包括税务局接口集成、多维核验逻辑、多维表数据结构设计与前台看板搭建。",
     scores: { business: 90, depth: 82, product: 80, innovation: 70, contribution: 100, verifiable: 92 },
     modules: [
@@ -221,7 +221,7 @@ const projects = [
     result: "上线企微官方市场，操作效率提升 18 倍，覆盖物资进出 / 存放 / 换位 / 告警完整链路",
     problem: "复杂的物资管理流程依赖专人操作多个系统，操作步骤繁琐、出错率高，异常情况难以及时告警。",
     product: "员工以自然语言描述需求 → Agent 多步推理拆解操作 → 自动完成多维表数据读写、位置变更与危机告警推送。",
-    engineering: "完全基于企微官方 API 构建，FastGPT + SmartSheet + WeCom API；核心工程难点在于多维表之间的数据关联设计，覆盖物资进出、存放位置、换位记录与库存阈值告警的多表联动。",
+    engineering: "完全基于企微官方 API 构建是有意为之的技术决策——目标是上架企微官方市场，这要求方案零私有依赖、可复制交付。核心工程难点是多表状态一致性：物资进出库、位置变更、库存阈值告警分散在多张表，任意操作都需要跨表同步，写入顺序错误或漏记会导致库存状态失真，在物资管理场景中直接引发业务错误。",
     role: "独立完成全部开发，从物资操作流程拆解、多维表数据结构设计到 Agent 推理 prompt 与企微市场上架。",
     scores: { business: 92, depth: 85, product: 85, innovation: 72, contribution: 100, verifiable: 92 },
     modules: [
@@ -242,7 +242,7 @@ const projects = [
     result: "25+ 图表类型，私有化云端部署，敏感数据全程不离开私有环境",
     problem: "AI 应用需要图表能力，但很多需要可视化的数据（财务、客户、内部指标）属于隐私数据，不能传到外部服务。",
     product: "自建私有 MCP Server，AI 应用通过标准 MCP 协议调用即可获得图表，渲染在私有环境内完成，数据不经过任何第三方。",
-    engineering: "TypeScript 独立实现完整 MCP Server，支持 stdio / SSE / Streamable 三种传输协议；图表渲染层使用 AntV 包，MCP 协议层、工具注册、请求路由与响应封装全部自主实现；Docker 容器化后部署于云服务器，对外提供私有图表服务。",
+    engineering: "不依赖现有 MCP SDK，从协议层手写完整 Server 实现——协议层、工具注册、请求路由与响应封装全部自主实现，清晰理解每一层的边界；支持 stdio、SSE、Streamable HTTP 三种传输协议适配不同部署场景；Docker 容器化后私有化部署，业务触发渲染的数据全程不离开私有环境。",
     role: "独立完成 MCP Server 设计与实现、AntV 渲染集成、三种协议适配、Docker 容器化与云服务器部署。",
     scores: { business: 75, depth: 88, product: 82, innovation: 88, contribution: 90, verifiable: 92 },
     modules: [
@@ -264,7 +264,7 @@ const projects = [
     result: "实现从随机噪声逐步恢复具有特定对称性的二维晶体结构，优化 |ΔG_H| 逼近 Sabatier 理想值",
     problem: "传统催化材料设计依赖实验试错，周期长、成本高，难以系统性探索材料空间。",
     product: "以生成模型替代经验试探，通过物理约束引导生成兼具活性、稳定性与可合成性的新型二维材料。",
-    engineering: "EGNN 维持晶体结构生成中的物理不变性，多任务引导优化同时约束多个材料性质目标，PyTorch + torch-geometric + pymatgen + ase 完整实现。",
+    engineering: "材料生成的核心约束是物理合法性——生成的原子坐标必须满足晶体的对称性规则，否则生成物在现实中根本不存在。等变图神经网络通过维持旋转/平移等变性保证每步去噪都在物理可行空间内；多任务引导让扩散过程同时朝高催化活性、热力学稳定性、实验可合成性三个目标优化，而非逐一贪心满足——单目标优化往往导致其他指标同步崩溃。",
     role: "独立完成模型设计、EGNN 实现、扩散生成流程与材料性质优化目标设定。",
     scores: { business: 50, depth: 92, product: 62, innovation: 92, contribution: 90, verifiable: 95 },
     modules: [
@@ -570,7 +570,7 @@ function renderFilters() {
 
 function projectActions(project) {
   const actions = [];
-  if (project.mock) actions.push(`<a class="px-5 py-2.5 bg-accent text-white rounded-full text-xs font-bold hover:scale-105 transition-transform" href="${project.mock}" target="_blank" rel="noreferrer" data-stop="1">体验 Mock</a>`);
+  if (project.mock) actions.push(`<a class="px-5 py-2.5 bg-accent text-white rounded-full text-xs font-bold hover:scale-105 transition-transform" href="${project.mock}" target="_blank" rel="noreferrer" data-stop="1">在线体验</a>`);
   if (project.doc) actions.push(`<a class="px-5 py-2.5 bg-bgsoft text-ink rounded-full text-xs font-bold hover:bg-black/[0.05] transition-all" href="${project.doc}" target="_blank" rel="noreferrer" data-stop="1">项目介绍</a>`);
   if (project.github) actions.push(`<a class="px-5 py-2.5 bg-bgsoft text-ink rounded-full text-xs font-bold hover:bg-black/[0.05] transition-all flex items-center gap-1.5" href="${project.github}" target="_blank" rel="noreferrer" data-stop="1"><svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>GitHub</a>`);
   return actions.length ? `<div class="flex gap-3 mt-6">${actions.join("")}</div>` : "";
@@ -675,7 +675,7 @@ function openProject(index) {
 
   const actionsHtml = (() => {
     const a = [];
-    if (project.mock) a.push(`<a class="px-5 py-2.5 bg-accent text-white rounded-full text-xs font-bold hover:scale-105 transition-transform" href="${project.mock}" target="_blank" rel="noreferrer">体验 Mock →</a>`);
+    if (project.mock) a.push(`<a class="px-5 py-2.5 bg-accent text-white rounded-full text-xs font-bold hover:scale-105 transition-transform" href="${project.mock}" target="_blank" rel="noreferrer">在线体验 →</a>`);
     if (project.doc) a.push(`<a class="px-5 py-2.5 bg-bgsoft text-ink rounded-full text-xs font-bold hover:bg-black/[0.06] transition-all" href="${project.doc}" target="_blank" rel="noreferrer">项目介绍</a>`);
     if (project.github) a.push(`<a class="px-5 py-2.5 bg-bgsoft text-ink rounded-full text-xs font-bold hover:bg-black/[0.06] transition-all flex items-center gap-1.5" href="${project.github}" target="_blank" rel="noreferrer"><svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>GitHub</a>`);
     return a.length ? `<div class="flex flex-wrap gap-3">${a.join('')}</div>` : '';
