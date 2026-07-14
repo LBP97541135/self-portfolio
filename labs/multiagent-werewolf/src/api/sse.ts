@@ -210,6 +210,15 @@ class MockEventSource implements EventSource {
 
 // 在模块加载时把全局 EventSource 替换为 mock
 function withSeatInputEvents(events: unknown[], seat: number): unknown[] {
+  const cleanTargetMeta = [
+    { seat: 1, name: "墨白" },
+    { seat: 2, name: "夜行" },
+    { seat: 3, name: "沐辰" },
+    { seat: 4, name: "若谷" },
+    { seat: 5, name: "听雪" },
+    { seat: 6, name: "云归" },
+  ].filter((p) => p.seat !== seat);
+
   const targetMeta = [
     { seat: 1, name: "墨白" },
     { seat: 2, name: "夜行" },
@@ -234,6 +243,14 @@ function withSeatInputEvents(events: unknown[], seat: number): unknown[] {
     self_role: "Werewolf",
     deadline: 180,
   };
+  Object.assign(pending, {
+    title: "狼人夜间行动",
+    question: "轮到你选择今晚袭击目标",
+    prompt: "你是狼人阵营的一员。请选择一个今晚要袭击的目标，也可以弃权。",
+    ui_hint: "点击盘面或底部目标卡选择座位，确认后会展示技能动画与提交音效。",
+    valid_targets: cleanTargetMeta.map((p) => p.seat),
+    target_meta: cleanTargetMeta,
+  });
 
   const next = [...events];
   next.splice(Math.min(3, next.length), 0, pending);

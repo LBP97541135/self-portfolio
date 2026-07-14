@@ -141,6 +141,36 @@ export default function GameApp() {
     );
   }
 
+  if (gameState.phase === "GAME_OVER") {
+    return (
+      <div data-sfx-silent className="relative w-screen h-screen overflow-hidden bg-black text-slate-100 font-sans select-none antialiased">
+        <ErrorBoundary
+          label="GameOverPanel"
+          fallback={
+            <div className="absolute inset-0 z-50 flex flex-col items-center justify-center gap-4 bg-black/90 text-zinc-200 pointer-events-auto">
+              <span className="text-2xl font-black tracking-widest">
+                {gameState.winner === "WOLVES" ? "狼人阵营获胜" : "好人阵营获胜"}
+              </span>
+              <span className="font-sans text-xs text-zinc-500">结算面板渲染异常，已切换到安全结算视图。</span>
+              <button onClick={handleExitGame} className="px-5 py-2 bg-zinc-800 border border-zinc-700 rounded text-xs hover:border-zinc-500">
+                退出游戏
+              </button>
+            </div>
+          }
+        >
+          <GameOverPanel
+            gameState={gameState}
+            onRestart={handleExitGame}
+            onExit={handleExitGame}
+            runId={runId}
+            userSeat={isSeatView && seatParam ? Number(seatParam) : null}
+          />
+        </ErrorBoundary>
+        <GameAudioBridge />
+      </div>
+    );
+  }
+
   const isNight = gameState?.phase?.startsWith("NIGHT") || false;
 
   return (
