@@ -269,6 +269,14 @@ button:focus-visible, a:focus-visible {
   border-color: rgba(122, 83, 21, 0.2);
 }
 
+.ev-tick {
+  width: 4px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--accent);
+  flex: none;
+}
+
 /* ---------- Skill matrix ---------- */
 .skill-row {
   display: grid;

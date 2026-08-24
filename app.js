@@ -338,9 +338,9 @@ const personas = {
     headline: ["不是又一个 AI Demo", "是能跑通的 Agent 工程"],
     sub: "从自研 Multi-Agent 框架到多仓库 Coding Agent，我把 <span class=\"text-ink font-bold\">Context、Tool Use、Multi-Agent 编排</span> 落成能上线、可验证的系统。",
     stats: [
-      { n: "TOP 30", label: "GOAI 大赛 · Agent Infra 赛道" },
-      { n: "冠军", label: "字节 AI 全栈挑战赛 · 多智能体" },
-      { n: "574", label: "自研 Agent 框架测试全通过" },
+      { n: "冠军", tag: "竞赛奖项", label: "字节 AI 全栈挑战赛 · 多智能体" },
+      { n: "TOP 30", tag: "竞赛排名", label: "GOAI 大赛 · Agent Infra 赛道" },
+      { n: "574", tag: "工程质量", label: "自研 Agent 框架 · Pytest 用例全通过" },
     ],
     about: {
       title: "把 Agent 做成<br/>能上线的系统",
@@ -378,9 +378,9 @@ const personas = {
     headline: ["懂技术边界", "更懂产品落地"],
     sub: "我从用户问题出发定义需求，也懂 Agent 的能力与边界——能把模糊的业务诉求，拆成 <span class=\"text-ink font-bold\">可执行、可验证、能上线</span> 的产品方案。",
     stats: [
-      { n: "1w+", label: "周年庆会员活动页月活 UV" },
-      { n: "11h→4h", label: "商家工单端到端处理时长" },
-      { n: "18×", label: "物资管理效率 · 企微市场上线" },
+      { n: "1万+", tag: "用户规模", label: "周年庆会员活动页月 UV" },
+      { n: "11h→4h", tag: "效率提升", label: "商家工单端到端处理时长" },
+      { n: "18×", tag: "落地交付", label: "物资管理效率 · 上架企微官方市场" },
     ],
     about: {
       title: "从用户问题<br/>定义 AI 产品",
@@ -418,9 +418,9 @@ const personas = {
     headline: ["Agent 不是测过就行", "要可评测、可观测"],
     sub: "我把 Agent 的质量做成体系：从提交前的 <span class=\"text-ink font-bold\">多层测试门禁</span>，到 PostGame 三阶段评测与全链路可观测，让每次迭代都有数据说话。",
     stats: [
-      { n: "60→80", label: "狼人杀 20 轮迭代赛后综合得分" },
-      { n: "11%→1.7%", label: "AI 生图违规率 · 双层评测" },
-      { n: "98%+", label: "船舶助手 100 案例回归通过" },
+      { n: "60→80", tag: "评测驱动", label: "狼人杀 20 轮迭代赛后综合得分" },
+      { n: "98/100", tag: "回归验收", label: "船舶案例发布前回归通过" },
+      { n: "11%→1.7%", tag: "质量压降", label: "AI 生图违规率 · 双层评测" },
     ],
     about: {
       title: "让 Agent 质量<br/>可评测可观测",
@@ -468,22 +468,25 @@ const experiences = [
   {
     time: "2026.07 - 2026.09",
     title: '炎魂网络科技 <span class="font-mono italic text-ink tracking-tight ml-2">产品经理</span>',
-    description: "负责《忍者必须死 3》游戏中台产品建设，并参与内部 AI 效率工具的需求分析与方案设计。主导周年庆会员抽奖活动从需求、后台配置、前台交互到上线验收的完整方案，将活动类型、可见人群、活动时间、会员等级等业务规则固化为状态校验与发布后禁改约束，并定义埋点与上线验收口径，活动页月 UV 稳定超过 1 万；调研算法组、市场组在 8 个平台的多类采集需求，完成 Agent 爬虫平台选型，设计「需求理解 → 流程预览 → 试采样验收」工作流。",
+    metrics: ["会员活动页月 UV 1万+", "8 平台爬虫平台选型", "规则→发布后禁改约束"],
+    description: "负责《忍者必须死 3》会员活动中台与内部 AI 效率工具的需求、方案与上线验收，主导周年庆会员抽奖后台 + 前台完整方案。",
     expandable: true,
-    detail: "以产品经理身份嵌入游戏中台，横跨 C 端会员活动与内部效率工具两类场景。会员活动把业务规则固化为可复用配置与发布后禁改约束，定义埋点与验收口径；Agent 爬虫平台把上百类模糊需求归纳为目标平台、采集对象、筛选条件与交付格式，收敛出可执行的采集口径与交付标准。",
+    detail: "把活动类型、可见人群、活动时间、会员等级等业务规则固化为状态校验与发布后禁改约束，并定义埋点与上线验收口径，活动页月 UV 稳定超过 1 万；另调研算法组、市场组在 8 个平台的多类采集需求，完成 Agent 爬虫平台选型，把需求归纳为目标平台、采集对象、筛选条件与交付格式，设计「需求理解 → 流程预览 → 试采样验收」工作流。",
   },
   {
     time: "2026.03 - 2026.06",
     title: '小红书 <span class="font-mono italic text-ink tracking-tight ml-2">产品工程师</span>',
-    description: "电商商家技术组，以全栈工程师身份独立交付两条业务线。商家工单助手是从 0 到 1 主导的项目：基于 Java + Darwin 搭建两级 Agent——一级 Router Agent 做意图识别、实体抽取与场景路由，二级按商家入驻 / 开发平台 / 店铺资质规划专业 Agent，封装领域 SOP、Skill 与 RPC Tool；调用前后校验入参 / 返回 Schema，失败重试耗尽后降级转人工，按置信度分流。上线 3 天处理约 96 张工单，50% 全自动闭环、20% 仅需人工复核，平均处理时长从 11h 降至 4h。测品评测体系是另一条线：从 20,000 张图中筛选 6,700+ 标杆素材，设计双层视觉评测 pipeline，将 AI 违规率从 11% 压降至 1.7%。",
+    metrics: ["工单处理 11h→4h", "上线 3 天 96 张 · 50% 全自动", "生图违规 11%→1.7%"],
+    description: "电商商家技术组全栈工程师，独立主导商家工单助手（Java + Darwin 两级 Agent）与测品双层视觉评测两条业务线。",
     expandable: true,
-    detail: "以 PE（Product Engineer）身份嵌入商家技术组，PE 角色横跨工程交付与业务判断——既写代码，也推动需求落地。两条业务线均为独立主导，从方案设计到上线验收全程负责。",
+    detail: "以 PE（Product Engineer）身份横跨工程交付与业务判断，既写代码也推动需求落地。商家工单助手从 0 到 1：一级 Router Agent 做意图识别 / 实体抽取 / 场景路由，二级按商家入驻、开发平台、店铺资质封装领域 SOP、Skill 与 RPC Tool；调用前后校验 Schema，失败重试耗尽降级转人工，按置信度分流，上线 3 天处理约 96 张、50% 全自动闭环、20% 人工复核，处理时长 11h→4h。测品评测体系：从 20,000 张图筛选 6,700+ 标杆素材，双层视觉评测 pipeline 将 AI 违规率从 11% 压降至 1.7%。",
     projects: ["work-order-agent", "aigc-test-image"],
   },
   {
     time: "2025.11 - 2026.02",
     title: '珠海环界云计算 <span class="font-mono italic text-ink tracking-tight ml-2">AI 解决方案工程师</span>',
-    description: "独立对客交付，全程一人负责从需求调研、方案设计、工作流搭建到上线验收。服务客户涵盖制造、能源、金融、跨境等行业，并参与企业微信官方合作项目。代表成果：物资管理 Agent 上架企微官方市场，效率提升 18 倍；发票报销 Agent 重复拦截率 100%。",
+    metrics: ["每周 1万+ 生产请求", "物资效率 18× · 上架企微市场", "发票重复拦截 100%"],
+    description: "独立对客交付，一人负责从需求调研、方案设计、工作流搭建到上线验收；服务制造、能源、金融、跨境等行业，并参与企业微信官方合作项目。",
     expandable: true,
     detail: "核心工作是个性化处理客户 POC 需求，直接对客沟通，将 AI 能力翻译成客户可用的业务方案。积累了跨行业 Agent 落地与完整客户交付方法论。",
     clients: [
@@ -669,6 +672,12 @@ function renderTimeline() {
       </button>
     ` : '';
 
+    const metricsHtml = item.metrics ? `
+      <div class="evidence-chips mb-4">
+        ${item.metrics.map(m => `<span class="ev-chip"><span class="ev-tick"></span>${m}</span>`).join('')}
+      </div>
+    ` : '';
+
     const isFirst = idx === 0;
     return `
       <article class="group relative pl-12 pb-16 last:pb-0 reveal">
@@ -676,7 +685,8 @@ function renderTimeline() {
         <div class="absolute left-[-5px] top-2 w-2.5 h-2.5 rounded-full ${isFirst ? 'bg-accent ring-8 ring-white scale-125' : 'bg-accent ring-8 ring-white'} transition-all duration-500 group-hover:scale-150 group-hover:bg-ink"></div>
         ${isFirst ? '<span class="hidden md:block absolute left-[-28px] top-0 text-[9px] font-bold text-accent font-mono uppercase tracking-widest" style="writing-mode:vertical-rl">Latest</span>' : ''}
         <time class="block text-[10px] font-bold font-mono text-accent italic uppercase tracking-widest mb-4">${item.time}</time>
-        <h3 class="text-2xl font-black text-ink mb-4 tracking-tighter flex items-baseline flex-wrap">${item.title}</h3>
+        <h3 class="text-2xl font-black text-ink mb-3 tracking-tighter flex items-baseline flex-wrap">${item.title}</h3>
+        ${metricsHtml}
         <p class="text-muted text-lg font-medium leading-relaxed max-w-2xl">${item.description}</p>
         ${expandBtn}
         ${expandContent}
@@ -1046,16 +1056,16 @@ function renderHero() {
 function renderStats() {
   const el = document.querySelector("#statList");
   if (!el) return;
-  const kickers = ["Signal / 01", "Signal / 02", "Signal / 03"];
   el.innerHTML = personas[activePersona].stats
     .map(
       (s, i) => `
-      <div class="group reveal stagger-${i + 1}">
-        <span class="text-[10px] font-bold tracking-[0.3em] text-accent uppercase font-mono mb-4 block">${kickers[i]}</span>
-        <div class="relative">
-          <strong class="block text-4xl md:text-5xl font-black text-ink mb-2 group-hover:text-accent transition-colors duration-700 tracking-tighter">${s.n}</strong>
-          <p class="text-[10px] md:text-[11px] font-bold text-muted leading-relaxed tracking-widest uppercase opacity-60 group-hover:opacity-100 transition-opacity">${s.label}</p>
+      <div class="stat-row group reveal stagger-${i + 1} ${i > 0 ? "pt-8 md:pt-10 border-t border-black/[0.06]" : ""}">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="stat-tick block w-3 h-px bg-accent transition-all duration-500 group-hover:w-6"></span>
+          <span class="text-[10px] font-black tracking-[0.28em] text-accent uppercase font-mono">${s.tag || ""}</span>
         </div>
+        <strong class="block text-4xl md:text-5xl font-black text-ink mb-2 tracking-tighter tabular-nums group-hover:text-accent transition-colors duration-500">${s.n}</strong>
+        <p class="text-xs font-medium text-muted leading-snug tracking-wide">${s.label}</p>
       </div>
     `
     )
