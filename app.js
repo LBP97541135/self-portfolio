@@ -369,6 +369,7 @@ const personas = {
       { title: "可验证才算交付", body: "每个 Agent 能力都要有测试、有指标、有回放，能复现才叫做完——Demo 不算。我用核心指标衡量每个功能的真实贡献。" },
     ],
     featured: ["repomesh", "multiagent-werewolf", "haji-ai", "work-order-agent", "chart-mcp", "evo-murder-game"],
+    experienceOrder: ["xiaohongshu", "huanjie", "yanhun", "hdu"],
   },
 
   "ai-pm": {
@@ -409,6 +410,7 @@ const personas = {
       { title: "以工程交付可验证的价值", body: "交付不仅仅是演示。我通过核心指标（如准确率、提效比、任务完成率）来衡量每一个 AI 功能的实际业务贡献。" },
     ],
     featured: ["work-order-agent", "ship-agent", "ai-work-coach", "evo-murder-game", "material-agent", "chart-mcp"],
+    experienceOrder: ["yanhun", "xiaohongshu", "huanjie", "hdu"],
   },
 
   "agent-qa": {
@@ -449,6 +451,7 @@ const personas = {
       { title: "可观测才能定位", body: "结构化日志、多视角回放、运行告警形成闭环，让问题从「出现」到「定位」全程可追溯。" },
     ],
     featured: ["multiagent-werewolf", "repomesh", "aigc-test-image", "haji-ai", "invoice-agent", "ship-agent"],
+    experienceOrder: ["yanhun", "xiaohongshu", "huanjie", "hdu"],
   },
 };
 
@@ -466,6 +469,7 @@ let activePersona = resolveInitialPersona();
 
 const experiences = [
   {
+    id: "yanhun",
     time: "2026.07 - 2026.09",
     title: '炎魂网络科技 <span class="font-mono italic text-ink tracking-tight ml-2">产品经理</span>',
     metrics: ["会员活动页月 UV 1万+", "8 平台爬虫平台选型", "规则→发布后禁改约束"],
@@ -474,6 +478,7 @@ const experiences = [
     detail: "把活动类型、可见人群、活动时间、会员等级等业务规则固化为状态校验与发布后禁改约束，并定义埋点与上线验收口径，活动页月 UV 稳定超过 1 万；另调研算法组、市场组在 8 个平台的多类采集需求，完成 Agent 爬虫平台选型，把需求归纳为目标平台、采集对象、筛选条件与交付格式，设计「需求理解 → 流程预览 → 试采样验收」工作流。",
   },
   {
+    id: "xiaohongshu",
     time: "2026.03 - 2026.06",
     title: '小红书 <span class="font-mono italic text-ink tracking-tight ml-2">产品工程师</span>',
     metrics: ["工单处理 11h→4h", "上线 3 天 96 张 · 50% 全自动", "生图违规 11%→1.7%"],
@@ -483,6 +488,7 @@ const experiences = [
     projects: ["work-order-agent", "aigc-test-image"],
   },
   {
+    id: "huanjie",
     time: "2025.11 - 2026.02",
     title: '珠海环界云计算 <span class="font-mono italic text-ink tracking-tight ml-2">AI 解决方案工程师</span>',
     metrics: ["每周 1万+ 生产请求", "物资效率 18× · 上架企微市场", "发票重复拦截 100%"],
@@ -500,6 +506,7 @@ const experiences = [
     projects: ["invoice-agent", "material-agent", "ship-agent"],
   },
   {
+    id: "hdu",
     time: "2023 - 2027",
     title: "杭州电子科技大学 · 自动化",
     description: "专业前 20%，学习自动控制、计算机网络、软件技术、Python、C 语言与机器学习。",
@@ -620,7 +627,11 @@ function topScoreDimension(project) {
 }
 
 function renderTimeline() {
-  timeline.innerHTML = experiences.map((item, idx) => {
+  const order = personas[activePersona].experienceOrder;
+  const ordered = order
+    ? order.map(id => experiences.find(e => e.id === id)).filter(Boolean)
+    : experiences;
+  timeline.innerHTML = ordered.map((item, idx) => {
     const isExpandable = item.expandable;
 
     const clientsHtml = item.clients ? `
@@ -683,7 +694,6 @@ function renderTimeline() {
       <article class="group relative pl-12 pb-16 last:pb-0 reveal">
         <div class="absolute left-0 top-0 bottom-0 w-px bg-black/[0.05] group-last:bg-transparent"></div>
         <div class="absolute left-[-5px] top-2 w-2.5 h-2.5 rounded-full ${isFirst ? 'bg-accent ring-8 ring-white scale-125' : 'bg-accent ring-8 ring-white'} transition-all duration-500 group-hover:scale-150 group-hover:bg-ink"></div>
-        ${isFirst ? '<span class="hidden md:block absolute left-[-28px] top-0 text-[9px] font-bold text-accent font-mono uppercase tracking-widest" style="writing-mode:vertical-rl">Latest</span>' : ''}
         <time class="block text-[10px] font-bold font-mono text-accent italic uppercase tracking-widest mb-4">${item.time}</time>
         <h3 class="text-2xl font-black text-ink mb-3 tracking-tighter flex items-baseline flex-wrap">${item.title}</h3>
         ${metricsHtml}
@@ -1186,6 +1196,7 @@ function setPersona(id) {
   renderStats();
   renderAbout();
   renderThesis();
+  renderTimeline();
   renderFilters();
   renderFeatured();
   renderProjects();
