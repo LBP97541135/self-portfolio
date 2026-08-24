@@ -1,15 +1,39 @@
 const projects = [
   {
+    id: "repomesh",
+    title: "RepoMesh",
+    tagline: "多仓库 Coding Agent 协作与交付平台",
+    category: "Agent 基建",
+    type: "GOAI 大赛 · Agent Infra 赛道 TOP 30 作品",
+    period: "2026",
+    priority: "featured",
+    summary: "面向多人 Vibe Coding 的多仓库协作平台：Leader→Manager→Worker 层级式 Agent 逐层分派任务，在隔离 Worktree 内约束执行范围，用真实 Diff 与提交前多层测试门禁验证结果，把 Coding Agent 从「能改代码」做成「能安全交付」。",
+    tags: ["多仓库协作", "层级式 Agent", "质量门禁", "隔离 Worktree", "Coding Agent Adapter"],
+    result: "2026 GOAI 世界人工智能开源大赛 · Agent Infra 赛道 TOP 30 作品；真实双仓库跑通 Task → 改码 → 校验 → 测试 → Commit → 创建 PR 纵向切片",
+    problem: "多人多仓库的 Vibe Coding 场景里，Coding Agent 容易越权改动、结果难以验证、跨仓库改动缺乏统一约束——「能生成代码」不等于「能安全交付」。",
+    product: "以 Repository Profile 描述每个仓库的结构与规则，Leader→Manager→Worker 层级式 Agent 逐层分派任务；提供全自动 / 半自动 / 全监督三种协作模式，让人按风险选择介入程度；Coding Agent 适配层在独立 Worktree 中调用本地 Coding Agent 应用。",
+    engineering: "核心是让 Agent 在「受约束」的前提下工作：每个 Worker 在固定 Base SHA 的隔离 Worktree 内执行，前置 allowed_paths 许可 + 执行后 Git Diff 路径校验双重门禁；提交前跑 Agent 生成测试 + 仓库历史测试 + 跨仓库集成测试 + Diff 校验，任一失败即阻断 Commit；跨进程定义幂等事件模型与乐观锁，防止并发覆盖。真实链路目前跑通到「创建 PR」。",
+    role: "核心架构设计 / Agent Runtime 负责人（3 人团队）：负责层级式 Agent 分派、Runtime 跨进程契约与幂等事件、隔离 Worktree 执行与提交前质量门禁。",
+    scores: { business: 78, depth: 95, product: 85, innovation: 90, contribution: 90, verifiable: 85 },
+    modules: [
+      { title: "层级式 Agent 分派", detail: "Leader→Manager→Worker 三层结构：Leader 拆解跨仓库目标，Manager 结合 Repository Profile 规划单仓库任务，Worker 在隔离环境内实际改码；层级间定义清晰的任务契约，支持全自动 / 半自动 / 全监督三种介入模式。", metric: "3 层 · 三种协作模式" },
+      { title: "隔离 Worktree + 双重门禁", detail: "每个 Worker 在固定 Base SHA 的隔离 Git Worktree 内执行，前置 allowed_paths 许可限定可改范围，执行后再做 Git Diff 路径校验；幂等请求加乐观锁防止并发覆盖，保证多 Agent 并行改码互不污染。", metric: "allowed_paths + Diff 校验" },
+      { title: "提交前质量门禁", detail: "Commit 前依次执行 Agent 生成测试、仓库历史测试、跨仓库集成测试与 Diff 校验，任一失败即阻断提交；以真实测试证据而非模型自述判断改动是否可交付。", metric: "四类校验 · 任一失败阻断" },
+      { title: "Coding Agent 适配层", detail: "抽象 Coding Agent Adapter，在独立 Worktree 中调用本地 Coding Agent 应用，统管身份权限、Context 组织与跨进程通信；真实双仓库跑通 Task → Worktree → 改码 → 校验 → 测试 → Commit → 创建 PR 纵向切片。", metric: "真实双仓库跑通" },
+    ],
+    github: "https://github.com/LBP97541135/GOAI-infra-repomesh",
+  },
+  {
     id: "multiagent-werewolf",
     title: "AI 狼人杀",
     tagline: "多智能体博弈系统 · 自进化与评测框架设计",
     category: "多智能体",
-    type: "字节挑战赛 · 赛道第一",
+    type: "字节 AI 全栈挑战赛 · 冠军",
     period: "2026",
     priority: "featured",
     summary: "把狼人杀做成多智能体博弈实验场——信念矩阵追踪每个 Agent 的阵营判断，成功策略自动沉淀为 Skill，Fleet 并发评测量化自进化收益。",
     tags: ["多智能体", "信念矩阵", "Skill 自进化", "Fleet 评测", "AgentScope"],
-    result: "字节跳动 AI 全栈挑战赛「多智能体协作与博弈」赛道第一，卓越项目奖，奖金 2 万",
+    result: "字节跳动 AI 全栈挑战赛 · 冠军；A/B 实验平均 MVP 过程评分最高提升 20.4%，20 轮迭代赛后综合得分由 60 提升至 80",
     problem: "普通多智能体演示往往停在对话层，缺少长期策略、私有信息边界、可解释复盘，且无法批量评测多 Agent 博弈质量。",
     product: "22 个角色覆盖狼人、好人、中立三大阵营，每个角色有独立 Prompt 版本和 Skill 体系；上帝视角可实时观察全局信念矩阵和策略演进，玩家视角模拟真实身份遮蔽和博弈感；复盘面板提供时间线、MVP 评分图表和投票摇摆矩阵，让每局博弈都可量化分析。",
     engineering: "核心挑战是让 Agent 真正参与博弈——而不只是生成对话。自建博弈引擎维护完整的游戏状态机（身份/行动/投票/胜负判断），每轮发言驱动 Agent 实时更新对每位玩家身份的信念估计和预投票倾向；Fleet 并发评测模式把主观游戏体验转化为可量化的 Skill 迭代收益，让自进化效果有数据说话。",
@@ -306,14 +330,155 @@ const scoreDimensions = [
   { key: "verifiable", label: "可验证度", hint: "是否有 demo、数据、代码可以直接验证" },
 ];
 
+const personas = {
+  "agent-dev": {
+    label: "Agent 应用开发",
+    en: "Agent Engineer",
+    badges: ["Agent 应用开发工程师", "AI 全栈 / Agent Engineer"],
+    headline: ["不是又一个 AI Demo", "是能跑通的 Agent 工程"],
+    sub: "从自研 Multi-Agent 框架到多仓库 Coding Agent，我把 <span class=\"text-ink font-bold\">Context、Tool Use、Multi-Agent 编排</span> 落成能上线、可验证的系统。",
+    stats: [
+      { n: "TOP 30", label: "GOAI 大赛 · Agent Infra 赛道" },
+      { n: "冠军", label: "字节 AI 全栈挑战赛 · 多智能体" },
+      { n: "574", label: "自研 Agent 框架测试全通过" },
+    ],
+    about: {
+      title: "把 Agent 做成<br/>能上线的系统",
+      intro: [
+        "我关注的不是模型能不能聊天，而是 Agent 能不能在真实约束下稳定完成任务——<span class=\"text-ink\">Context 怎么组织、工具怎么调用、多个 Agent 怎么协作、失败怎么兜底</span>。",
+        "从零自研 Multi-Agent 框架（574 测试全通过），到多仓库 Coding Agent 协作平台，我习惯把 Agent 能力落成 <span class=\"text-ink italic font-serif\">有契约、可验证、能交付的工程系统。</span>",
+      ],
+    },
+    capabilities: [
+      { title: "Agent 架构", desc: "Leader→Manager→Worker 层级式 Agent、Multi-Agent 编排、Human-in-the-Loop；从自研框架到多仓库 Coding Agent 协作平台的落地经验。" },
+      { title: "Context & Tool Use", desc: "Context 组织、Tool Calling、Structured Output、MCP 协议；对工具入参与返回做 Schema 校验、失败重试与降级。" },
+      { title: "检索与记忆", desc: "RAG 检索、纯 Python 向量语义匹配、JSON / JSONL Memory 持久化，重启不失忆。" },
+      { title: "工作流与编排", desc: "Workflow 编排、Agent Loop、DIRECT / REACT / PLAN_AND_EXECUTE 三种执行模式统一调度。" },
+      { title: "工程能力", desc: "Python / TypeScript / FastAPI、HTTP/RPC、SSE / WebSocket、SQL、Docker、Git、Pytest 全栈独立交付。" },
+      { title: "评测与可观测", desc: "Evals 评测体系、Fleet 批量评测、结构化日志与运行告警，让每次迭代有数据说话。" },
+    ],
+    skills: [
+      { label: "工程能力", items: "Python、TypeScript、FastAPI、HTTP/RPC、SSE / WebSocket、SQL、Docker、Git、Pytest" },
+      { label: "Agent 开发", items: "Context、Tool Use、Structured Output、MCP、RAG、Workflow、Multi-Agent、Human-in-the-loop、Evals" },
+      { label: "框架 & 平台", items: "AgentScope、FastGPT、Darwin、Langflow、Prompt Engineering" },
+    ],
+    thesisTitle: "关于 Agent 工程的<br/>核心主张",
+    thesis: [
+      { title: "契约优先", body: "多进程 Agent 系统里，先定跨进程契约与幂等事件模型，再谈能力扩展——否则并发一上来就乱。" },
+      { title: "约束即安全", body: "让 Agent 在隔离 Worktree、allowed_paths 白名单内执行，用真实 Diff 与测试验证结果，而不是相信模型自述。" },
+      { title: "可验证才算交付", body: "每个 Agent 能力都要有测试、有指标、有回放，能复现才叫做完——Demo 不算。我用核心指标衡量每个功能的真实贡献。" },
+    ],
+    featured: ["repomesh", "multiagent-werewolf", "haji-ai", "work-order-agent", "chart-mcp", "evo-murder-game"],
+  },
+
+  "ai-pm": {
+    label: "AI 技术产品经理",
+    en: "AI Product Manager",
+    badges: ["AI 技术产品经理", "AI Product Manager"],
+    headline: ["懂技术边界", "更懂产品落地"],
+    sub: "我从用户问题出发定义需求，也懂 Agent 的能力与边界——能把模糊的业务诉求，拆成 <span class=\"text-ink font-bold\">可执行、可验证、能上线</span> 的产品方案。",
+    stats: [
+      { n: "1w+", label: "周年庆会员活动页月活 UV" },
+      { n: "11h→4h", label: "商家工单端到端处理时长" },
+      { n: "18×", label: "物资管理效率 · 企微市场上线" },
+    ],
+    about: {
+      title: "从用户问题<br/>定义 AI 产品",
+      intro: [
+        "我拒绝停留在 <span class=\"text-ink\">「AI Demo」</span>。在不确定的业务场景中，我先判断哪里真正需要智能体、失败成本有多高，再决定 AI 出现在哪一步。",
+        "从炎魂游戏中台的会员活动，到小红书商家工单的 0→1 主推，我习惯把感性需求翻译成 <span class=\"text-ink italic font-serif\">角色、任务、工具链和可量化的验收标准。</span>",
+      ],
+    },
+    capabilities: [
+      { title: "需求定义", desc: "从用户问题出发定义需求，而非从技术找场景；擅长场景优先级排序与失败成本评估。" },
+      { title: "方案设计", desc: "Multi-Agent 方案选型、工作流拆解、采集口径与交付标准定义，把模糊诉求收敛成可执行方案。" },
+      { title: "数据驱动", desc: "埋点触达、可见人群管理、指标体系与 A/B 验证，用数据判断功能价值与迭代方向。" },
+      { title: "跨团队推动", desc: "有从 0→1 推动项目落地的经验，覆盖需求-方案-上线全流程，直接对客沟通与验收。" },
+      { title: "技术判断力", desc: "懂 Agent 能力边界与失败模式，能与工程深度对齐，避免把不确定性推给用户。" },
+      { title: "跨行业落地", desc: "游戏 / 电商 / 制造 / 能源 / 航运多行业交付，快速理解业务并翻译成 AI 可用方案。" },
+    ],
+    skills: [
+      { label: "产品能力", items: "需求分析、方案设计、埋点与指标体系、竞品调研、项目管理、验收标准定义" },
+      { label: "AI 理解", items: "Multi-Agent、RAG、Tool Use、Prompt Engineering、Agent 能力与边界判断" },
+      { label: "工具", items: "原型设计、SQL、埋点分析、企微多维表、FastGPT、Langflow" },
+    ],
+    thesisTitle: "关于 AI 产品的<br/>核心主张",
+    thesis: [
+      { title: "精准定位 AI 边界", body: "不是所有流程都需要智能体。我优先评估业务约束与失败成本，确保 AI 仅出现在能产生确定性收益的环节。" },
+      { title: "拆解模糊为执行单元", body: "我将感性的需求转化为理性的角色、任务与工具链。通过设计反馈机制，让系统在自主行动与人工干预间达成平衡。" },
+      { title: "以工程交付可验证的价值", body: "交付不仅仅是演示。我通过核心指标（如准确率、提效比、任务完成率）来衡量每一个 AI 功能的实际业务贡献。" },
+    ],
+    featured: ["work-order-agent", "ship-agent", "ai-work-coach", "evo-murder-game", "material-agent", "chart-mcp"],
+  },
+
+  "agent-qa": {
+    label: "Agent 测试 / 质量效能",
+    en: "Agent QA / Eval",
+    badges: ["Agent 质量效能", "Agent QA / Eval Engineer"],
+    headline: ["Agent 不是测过就行", "要可评测、可观测"],
+    sub: "我把 Agent 的质量做成体系：从提交前的 <span class=\"text-ink font-bold\">多层测试门禁</span>，到 PostGame 三阶段评测与全链路可观测，让每次迭代都有数据说话。",
+    stats: [
+      { n: "60→80", label: "狼人杀 20 轮迭代赛后综合得分" },
+      { n: "11%→1.7%", label: "AI 生图违规率 · 双层评测" },
+      { n: "98%+", label: "船舶助手 100 案例回归通过" },
+    ],
+    about: {
+      title: "让 Agent 质量<br/>可评测可观测",
+      intro: [
+        "Agent 系统最难的不是跑通一次，而是证明它 <span class=\"text-ink\">稳定、可回归、可复盘</span>。我关注评测怎么建、门禁怎么卡、异常怎么定位。",
+        "从狼人杀的 PostGame 三阶段评测与 Vote Swing 指标，到 RepoMesh 提交前的多层测试门禁，我习惯用 <span class=\"text-ink italic font-serif\">可量化、可观测的方式为 Agent 质量兜底。</span>",
+      ],
+    },
+    capabilities: [
+      { title: "评测体系", desc: "PostGame 三阶段评测、多维评分、场景化对局数据集，支撑 Prompt 改进与角色 Skill 提取，让策略可量化可回归。" },
+      { title: "质量门禁", desc: "提交前 Agent 生成测试 + 仓库历史测试 + 跨仓库集成测试 + Diff 校验，任一失败阻断 Commit。" },
+      { title: "可观测", desc: "结构化对局日志、POV 多视角回放、多类运行告警，形成从记录到问题定位与复盘的闭环。" },
+      { title: "指标设计", desc: "独创 Vote Swing 量化单次发言影响、MVP 过程评分、AI 违规率等，把主观体验转成可量化信号。" },
+      { title: "回归与验证", desc: "真实案例回归集、数据库回查校验、双层视觉评测 pipeline，不以工具返回值为唯一凭证。" },
+      { title: "Agent 工程", desc: "Multi-Agent、Tool Use、MCP、隔离执行；懂被测系统内部，才能设计有效的评测与门禁。" },
+    ],
+    skills: [
+      { label: "工程能力", items: "Python、TypeScript、FastAPI、HTTP/RPC、SSE / WebSocket、SQL、Docker、Git、Pytest" },
+      { label: "Agent 开发", items: "Context、Tool Use、Evals、MCP、RAG、Multi-Agent、Human-in-the-loop、Workflow、Observability" },
+      { label: "评测 & 可观测", items: "评分数据集、Fleet 批量评测、结构化日志、多视角回放、运行告警" },
+    ],
+    thesisTitle: "关于 Agent 质量的<br/>核心主张",
+    thesis: [
+      { title: "可量化才能优化", body: "把主观体验转成可量化指标——Vote Swing、过程评分、违规率——迭代才有方向，而不是凭感觉调 Prompt。" },
+      { title: "门禁前置", body: "质量不是上线后补测，而是提交前就卡住：Agent 生成测试 + 历史测试 + 集成测试 + Diff 校验，任一失败阻断 Commit。" },
+      { title: "可观测才能定位", body: "结构化日志、多视角回放、运行告警形成闭环，让问题从「出现」到「定位」全程可追溯。" },
+    ],
+    featured: ["multiagent-werewolf", "repomesh", "aigc-test-image", "haji-ai", "invoice-agent", "ship-agent"],
+  },
+};
+
+const PERSONA_ORDER = ["agent-dev", "ai-pm", "agent-qa"];
+
+function resolveInitialPersona() {
+  const fromUrl = new URLSearchParams(location.search).get("p");
+  if (personas[fromUrl]) return fromUrl;
+  const fromStore = localStorage.getItem("persona");
+  if (personas[fromStore]) return fromStore;
+  return "agent-dev";
+}
+
+let activePersona = resolveInitialPersona();
+
 const experiences = [
   {
-    time: "2026.03 - 2026.05",
+    time: "2026.07 - 2026.09",
+    title: '炎魂网络科技 <span class="font-mono italic text-ink tracking-tight ml-2">产品经理</span>',
+    description: "负责《忍者必须死 3》游戏中台产品建设，并参与内部 AI 效率工具的需求分析与方案设计。主导周年庆会员抽奖活动从需求、后台配置、前台交互到上线验收的完整方案，将活动类型、可见人群、活动时间、会员等级等业务规则固化为状态校验与发布后禁改约束，并定义埋点与上线验收口径，活动页月 UV 稳定超过 1 万；调研算法组、市场组在 8 个平台的多类采集需求，完成 Agent 爬虫平台选型，设计「需求理解 → 流程预览 → 试采样验收」工作流。",
+    expandable: true,
+    detail: "以产品经理身份嵌入游戏中台，横跨 C 端会员活动与内部效率工具两类场景。会员活动把业务规则固化为可复用配置与发布后禁改约束，定义埋点与验收口径；Agent 爬虫平台把上百类模糊需求归纳为目标平台、采集对象、筛选条件与交付格式，收敛出可执行的采集口径与交付标准。",
+  },
+  {
+    time: "2026.03 - 2026.06",
     title: '小红书 <span class="font-mono italic text-ink tracking-tight ml-2">产品工程师</span>',
-    description: "电商商家技术组，以全栈工程师身份独立交付两条业务线。测品评测体系是主导工作：从 20,000 张图中筛选 6,700+ 标杆素材，设计双层视觉评测 pipeline，将 AI 违规率从 11% 压降至 1.7%。工单自动化系统是自主推动落地的项目：基于 Java + Darwin 框架搭建双层 Agent，Human-in-the-Loop 保障写入安全，覆盖率超 50%，处理用时从 11h 缩短至 4h。",
+    description: "电商商家技术组，以全栈工程师身份独立交付两条业务线。商家工单助手是从 0 到 1 主导的项目：基于 Java + Darwin 搭建两级 Agent——一级 Router Agent 做意图识别、实体抽取与场景路由，二级按商家入驻 / 开发平台 / 店铺资质规划专业 Agent，封装领域 SOP、Skill 与 RPC Tool；调用前后校验入参 / 返回 Schema，失败重试耗尽后降级转人工，按置信度分流。上线 3 天处理约 96 张工单，50% 全自动闭环、20% 仅需人工复核，平均处理时长从 11h 降至 4h。测品评测体系是另一条线：从 20,000 张图中筛选 6,700+ 标杆素材，设计双层视觉评测 pipeline，将 AI 违规率从 11% 压降至 1.7%。",
     expandable: true,
     detail: "以 PE（Product Engineer）身份嵌入商家技术组，PE 角色横跨工程交付与业务判断——既写代码，也推动需求落地。两条业务线均为独立主导，从方案设计到上线验收全程负责。",
-    projects: ["aigc-test-image", "work-order-agent"],
+    projects: ["work-order-agent", "aigc-test-image"],
   },
   {
     time: "2025.11 - 2026.02",
@@ -338,7 +503,7 @@ const experiences = [
   },
 ];
 
-const categories = ["全部", "多智能体", "AI 产品", "企业落地", "开发者工具"];
+const categories = ["全部", "Agent 基建", "多智能体", "AI 产品", "企业落地", "开发者工具"];
 let activeCategory = "全部";
 
 const filterBar = document.querySelector("#filterBar");
@@ -576,27 +741,23 @@ function projectActions(project) {
   return actions.length ? `<div class="flex gap-3 mt-6">${actions.join("")}</div>` : "";
 }
 
-function projectCard(project, modifier = "") {
-  const s = project.scores || {};
-  const dims = [
-    { key: "business", label: "业务" },
-    { key: "depth",    label: "技术" },
-    { key: "product",  label: "产品" },
-    { key: "innovation", label: "创新" },
-    { key: "contribution", label: "贡献" },
-    { key: "verifiable", label: "验证" },
-  ];
-  const matrixHtml = `
-    <div class="score-matrix-mini mt-4 mb-6">
-      ${dims.map(d => `
-        <div class="score-row-mini">
-          <span class="score-label-mini">${d.label}</span>
-          <div class="score-track-mini"><div class="score-fill-mini" style="width:${s[d.key] || 0}%"></div></div>
-          <span class="score-num-mini">${s[d.key] || 0}</span>
-        </div>
-      `).join('')}
+function evidenceChips(project) {
+  const chips = [];
+  const t = project.type || "";
+  if (/冠军|第一|TOP|最高奖|一等|二等|人气奖|卓越/.test(t)) chips.push({ text: t, award: true });
+  if (project.github) chips.push({ text: "开源代码" });
+  if (project.mock) chips.push({ text: "在线 Demo" });
+  (project.tags || []).forEach((tag) => {
+    if (chips.length < 3 && !chips.some((c) => c.text === tag)) chips.push({ text: tag });
+  });
+  return `
+    <div class="evidence-chips mt-4 mb-6">
+      ${chips.slice(0, 3).map((c) => `<span class="ev-chip${c.award ? " ev-chip-award" : ""}">${c.text}</span>`).join("")}
     </div>
   `;
+}
+
+function projectCard(project, modifier = "") {
   return `
     <article class="project-item reveal group cursor-pointer bg-white/40 backdrop-blur-sm p-7 rounded-3xl hover:bg-white shadow-sm hover:shadow-ambient-hover transition-all duration-500 border border-black/[0.03] hover:border-black/[0.08]" data-index="${projects.indexOf(project)}" tabindex="0" role="button">
       <div class="flex flex-col h-full justify-between relative z-10">
@@ -611,7 +772,7 @@ function projectCard(project, modifier = "") {
           </h3>
           ${project.tagline ? `<p class="font-mono text-[10px] text-accent/70 tracking-wide mb-3">${project.tagline}</p>` : '<div class="mb-3"></div>'}
           <p class="text-muted text-sm font-medium leading-relaxed line-clamp-2 group-hover:text-ink transition-colors mb-2">${project.summary}</p>
-          ${matrixHtml}
+          ${evidenceChips(project)}
         </div>
         <div class="pt-5 border-t border-black/[0.04] group-hover:border-accent/20 transition-colors">
           <p class="text-[10px] font-bold text-muted uppercase tracking-[0.2em] mb-1 font-mono">Key Outcome</p>
@@ -622,31 +783,29 @@ function projectCard(project, modifier = "") {
   `;
 }
 
+function personaFeaturedIds() {
+  return (personas[activePersona] && personas[activePersona].featured) || [];
+}
+
 function renderFeatured() {
   if (!featuredGrid) return;
-  const visibleFeatured = projects.filter(p =>
-    p.priority === "featured" &&
-    (activeCategory === "全部" || p.category === activeCategory)
-  );
-  featuredGrid.innerHTML = visibleFeatured
-    .map((project, idx) => {
-      const card = projectCard(project, "featured-card");
-      return card.replace('reveal', `reveal stagger-${idx + 1}`);
-    })
+  let list = personaFeaturedIds()
+    .map((id) => projects.find((p) => p.id === id))
+    .filter(Boolean);
+  if (activeCategory !== "全部") list = list.filter((p) => p.category === activeCategory);
+  featuredGrid.innerHTML = list
+    .map((project, idx) => projectCard(project, "featured-card").replace("reveal", `reveal stagger-${idx + 1}`))
     .join("");
   observeReveals();
 }
 
 function renderProjects() {
-  const visibleProjects =
-    activeCategory === "全部"
-      ? projects.filter((project) => project.priority !== "featured")
-      : projects.filter((project) => project.category === activeCategory && project.priority !== "featured");
-
-  projectGrid.innerHTML = visibleProjects.map((project, idx) => {
-    const card = projectCard(project);
-    return card.replace('reveal', `reveal stagger-${(idx % 5) + 1}`);
-  }).join("");
+  const featuredSet = new Set(personaFeaturedIds());
+  let list = projects.filter((p) => !featuredSet.has(p.id));
+  if (activeCategory !== "全部") list = list.filter((p) => p.category === activeCategory);
+  projectGrid.innerHTML = list
+    .map((project, idx) => projectCard(project).replace("reveal", `reveal stagger-${(idx % 5) + 1}`))
+    .join("");
   observeReveals();
 }
 
@@ -844,10 +1003,201 @@ function observeReveals() {
   document.querySelectorAll(".reveal, .reveal-group").forEach((item) => observer.observe(item));
 }
 
+// ---------- Persona system ----------
+
+function renderPersonaSwitch() {
+  const el = document.querySelector("#personaSwitch");
+  if (!el) return;
+  el.innerHTML = PERSONA_ORDER.map((id) => {
+    const p = personas[id];
+    const active = id === activePersona;
+    return `
+      <button type="button" data-persona-btn="${id}" class="persona-tab${active ? " is-active" : ""}" aria-pressed="${active}">
+        <span class="persona-tab-label">${p.label}</span>
+        <span class="persona-tab-en">${p.en}</span>
+      </button>
+    `;
+  }).join("");
+}
+
+function renderHero() {
+  const p = personas[activePersona];
+  const badges = document.querySelector("#heroBadges");
+  if (badges) {
+    badges.innerHTML = p.badges
+      .map((b, i) =>
+        i === 0
+          ? `<span class="px-3 py-1 bg-accent text-white text-[9px] font-bold tracking-widest uppercase font-mono rounded italic">${b}</span>`
+          : `<span class="px-3 py-1 bg-bgsoft text-muted text-[9px] font-bold tracking-widest uppercase font-mono rounded border border-black/[0.05] italic">${b}</span>`
+      )
+      .join("");
+  }
+  const hl = document.querySelector("#heroHeadline");
+  if (hl) {
+    hl.innerHTML = `
+      <span class="font-serif italic text-muted/50 group-hover:text-accent transition-all duration-700 inline-block tracking-wider">${p.headline[0]}</span>
+      <span class="tracking-tight">${p.headline[1]}</span>
+    `;
+  }
+  const sub = document.querySelector("#heroSub");
+  if (sub) sub.innerHTML = p.sub;
+}
+
+function renderStats() {
+  const el = document.querySelector("#statList");
+  if (!el) return;
+  const kickers = ["Signal / 01", "Signal / 02", "Signal / 03"];
+  el.innerHTML = personas[activePersona].stats
+    .map(
+      (s, i) => `
+      <div class="group reveal stagger-${i + 1}">
+        <span class="text-[10px] font-bold tracking-[0.3em] text-accent uppercase font-mono mb-4 block">${kickers[i]}</span>
+        <div class="relative">
+          <strong class="block text-4xl md:text-5xl font-black text-ink mb-2 group-hover:text-accent transition-colors duration-700 tracking-tighter">${s.n}</strong>
+          <p class="text-[10px] md:text-[11px] font-bold text-muted leading-relaxed tracking-widest uppercase opacity-60 group-hover:opacity-100 transition-opacity">${s.label}</p>
+        </div>
+      </div>
+    `
+    )
+    .join("");
+}
+
+function renderAbout() {
+  const p = personas[activePersona];
+  const title = document.querySelector("#aboutTitle");
+  if (title) title.innerHTML = p.about.title;
+  const intro = document.querySelector("#aboutIntro");
+  if (intro) intro.innerHTML = p.about.intro.map((t) => `<p>${t}</p>`).join("");
+  const grid = document.querySelector("#capabilityGrid");
+  if (grid) {
+    grid.innerHTML = p.capabilities
+      .map(
+        (c, i) => `
+        <li class="capability-card group relative overflow-hidden px-5 py-4 rounded-2xl bg-white border border-black/[0.05] cursor-default transition-all duration-300 hover:border-accent/20 hover:shadow-ambient">
+          <div class="flex items-center justify-between">
+            <span class="text-sm font-black text-ink">${c.title}</span>
+            <span class="text-[10px] font-mono text-accent opacity-0 group-hover:opacity-100 transition-opacity">0${i + 1}</span>
+          </div>
+          <p class="capability-desc text-xs text-muted font-medium leading-relaxed">${c.desc}</p>
+        </li>
+      `
+      )
+      .join("");
+  }
+  const skills = document.querySelector("#skillMatrix");
+  if (skills) {
+    skills.innerHTML = p.skills
+      .map(
+        (s) => `
+        <div class="skill-row">
+          <span class="skill-key">${s.label}</span>
+          <span class="skill-vals">${s.items}</span>
+        </div>
+      `
+      )
+      .join("");
+  }
+  bindCapabilityCards();
+}
+
+function renderThesis() {
+  const p = personas[activePersona];
+  const title = document.querySelector("#thesisTitle");
+  if (title) title.innerHTML = p.thesisTitle;
+  const el = document.querySelector("#thesisGrid");
+  if (!el) return;
+  el.innerHTML = p.thesis
+    .map((t, i) => {
+      const wide = i === 2;
+      return `
+        <article class="p-8 rounded-3xl shadow-ambient hover:shadow-ambient-hover transition-all duration-500 border ${
+          wide ? "sm:col-span-2 bg-accent/5 border-accent/10" : "bg-white border-black/[0.02]"
+        }">
+          <h3 class="text-xl font-bold mb-4 ${wide ? "text-accent" : "text-ink"}">0${i + 1} / ${t.title}</h3>
+          <p class="text-muted leading-relaxed font-medium ${wide ? "text-lg" : ""}">${t.body}</p>
+        </article>
+      `;
+    })
+    .join("");
+}
+
+function bindCapabilityCards() {
+  document.querySelectorAll(".capability-card").forEach((card) => {
+    if (card.dataset.bound === "1") return;
+    const desc = card.querySelector(".capability-desc");
+    if (!desc) return;
+    card.dataset.bound = "1";
+    desc.style.maxHeight = "0";
+    desc.style.overflow = "hidden";
+    desc.style.opacity = "0";
+    desc.style.marginTop = "0";
+    desc.style.transition =
+      "max-height 0.35s cubic-bezier(0.16,1,0.3,1), opacity 0.3s ease, margin-top 0.35s ease";
+
+    const open = () => {
+      desc.style.maxHeight = desc.scrollHeight + "px";
+      desc.style.opacity = "1";
+      desc.style.marginTop = "0.75rem";
+    };
+    const close = () => {
+      desc.style.maxHeight = "0";
+      desc.style.opacity = "0";
+      desc.style.marginTop = "0";
+    };
+
+    if (window.matchMedia("(hover: none)").matches) {
+      card.style.cursor = "pointer";
+      card.addEventListener("click", () => {
+        const isOpen = desc.style.maxHeight !== "0px" && desc.style.maxHeight !== "";
+        isOpen ? close() : open();
+      });
+    } else {
+      card.addEventListener("mouseenter", open);
+      card.addEventListener("mouseleave", close);
+    }
+  });
+}
+
+function setPersona(id) {
+  if (!personas[id]) return;
+  activePersona = id;
+  localStorage.setItem("persona", id);
+  document.documentElement.dataset.persona = id;
+  try {
+    const url = new URL(location.href);
+    url.searchParams.set("p", id);
+    history.replaceState(null, "", url);
+  } catch (e) {
+    /* ignore (e.g. file:// deep-link) */
+  }
+  activeCategory = "全部";
+  renderPersonaSwitch();
+  renderHero();
+  renderStats();
+  renderAbout();
+  renderThesis();
+  renderFilters();
+  renderFeatured();
+  renderProjects();
+  observeReveals();
+}
+
+document.querySelector("#personaSwitch")?.addEventListener("click", (e) => {
+  const btn = e.target.closest("[data-persona-btn]");
+  if (!btn) return;
+  setPersona(btn.dataset.personaBtn);
+});
+
 // Initial Render
+document.documentElement.dataset.persona = activePersona;
+renderPersonaSwitch();
+renderHero();
+renderStats();
+renderAbout();
+renderThesis();
 renderTimeline();
-renderFeatured();
 renderFilters();
+renderFeatured();
 renderProjects();
 observeReveals();
 
@@ -859,28 +1209,3 @@ function copyWechat() {
     setTimeout(() => toast.classList.remove('show'), 2200);
   });
 }
-
-// Capability cards — JS-driven height animation for smooth expand
-document.querySelectorAll('.capability-card').forEach(card => {
-  const desc = card.querySelector('.capability-desc');
-  if (!desc) return;
-  desc.style.maxHeight = '0';
-  desc.style.overflow = 'hidden';
-  desc.style.opacity = '0';
-  desc.style.marginTop = '0';
-  desc.style.transition = 'max-height 0.35s cubic-bezier(0.16,1,0.3,1), opacity 0.3s ease, margin-top 0.35s ease';
-
-  const open = () => { desc.style.maxHeight = desc.scrollHeight + 'px'; desc.style.opacity = '1'; desc.style.marginTop = '0.75rem'; };
-  const close = () => { desc.style.maxHeight = '0'; desc.style.opacity = '0'; desc.style.marginTop = '0'; };
-
-  if (window.matchMedia('(hover: none)').matches) {
-    card.style.cursor = 'pointer';
-    card.addEventListener('click', () => {
-      const isOpen = desc.style.maxHeight !== '0px' && desc.style.maxHeight !== '';
-      isOpen ? close() : open();
-    });
-  } else {
-    card.addEventListener('mouseenter', open);
-    card.addEventListener('mouseleave', close);
-  }
-});
