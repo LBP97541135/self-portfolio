@@ -1,275 +1,180 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-persona="agent-dev">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="吕祎晗的个人作品集 · 可切换人设主页：Agent 应用开发 / AI 技术产品经理 / Agent 测试质效。同一套真实项目，按岗位换一副面孔。"
+      content="吕祎晗的个人作品集。以 Agent 应用开发、AI 技术产品和 Agent 质量效能三种岗位视角，展示真实项目、实践经历与能力证据。"
     />
-    <title>吕祎晗 | Agent 应用开发 · AI 产品 · Agent 质效</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Plus+Jakarta+Sans:wght@800;900&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:ital,wght@0,400;0,600;1,400;1,600&family=Newsreader:ital,wght@1,200..800&family=Noto+Serif+SC:wght@700;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              ink: '#1D1D1F',
-              muted: '#6E6E73',
-              accent: 'rgb(var(--accent-rgb) / <alpha-value>)',
-              bgsoft: '#F5F5F7',
-            },
-            fontFamily: {
-              sans: ['"Noto Sans SC"', 'Inter', 'system-ui', 'sans-serif'],
-              display: ['Outfit', '"Plus Jakarta Sans"', 'sans-serif'],
-              serif: ['"Noto Serif SC"', 'Newsreader', 'serif'],
-              mono: ['"IBM Plex Mono"', 'monospace'],
-            },
-            fontSize: {
-              'xs': ['0.7rem', { lineHeight: '1rem', letterSpacing: '0.05em' }],
-              'sm': ['0.8rem', { lineHeight: '1.25rem', letterSpacing: '0.02em' }],
-              'base': ['0.95rem', { lineHeight: '1.6', letterSpacing: '-0.01em' }],
-              'lg': ['1.1rem', { lineHeight: '1.6', letterSpacing: '-0.02em' }],
-              'xl': ['1.25rem', { lineHeight: '1.5', letterSpacing: '-0.03em' }],
-              '2xl': ['1.75rem', { lineHeight: '1.3', letterSpacing: '-0.04em' }],
-              'display': ['clamp(2.75rem, 5.5vw, 4.75rem)', { lineHeight: '1.04', letterSpacing: '-0.035em' }],
-            },
-            boxShadow: {
-              'ambient': '0 20px 50px rgba(0,0,0,0.04)',
-              'ambient-hover': '0 30px 60px rgba(0,0,0,0.08)',
-            }
-          }
-        }
-      }
-    </script>
+    <title>吕祎晗｜Agent 应用开发作品集</title>
+    <link rel="preload" href="assets/fonts/NotoSansSC-Portfolio.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="./styles.css" />
   </head>
-  <body class="bg-[#FBFBFC] text-ink font-sans selection:bg-accent/10 selection:text-accent overflow-x-hidden">
-    <!-- Scroll Progress -->
-    <div id="scrollProgress" class="fixed top-0 left-0 h-1 bg-accent z-[100] transition-all duration-300 ease-out" style="width: 0%"></div>
-    
-    <div class="cursor-light fixed z-[-1] pointer-events-none opacity-0 hidden" aria-hidden="true"></div>
+  <body>
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
-    <!-- Command Palette -->
-    <dialog id="cmdPalette" class="p-0 bg-transparent border-none outline-none backdrop:bg-black/10 backdrop:backdrop-blur-sm">
-      <div class="fixed inset-x-0 top-1/4 max-w-2xl mx-auto bg-white/90 backdrop-blur-2xl rounded-[32px] shadow-2xl border border-black/[0.05] overflow-hidden reveal-group">
-        <div class="flex items-center px-8 py-6 border-b border-black/[0.03]">
-          <svg class="w-5 h-5 text-muted mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-          <input type="text" id="cmdInput" placeholder="Search projects or navigation..." class="bg-transparent border-none outline-none w-full text-lg font-medium text-ink placeholder:text-muted/40" />
-          <kbd class="px-2 py-1 bg-bgsoft rounded text-[10px] font-bold text-muted border border-black/[0.05]">ESC</kbd>
-        </div>
-        <div id="cmdResults" class="max-h-[400px] overflow-y-auto p-4 space-y-1 no-scrollbar">
-          <!-- Results will be injected here -->
-        </div>
-        <div class="px-8 py-4 bg-bgsoft/50 border-t border-black/[0.03] flex items-center justify-between">
-          <div class="flex items-center gap-6">
-            <span class="flex items-center gap-2 text-[10px] font-bold text-muted/60"><kbd class="px-1.5 py-0.5 bg-white rounded border border-black/[0.05] text-ink">↑↓</kbd> Navigate</span>
-            <span class="flex items-center gap-2 text-[10px] font-bold text-muted/60"><kbd class="px-1.5 py-0.5 bg-white rounded border border-black/[0.05] text-ink">Enter</kbd> Select</span>
-          </div>
-          <span class="text-[10px] font-bold tracking-widest text-muted/60 uppercase font-mono">快捷搜索</span>
-        </div>
-      </div>
-    </dialog>
-
-    <header class="fixed top-0 inset-x-0 z-50 h-20 flex items-center justify-between px-6 md:px-16 bg-white/70 backdrop-blur-xl border-b border-black/[0.03]">
-      <a class="flex items-center gap-3 group" href="#top">
-        <div class="flex flex-col">
-          <span class="text-sm font-black tracking-tighter leading-none group-hover:text-accent transition-colors">lv yihan</span>
-          <span class="text-[9px] font-bold tracking-[0.2em] text-muted uppercase font-mono">吕祎晗</span>
-        </div>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="返回首页">
+        <strong>lv yihan</strong>
+        <span>吕祎晗</span>
       </a>
-      
-      <div class="flex items-center gap-4 md:gap-12">
-        <div class="hidden sm:flex items-center gap-3 px-4 py-2 bg-bgsoft rounded-full border border-black/[0.03]">
-          <span class="text-[10px] font-bold tracking-widest text-muted uppercase font-mono">Open to Opportunities</span>
-        </div>
-        <nav class="hidden md:flex gap-8 text-[11px] font-bold uppercase tracking-widest text-muted/60">
-          <a class="hover:text-ink transition-colors" href="#about">About</a>
-          <a class="hover:text-ink transition-colors" href="#experience">History</a>
-          <a class="hover:text-ink transition-colors" href="#work">作品</a>
-          <a class="hover:text-ink transition-colors" href="#contact">Connect</a>
-        </nav>
-        <button class="px-4 py-2 bg-ink text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-accent transition-all duration-300 flex items-center gap-2" onclick="window.dispatchEvent(new KeyboardEvent('keydown', {key: 'k', metaKey: true}))">
-          <span class="hidden sm:inline">Cmd + K</span>
-          <svg class="w-4 h-4 sm:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+
+      <div class="role-console">
+        <button class="role-trigger" id="roleTrigger" type="button" aria-expanded="false" aria-controls="roleMenu">
+          <span class="role-dot" aria-hidden="true"></span>
+          <span id="activeRoleLabel">Agent 应用开发</span>
+          <span class="role-count" id="activeRoleCount">01 / 03</span>
+          <span class="chevron" aria-hidden="true">⌄</span>
         </button>
+        <div class="role-menu" id="roleMenu" hidden></div>
+      </div>
+
+      <div class="header-actions">
+        <a class="icon-action" id="resumeAction" href="#" download aria-label="下载当前岗位简历" title="下载当前岗位简历">↓</a>
+        <button class="icon-action" id="searchAction" type="button" aria-label="搜索与命令" title="搜索与命令">⌕</button>
+        <a class="icon-action" href="mailto:15535198819@163.com" aria-label="发送邮件" title="发送邮件">@</a>
       </div>
     </header>
 
-    <main id="top" class="max-w-[1400px] mx-auto px-6 pt-24 pb-24">
-      <!-- Persona Switch (signature interaction) -->
-      <div class="flex flex-col items-center text-center mb-10 md:mb-12 reveal">
-        <span class="text-[10px] font-bold tracking-[0.3em] text-muted uppercase font-mono mb-4">按你在招的岗位切换视角</span>
-        <div id="personaSwitch" class="persona-switch" role="tablist" aria-label="切换人设"></div>
-      </div>
+    <nav class="chapter-rail" aria-label="页面章节">
+      <a href="#top" data-section="top"><span>01</span><b>定位</b></a>
+      <a href="#selected" data-section="selected"><span>02</span><b>精选案例</b></a>
+      <a href="#statement" data-section="statement"><span>03</span><b>个人陈述</b></a>
+      <a href="#experience" data-section="experience"><span>04</span><b>实践经历</b></a>
+      <a href="#capabilities" data-section="capabilities"><span>05</span><b>能力地图</b></a>
+      <a href="#playground" data-section="playground"><span>06</span><b>实验场</b></a>
+      <a href="#contact" data-section="contact"><span>07</span><b>联系</b></a>
+    </nav>
 
-      <!-- Bento Hero Section -->
-      <section class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8 items-stretch mb-20 md:mb-28">
-        <!-- Main Bio Section (No Box) -->
-        <div class="md:col-span-8 flex flex-col justify-center group reveal relative">
-          <div class="relative z-10">
-            <div class="flex flex-col gap-4 mb-8 md:mb-10 reveal stagger-1">
-              <div class="flex items-baseline gap-4">
-                <span class="text-3xl md:text-4xl font-black tracking-tighter text-ink font-display">吕祎晗</span>
-                <span class="text-lg md:text-xl font-bold tracking-[0.3em] text-accent uppercase font-mono italic">lv yihan</span>
-              </div>
-              <div id="heroBadges" class="flex flex-wrap items-center gap-3 md:gap-4"></div>
-            </div>
-
-            <div class="mb-8 md:mb-10">
-              <h1 id="heroHeadline" class="text-display font-black text-ink reveal stagger-2 text-reveal-active font-display flex flex-col gap-2 md:gap-4"></h1>
-            </div>
-
-            <div class="flex flex-col gap-6 max-w-2xl reveal stagger-3">
-              <p id="heroSub" class="text-lg md:text-2xl font-medium text-muted leading-tight tracking-tight"></p>
-            </div>
+    <main id="top">
+      <section class="hero section-shell" data-observe="top">
+        <div class="hero-copy reveal-once">
+          <p class="candidate-meta" id="candidateMeta"></p>
+          <div class="name-line">
+            <span id="candidateName"></span>
+            <i id="candidateEnglishName"></i>
           </div>
-
-          <div class="flex flex-wrap gap-4 md:gap-6 mt-10 md:mt-12 relative z-10 reveal stagger-4">
-            <a href="#work" class="group relative px-8 md:px-10 py-4 md:py-5 bg-ink text-white rounded-full font-bold text-sm overflow-hidden shadow-2xl shadow-ink/20 transition-all duration-500 hover:scale-105">
-              <span class="relative z-10">查看我的项目</span>
-              <div class="absolute inset-0 bg-accent translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
-            </a>
-            <a href="#about" class="px-8 md:px-10 py-4 md:py-5 bg-white/50 backdrop-blur-sm border border-black/[0.05] text-ink rounded-full font-bold text-sm hover:bg-white transition-all duration-500 hover:shadow-lg text-center">阅读核心主张</a>
+          <p class="hero-role" id="heroRole"></p>
+          <h1 id="heroHeadline"></h1>
+          <p class="hero-summary" id="heroSummary"></p>
+          <p class="hero-note" id="heroNote"></p>
+          <div class="company-line" id="companyLine"></div>
+          <div class="hero-actions">
+            <a class="primary-action" id="primaryCta" href="#selected">查看精选案例</a>
+            <a class="secondary-action" id="heroResume" href="#" download>下载当前简历 <span aria-hidden="true">↓</span></a>
+            <a class="text-action" href="https://github.com/LBP97541135" target="_blank" rel="noreferrer">GitHub ↗</a>
           </div>
         </div>
-
-        <!-- Metric Section (No Box) -->
-        <div id="statList" class="md:col-span-4 flex flex-col justify-center border-t md:border-t-0 md:border-l border-black/[0.06] pt-10 md:pt-0 md:pl-14"></div>
+        <aside class="proof-board reveal-once" aria-label="代表性证明" id="proofBoard"></aside>
       </section>
 
-      <section id="about" class="grid grid-cols-1 md:grid-cols-12 gap-12 py-24 border-t border-black/[0.05] reveal">
-        <div class="md:col-span-4">
-          <div class="sticky top-32">
-            <div class="flex items-center gap-4 mb-6">
-              <span class="text-xs font-mono text-accent font-bold">01 / Profile</span>
-            </div>
-            <h2 id="aboutTitle" class="text-3xl font-black tracking-tighter uppercase leading-none"></h2>
-          </div>
-        </div>
-        <div class="md:col-span-8">
-          <div class="space-y-10 text-xl text-muted leading-relaxed max-w-2xl font-medium">
-            <div id="aboutIntro" class="space-y-8"></div>
-            <ul id="capabilityGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-8 border-t border-black/[0.03]"></ul>
-            <div id="skillMatrix" class="flex flex-col gap-2 pt-2"></div>
-          </div>
+      <section class="selected-section section-shell" id="selected" data-observe="selected">
+        <header class="section-heading reveal-once">
+          <span>02 / 精选案例</span>
+          <h2 id="selectedTitle"></h2>
+          <p id="selectedIntro"></p>
+        </header>
+        <div class="selected-grid" id="selectedGrid"></div>
+      </section>
+
+      <section class="statement-band" id="statement" data-observe="statement">
+        <div class="section-shell statement-inner reveal-once">
+          <p class="statement-index">03 / 为什么有三种视角</p>
+          <blockquote id="personalStatement"></blockquote>
+          <div class="principle-list" id="principleList"></div>
         </div>
       </section>
 
-      <section id="experience" class="grid grid-cols-1 md:grid-cols-12 gap-12 py-24 border-t border-black/[0.05] reveal">
-        <div class="md:col-span-4">
-          <div class="sticky top-32">
-            <div class="flex items-center gap-4 mb-6">
-              <span class="text-xs font-mono text-accent font-bold">02 / History</span>
-            </div>
-            <h2 class="text-3xl font-black tracking-tighter uppercase leading-none">在真实场景中<br/>迭代认知</h2>
-          </div>
-        </div>
-        <div class="md:col-span-8 space-y-6" id="timeline"></div>
+      <section class="experience-section section-shell" id="experience" data-observe="experience">
+        <header class="section-heading compact reveal-once">
+          <span>04 / 实践经历</span>
+          <h2>这些项目来自真实场景</h2>
+          <p>不再重复整份简历，只说明项目发生在哪里、我承担什么，以及结果如何被验证。</p>
+        </header>
+        <div class="experience-list" id="experienceList"></div>
       </section>
 
-      <section id="work" class="py-24 border-t border-black/[0.05] reveal">
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-12 mb-20">
-          <div class="max-w-3xl">
-            <div class="flex items-center gap-4 mb-8">
-              <span class="text-xs font-mono text-accent font-bold">03 / Work</span>
-            </div>
-            <h2 class="text-5xl md:text-6xl font-black tracking-tighter mb-8 leading-[0.9]">每个项目都是一次真实的交付，不是演示。</h2>
-            <p class="text-muted text-xl font-medium">
-              从竞赛到企业落地，从自研框架到协议实现——这里的每一个项目，背后都有真实的业务问题和可验证的结果。
-            </p>
-          </div>
-          <div class="flex flex-wrap gap-3" id="filterBar"></div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mb-16" id="featuredGrid"></div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="projectGrid"></div>
+      <section class="capability-section section-shell" id="capabilities" data-observe="capabilities">
+        <header class="section-heading reveal-once">
+          <span>05 / 能力地图</span>
+          <h2 id="capabilityTitle"></h2>
+          <p>默认看结论，悬停或聚焦查看具体做法与代表项目。完整技能保留在下方，不为了简历长度主动删减。</p>
+        </header>
+        <div class="capability-grid" id="capabilityGrid"></div>
+        <div class="skill-matrix" id="skillMatrix"></div>
       </section>
 
-      <section id="method" class="grid grid-cols-1 md:grid-cols-12 gap-12 py-24 border-t border-black/[0.05] reveal">
-        <div class="md:col-span-4">
-          <div class="sticky top-32">
-            <div class="flex items-center gap-4 mb-6">
-              <span class="text-xs font-mono text-accent font-bold">04 / Thesis</span>
-            </div>
-            <h2 id="thesisTitle" class="text-3xl font-black tracking-tighter uppercase leading-none"></h2>
-          </div>
+      <section class="playground-section" id="playground" data-observe="playground">
+        <div class="section-shell">
+          <header class="section-heading playground-heading reveal-once">
+            <span>06 / Playground</span>
+            <h2>我还在持续做些有意思的东西</h2>
+            <p>这里不是项目验收清单。它记录我提出过哪些问题，又真的动手把它们做成了什么。</p>
+          </header>
+          <div class="playground-grid" id="playgroundGrid"></div>
+          <button class="show-more" id="showMoreProjects" type="button">查看全部探索作品</button>
         </div>
-        <div id="thesisGrid" class="md:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-8"></div>
       </section>
 
-      <section id="contact" class="py-24 text-center reveal border-t border-black/[0.05]">
-        <h2 class="text-5xl md:text-8xl font-black tracking-tighter mb-6 max-w-5xl mx-auto leading-[0.85]">
-          想法不值钱，<br/>
-          <span class="text-accent italic font-serif">能交付的人才值钱。</span>
-        </h2>
-        <p class="text-muted font-medium mb-16 text-lg">目前正在寻找 2026 秋季校招机会，欢迎联系。</p>
-
-        <!-- 三栏联系方式 -->
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16">
-
-          <!-- GitHub -->
-          <a href="https://github.com/LBP97541135" target="_blank" rel="noreferrer"
-            class="qr-card flex flex-col items-center gap-4 bg-white border border-black/[0.06] rounded-3xl p-6 w-52 cursor-pointer">
-            <img src="assets/qr-github.png" alt="GitHub QR" class="w-36 h-44 object-contain rounded-xl bg-white p-1"/>
-            <div>
-              <div class="text-xs font-black text-ink mb-0.5">GitHub</div>
-              <div class="text-[10px] font-mono text-muted">LBP97541135</div>
-            </div>
-            <span class="text-[10px] font-bold text-accent uppercase tracking-widest font-mono">点击跳转 →</span>
+      <section class="contact-section section-shell" id="contact" data-observe="contact">
+        <div class="contact-copy reveal-once">
+          <span>07 / 联系</span>
+          <h2 id="contactTitle"></h2>
+          <p>可以从邮件开始，也可以先看看代码。微信二维码按需展开。</p>
+        </div>
+        <div class="contact-links reveal-once">
+          <a href="mailto:15535198819@163.com">
+            <small>邮箱</small>
+            <strong>15535198819@163.com</strong>
+            <span>直接联系 ↗</span>
           </a>
-
-          <!-- 微信 -->
-          <button onclick="copyWechat()"
-            class="qr-card flex flex-col items-center gap-4 bg-white border border-black/[0.06] rounded-3xl p-6 w-52 cursor-pointer">
-            <img src="assets/qr-wechat.png" alt="微信二维码" class="w-36 h-44 object-contain rounded-xl bg-white p-1"/>
-            <div>
-              <div class="text-xs font-black text-ink mb-0.5">微信</div>
-              <div class="text-[10px] font-mono text-muted">Bluish_Stardust</div>
-            </div>
-            <span class="text-[10px] font-bold text-accent uppercase tracking-widest font-mono">点击复制微信号</span>
+          <a href="https://github.com/LBP97541135" target="_blank" rel="noreferrer">
+            <small>GitHub</small>
+            <strong>LBP97541135</strong>
+            <span>查看代码 ↗</span>
+          </a>
+          <button class="wechat-link" id="wechatAction" type="button">
+            <small>微信</small>
+            <strong>Bluish_Stardust</strong>
+            <span>展开二维码</span>
           </button>
-
-          <!-- 小红书 -->
-          <a href="https://www.xiaohongshu.com/user/profile/5574598743" target="_blank" rel="noreferrer"
-            class="qr-card flex flex-col items-center gap-4 bg-white border border-black/[0.06] rounded-3xl p-6 w-52 cursor-pointer">
-            <img src="assets/qr-xiaohongshu.jpg" alt="小红书二维码" class="w-36 h-44 object-contain rounded-xl bg-white p-1"/>
-            <div>
-              <div class="text-xs font-black text-ink mb-0.5">小红书</div>
-              <div class="text-[10px] font-mono text-muted">已开学求放过</div>
-            </div>
-            <span class="text-[10px] font-bold text-accent uppercase tracking-widest font-mono">点击跳转 →</span>
-          </a>
-
         </div>
-
-        <a class="inline-flex px-12 py-5 bg-ink text-white rounded-full font-bold text-base hover:bg-accent transition-all duration-500 shadow-xl shadow-ink/10" href="mailto:15535198819@163.com">
-          LET'S BUILD SOMETHING REAL
-        </a>
+        <div class="wechat-panel" id="wechatPanel" hidden>
+          <img src="assets/qr-wechat.png" alt="微信二维码" />
+          <div>
+            <strong>Bluish_Stardust</strong>
+            <button id="copyWechat" type="button">复制微信号</button>
+          </div>
+        </div>
       </section>
-
-      <!-- Footer -->
-      <footer class="border-t border-black/[0.04] py-8 text-center">
-        <p class="text-[10px] font-mono text-muted/50 tracking-widest uppercase">© 2026 吕祎晗 · Lv Yihan · Built with care</p>
-      </footer>
     </main>
 
-    <!-- Toast -->
-    <div id="toast">微信号已复制</div>
+    <footer class="site-footer section-shell">
+      <span>© 2026 吕祎晗 · Lv Yihan</span>
+      <a href="https://www.xiaohongshu.com/user/profile/5574598743" target="_blank" rel="noreferrer">小红书 ↗</a>
+    </footer>
 
-    <dialog class="project-dialog p-0 bg-transparent backdrop:bg-black/20 backdrop:backdrop-blur-xl" id="projectDialog">
-      <div class="relative max-w-[90vw] md:max-w-6xl mx-auto my-[5vh] bg-white rounded-[48px] shadow-2xl overflow-hidden border border-black/[0.05] max-h-[90vh]">
-        <button class="absolute top-8 right-8 w-11 h-11 flex items-center justify-center bg-bgsoft rounded-full text-muted hover:text-ink transition-all z-50 hover:scale-110 active:scale-95" id="dialogClose">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
-        </button>
-        <div id="dialogContent" class="max-h-[90vh] overflow-y-auto no-scrollbar"></div>
+    <dialog class="command-dialog" id="commandDialog">
+      <div class="command-shell">
+        <div class="command-input-row">
+          <span aria-hidden="true">⌕</span>
+          <input id="commandInput" type="search" placeholder="搜索项目、页面或操作" autocomplete="off" />
+          <kbd>Esc</kbd>
+        </div>
+        <div class="command-results" id="commandResults"></div>
+        <div class="command-hint"><span>↑↓ 选择</span><span>Enter 打开</span><span id="shortcutHint">Ctrl + K</span></div>
       </div>
     </dialog>
 
+    <dialog class="project-dialog" id="projectDialog">
+      <button class="dialog-close" id="dialogClose" type="button" aria-label="关闭项目详情">×</button>
+      <div id="dialogContent"></div>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="./content.js"></script>
     <script src="./app.js"></script>
   </body>
 </html>

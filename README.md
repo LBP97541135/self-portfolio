@@ -1,13 +1,27 @@
 # 吕祎晗个人作品集
 
-一个纯前端个人作品集网站，定位为 `Agent Product Engineer / FDE`。网站使用本地 mock 数据展示 AI 产品、智能体工作流和工程化项目，并为每个重点项目提供两类入口：
+一个面向招聘场景的静态个人作品集。网站使用同一组项目事实，通过三种岗位视角重新组织内容：
 
-- `labs/{project-id}/`：可直接体验的 mock 产品页
-- `docs/projects/{project-id}.html`：项目介绍页，说明目标、功能、亮点、核心流程和个人角色
+- Agent 应用开发
+- AI 技术产品
+- Agent 质量效能
+
+岗位视角只改变叙事重点、精选项目、经历排序和能力优先级；项目时间、指标、团队规模和贡献边界统一维护。
+
+## 主要文件
+
+- `content.js`：候选人信息、项目事实、实践经历和三套岗位表达
+- `index.html`：首页信息结构
+- `app.js`：人设切换、命令中心、精选项目、Playground 和页面交互
+- `project.html` / `project.js`：通用 Case Study 页面
+- `styles.css`：首页与项目页完整样式
+- `assets/resumes/`：三套岗位简历 PDF
+- `assets/fonts/`：自托管的字体子集与开源许可证
+- `assets/project-covers/`：真实项目截图、流程图与项目封面
+- `labs/`：可直接体验的静态产品页
+- `docs/projects/`：历史项目说明页
 
 ## 本地预览
-
-推荐使用仓库内置静态服务，避免 Markdown、中文和嵌套路由在不同服务器下出现兼容问题。
 
 ```bash
 node scripts/serve-static.js
@@ -15,20 +29,62 @@ node scripts/serve-static.js
 
 打开 `http://127.0.0.1:5177/`。
 
-## 文档生成
+岗位直达链接：
 
-项目介绍页由 `docs/projects/*.md` 生成静态 HTML。修改项目介绍 Markdown 后，执行：
+- `http://127.0.0.1:5177/?p=agent-dev`
+- `http://127.0.0.1:5177/?p=ai-pm`
+- `http://127.0.0.1:5177/?p=agent-qa`
 
-```bash
-node scripts/build-docs.js
+项目案例链接：
+
+```text
+project.html?id=repomesh&p=agent-dev
 ```
 
-生成后的 HTML 会内嵌页面样式、流程图和鼠标柔光动效，适合直接部署到 GitHub Pages。
+## 内容维护原则
 
-## 部署
+1. 先更新 `content.js` 中的项目基础事实，再调整人设表达。
+2. 三套岗位版本不得分别维护不同的时间、数字、团队规模和贡献边界。
+3. 精选项目用于承接简历，强调问题、职责和验证证据。
+4. Playground 用于展示探索与创造力，不把所有项目包装成生产交付。
+5. 生成图片只用作项目封面，不伪造产品截图、运行结果或企业内部界面。
 
-该项目是静态站点，可直接部署到 GitHub Pages。部署前建议确认：
+## 编辑式表达
 
-- 首页项目入口指向 `docs/projects/*.html` 和 `labs/*/`
-- `labs/multiagent-werewolf/dist/` 已重新构建并提交
-- 修改过项目介绍 Markdown 后已重新执行 `node scripts/build-docs.js`
+- 首页使用一条岗位相关的个人手记，解释候选人的实际工作倾向。
+- 精选项目采用主案例 + 双列案例的策展式布局，不使用完全均匀的卡片网格。
+- 项目图片悬停后显示“当时我在想什么”；移动端批注固定显示在图片下方。
+- Case Study 的项目画面带 `Fig.` 图注，说明画面对应的真实流程或状态。
+- 陶土橙只用于手记、圈注和图注，岗位主题色继续负责系统层级。
+- 页面使用低对比纸张噪点，避免纯数字画布感，但不影响打印和内容识别。
+
+## 视觉资产
+
+优先级：
+
+1. 可运行项目使用真实页面截图。
+2. 产品项目使用本人原型、公开活动稿或流程图。
+3. 无法公开真实界面的企业项目使用明确的系统流程封面。
+4. 后续生成图片只能作为概念封面，不可伪装成真实产品状态。
+
+封面辅助脚本：
+
+```bash
+python scripts/build-cover-composites.py ...
+```
+
+字体子集脚本：
+
+```bash
+python scripts/build-font-subsets.py <source-font-directory>
+```
+
+## 部署检查
+
+- 三套简历链接均可下载
+- 所有精选卡均可进入 `project.html`
+- GitHub、Demo 与历史说明链接可访问
+- `content.js` 中不存在旧指标和互相矛盾的职责口径
+- PC 与移动端无水平溢出
+- 命令中心支持 `Ctrl/Cmd + K`
+- Reveal 动画只执行一次，并支持 `prefers-reduced-motion`

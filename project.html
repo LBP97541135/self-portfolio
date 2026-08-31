@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh-CN" data-persona="agent-dev">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="吕祎晗个人作品集项目案例。" />
+    <title>项目案例｜吕祎晗</title>
+    <link rel="preload" href="assets/fonts/NotoSansSC-Portfolio.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="case-page">
+    <header class="case-header">
+      <a id="caseBack" href="./index.html">← 返回作品集</a>
+      <span id="caseRoleView"></span>
+      <div id="caseHeaderActions"></div>
+    </header>
+
+    <main class="case-main" id="caseMain" hidden>
+      <section class="case-hero section-shell">
+        <div class="case-hero-copy reveal-once">
+          <p class="case-kicker" id="caseKicker"></p>
+          <h1 id="caseTitle"></h1>
+          <p class="case-tagline-large" id="caseTagline"></p>
+          <blockquote id="caseQuestion"></blockquote>
+          <p class="case-note" id="caseNote"></p>
+          <div class="case-role-line" id="caseRole"></div>
+          <strong class="case-proof-large" id="caseProof"></strong>
+          <div class="case-actions" id="caseActions"></div>
+        </div>
+        <div class="case-hero-media reveal-once" id="caseHeroMedia"></div>
+      </section>
+
+      <section class="case-story section-shell">
+        <aside class="case-toc" aria-label="案例目录">
+          <span>项目目录</span>
+          <a href="#case-overview">30 秒概览</a>
+          <a href="#case-gallery" id="caseGalleryLink">项目画面</a>
+          <a href="#case-problem">背景与问题</a>
+          <a href="#case-decisions">核心决策</a>
+          <a href="#case-system">系统设计</a>
+          <a href="#case-contribution">我的贡献</a>
+          <a href="#case-validation">验证结果</a>
+          <a href="#case-boundary">当前边界</a>
+        </aside>
+
+        <article class="case-article">
+          <section id="case-overview" class="case-section reveal-once">
+            <span>01 / 30 秒概览</span>
+            <p class="case-lead" id="caseSummary"></p>
+            <div class="case-tags" id="caseTags"></div>
+          </section>
+
+          <section id="case-gallery" class="case-section reveal-once">
+            <span>02 / 项目画面</span>
+            <h2>界面、流程与实际状态</h2>
+            <div class="case-gallery" id="caseGallery"></div>
+          </section>
+
+          <section id="case-problem" class="case-section reveal-once">
+            <span>03 / 背景与问题</span>
+            <h2>为什么要做这个项目</h2>
+            <p id="caseProblem"></p>
+          </section>
+
+          <section id="case-decisions" class="case-section reveal-once">
+            <span>04 / 核心决策</span>
+            <h2>我做了哪些关键选择</h2>
+            <ol id="caseDecisions"></ol>
+          </section>
+
+          <section id="case-system" class="case-section reveal-once">
+            <span>05 / 系统设计</span>
+            <h2>产品与 Agent 如何协作</h2>
+            <div class="case-flow" id="caseFlow"></div>
+            <ul id="caseArchitecture"></ul>
+          </section>
+
+          <section id="case-contribution" class="case-section reveal-once">
+            <span>06 / 我的贡献</span>
+            <h2>我具体负责什么</h2>
+            <ul id="caseContribution"></ul>
+          </section>
+
+          <section id="case-validation" class="case-section reveal-once">
+            <span>07 / 验证结果</span>
+            <h2>如何证明它真的有效</h2>
+            <ul class="validation-list" id="caseValidation"></ul>
+          </section>
+
+          <section id="case-boundary" class="case-section reveal-once">
+            <span>08 / 当前边界</span>
+            <h2>没有完成或不应该夸大的部分</h2>
+            <ul id="caseBoundary"></ul>
+          </section>
+        </article>
+      </section>
+    </main>
+
+    <section class="case-not-found section-shell" id="caseNotFound" hidden>
+      <h1>没有找到这个项目</h1>
+      <p>项目地址可能已经变化，可以返回作品集重新选择。</p>
+      <a class="primary-action" href="./index.html">返回作品集</a>
+    </section>
+
+    <footer class="site-footer section-shell">
+      <span>© 2026 吕祎晗 · Lv Yihan</span>
+      <a id="caseFooterBack" href="./index.html">返回当前岗位作品集 ↑</a>
+    </footer>
+
+    <script src="./content.js"></script>
+    <script src="./project.js"></script>
+  </body>
+</html>
