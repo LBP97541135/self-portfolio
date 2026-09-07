@@ -102,7 +102,7 @@ window.PORTFOLIO_CONTENT = (() => {
       tags: ["State Machine", "Context Projection", "Schema", "Recovery", "SSE"],
       cover: { type: "image", src: "assets/project-covers/undercover-game.png", tone: "teal" },
       screens: [
-        { src: "assets/project-covers/undercover-game.png", caption: "Fig. 01｜真实对局观战：多个模型玩家共享规则，私有词牌互相隔离" },
+        { src: "assets/project-covers/undercover-game.png", caption: "Fig. 01｜四人对局：真人 + DeepSeek / 豆包 / 千问，私有词牌互相隔离" },
         { src: "assets/project-covers/undercover-home.png", caption: "Fig. 02｜开局入口：经典 / 猜词模式与词语难度选择" },
       ],
       links: { github: "https://github.com/LBP97541135/sheishiwodi" },
