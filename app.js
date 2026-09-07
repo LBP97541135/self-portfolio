@@ -60,6 +60,8 @@
     contactResume: $("#contactResume"),
     contactResumeLabel: $("#contactResumeLabel"),
     personaHintAction: $("#personaHintAction"),
+    playFilters: $("#playFilters"),
+    backTop: $("#backTop"),
   };
 
   function resolvePersona() {
@@ -71,6 +73,7 @@
 
   let activePersona = resolvePersona();
   let playgroundExpanded = false;
+  let playgroundFilter = "all";
   let currentSection = "top";
   let commandIndex = 0;
   let visibleCommands = [];
@@ -278,10 +281,21 @@
     const selectedSet = new Set(persona().selected);
     const list = projects.filter((project) => !selectedSet.has(project.id));
     const initialLimit = 6;
-    elements.playgroundGrid.innerHTML = list
+    const categories = [...new Set(list.map((project) => project.category))];
+    if (playgroundFilter !== "all" && !categories.includes(playgroundFilter)) playgroundFilter = "all";
+    elements.playFilters.innerHTML = ["all", ...categories]
       .map(
-        (project, index) => `
-          <article class="play-card reveal-once${!playgroundExpanded && index >= initialLimit ? " is-hidden" : ""}" data-project-card="${escapeHtml(project.id)}">
+        (category) => `
+          <button type="button" data-play-filter="${escapeHtml(category)}"${playgroundFilter === category ? ' class="is-active"' : ""}>${category === "all" ? "全部" : escapeHtml(category)}</button>
+        `,
+      )
+      .join("");
+    elements.playgroundGrid.innerHTML = list
+      .map((project, index) => {
+        const beyondLimit = !playgroundExpanded && index >= initialLimit;
+        const filtered = playgroundFilter !== "all" && project.category !== playgroundFilter;
+        return `
+          <article class="play-card reveal-once${beyondLimit || filtered ? " is-hidden" : ""}" data-project-card="${escapeHtml(project.id)}">
             ${coverMarkup(project, "play-media")}
             <div class="play-content">
               <div class="play-topline"><span>${escapeHtml(project.category)}</span><span>${escapeHtml(project.year)}</span></div>
@@ -290,10 +304,10 @@
               <div class="play-links">${projectLinkMarkup(project)}</div>
             </div>
           </article>
-        `,
-      )
+        `;
+      })
       .join("");
-    elements.showMoreProjects.hidden = list.length <= initialLimit;
+    elements.showMoreProjects.hidden = playgroundFilter !== "all" || list.length <= initialLimit;
     elements.showMoreProjects.textContent = playgroundExpanded ? "收起探索作品" : `查看全部探索作品（${list.length}）`;
   }
 
@@ -322,6 +336,7 @@
     const anchor = currentSection;
     activePersona = id;
     playgroundExpanded = false;
+    playgroundFilter = "all";
     localStorage.setItem("portfolio-persona", id);
     const url = new URL(location.href);
     url.searchParams.set("p", id);
@@ -506,6 +521,18 @@
     observeReveals();
   });
 
+  elements.playFilters.addEventListener("click", (event) => {
+    const chip = event.target.closest("[data-play-filter]");
+    if (!chip) return;
+    playgroundFilter = chip.dataset.playFilter;
+    renderPlayground();
+    observeReveals();
+  });
+
+  elements.backTop.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
   elements.playgroundGrid.addEventListener("click", (event) => {
     const quick = event.target.closest("[data-project-quick]");
     if (quick) {
@@ -569,6 +596,7 @@
       const max = document.documentElement.scrollHeight - window.innerHeight;
       const percent = max > 0 ? (window.scrollY / max) * 100 : 0;
       elements.scrollProgress.style.width = `${Math.min(100, percent)}%`;
+      elements.backTop.hidden = window.scrollY < window.innerHeight * 1.2;
     },
     { passive: true },
   );

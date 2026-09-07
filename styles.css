@@ -224,6 +224,7 @@ img {
   border: 1px solid var(--line);
   border-radius: 8px;
   box-shadow: var(--shadow);
+  animation: pop-in 160ms var(--ease);
 }
 
 .role-option {
@@ -371,6 +372,7 @@ main {
 
 body.is-switching main {
   opacity: 0;
+  pointer-events: none;
 }
 
 .hero {
@@ -548,10 +550,28 @@ body.is-switching main {
   transform: translateY(-2px);
 }
 
+.primary-action:active,
+.secondary-action:active,
+.show-more:active,
+.icon-action:active {
+  transform: translateY(0) scale(0.97);
+}
+
+.case-card:active,
+.play-card:active {
+  transform: translateY(-1px) scale(0.995);
+}
+
 .secondary-action span {
+  display: inline-block;
   margin-left: 14px;
   color: var(--accent);
   font-size: 18px;
+  transition: transform 180ms var(--ease);
+}
+
+.secondary-action:hover span {
+  transform: translateY(3px);
 }
 
 .text-action {
@@ -1135,6 +1155,40 @@ body.is-switching main {
   max-width: 760px;
 }
 
+.play-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: -24px 0 30px;
+}
+
+.play-filters button {
+  padding: 6px 11px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: color 160ms ease, border-color 160ms ease, background 160ms ease, transform 160ms ease;
+}
+
+.play-filters button:hover {
+  color: var(--ink);
+  border-color: var(--quiet);
+}
+
+.play-filters button:active {
+  transform: scale(0.97);
+}
+
+.play-filters button.is-active {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+}
+
 .playground-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1288,6 +1342,7 @@ body.is-switching main {
   border: 1px solid var(--line);
   border-radius: 10px;
   background: var(--surface);
+  animation: pop-in 180ms var(--ease);
 }
 
 .wechat-panel img {
@@ -1329,6 +1384,36 @@ dialog {
 dialog::backdrop {
   background: rgba(15, 18, 24, 0.34);
   backdrop-filter: blur(8px);
+}
+
+dialog[open] {
+  animation: pop-in 220ms var(--ease);
+}
+
+dialog[open]::backdrop {
+  animation: fade-in 200ms ease;
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .command-dialog {
@@ -1522,6 +1607,36 @@ kbd {
 .dialog-actions a:first-child {
   background: var(--ink);
   color: white;
+}
+
+.back-top {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 90;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 10px 26px rgba(24, 30, 42, 0.14);
+  transition: color 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.back-top:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.back-top:active {
+  transform: translateY(0) scale(0.94);
 }
 
 .toast {
