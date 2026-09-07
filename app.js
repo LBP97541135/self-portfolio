@@ -57,6 +57,9 @@
     dialogClose: $("#dialogClose"),
     dialogContent: $("#dialogContent"),
     scrollProgress: $("#scrollProgress"),
+    contactResume: $("#contactResume"),
+    contactResumeLabel: $("#contactResumeLabel"),
+    personaHintAction: $("#personaHintAction"),
   };
 
   function resolvePersona() {
@@ -143,6 +146,8 @@
     elements.primaryCta.textContent = view.primaryCta;
     elements.resumeAction.href = view.resume;
     elements.heroResume.href = view.resume;
+    elements.contactResume.href = view.resume;
+    elements.contactResumeLabel.textContent = `下载${view.short}简历`;
     elements.heroResume.firstChild.textContent = `下载${view.short}简历 `;
     elements.proofBoard.innerHTML = view.proofs
       .map(
@@ -240,6 +245,7 @@
             <h3>${escapeHtml(capability.title)}</h3>
             <p>${escapeHtml(capability.summary)}</p>
             <div class="capability-detail">
+              <h3>${escapeHtml(capability.title)}</h3>
               <p>${escapeHtml(capability.detail)}</p>
               <div class="capability-projects">${projectLinks}</div>
             </div>
@@ -323,11 +329,11 @@
     document.body.classList.add("is-switching");
     renderAll();
     closeRoleMenu();
-    requestAnimationFrame(() => {
+    setTimeout(() => {
       document.body.classList.remove("is-switching");
       if (anchor !== "top") document.getElementById(anchor)?.scrollIntoView({ block: "start" });
       showToast(`已切换至${persona().label}视角`);
-    });
+    }, 50);
   }
 
   function openRoleMenu() {
@@ -435,18 +441,25 @@
     command.action();
   }
 
-  const revealObserver = new IntersectionObserver(
-    (entries, observer) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add("is-visible");
-        observer.unobserve(entry.target);
-      });
-    },
-    { threshold: 0.08 },
-  );
+  const revealObserver =
+    typeof IntersectionObserver === "undefined"
+      ? null
+      : new IntersectionObserver(
+          (entries, observer) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            });
+          },
+          { threshold: 0.08 },
+        );
 
   function observeReveals() {
+    if (!revealObserver) {
+      $$(".reveal-once").forEach((element) => element.classList.add("is-visible"));
+      return;
+    }
     $$(".reveal-once:not([data-reveal-bound])").forEach((element) => {
       element.dataset.revealBound = "1";
       revealObserver.observe(element);
@@ -473,6 +486,11 @@
     elements.roleMenu.hidden ? openRoleMenu() : closeRoleMenu();
   });
 
+  elements.personaHintAction.addEventListener("click", (event) => {
+    event.stopPropagation();
+    openRoleMenu();
+  });
+
   elements.roleMenu.addEventListener("click", (event) => {
     const option = event.target.closest("[data-persona]");
     if (option) setPersona(option.dataset.persona);
@@ -490,7 +508,12 @@
 
   elements.playgroundGrid.addEventListener("click", (event) => {
     const quick = event.target.closest("[data-project-quick]");
-    if (quick) openQuickProject(quick.dataset.projectQuick);
+    if (quick) {
+      openQuickProject(quick.dataset.projectQuick);
+      return;
+    }
+    const card = event.target.closest("[data-project-card]");
+    if (card && !event.target.closest("a")) openQuickProject(card.dataset.projectCard);
   });
 
   elements.dialogClose.addEventListener("click", () => elements.projectDialog.close());

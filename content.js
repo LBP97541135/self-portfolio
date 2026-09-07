@@ -100,8 +100,11 @@ window.PORTFOLIO_CONTENT = (() => {
       proof: "156/156 自动化用例｜10/10 Desktop + Mobile E2E",
       summary: "使用服务端权威状态机、最小白名单 Context、Strict Schema、SQLite 事务、Revision 防旧写和 SSE 安全帧，完成一名人类与 DeepSeek、豆包、千问的整局博弈。",
       tags: ["State Machine", "Context Projection", "Schema", "Recovery", "SSE"],
-      cover: { type: "image", src: "assets/project-covers/undercover.png", tone: "teal" },
-      screens: [{ src: "assets/project-covers/undercover.png", caption: "Fig. 01｜四名玩家共享规则，但不共享私有词牌" }],
+      cover: { type: "image", src: "assets/project-covers/undercover-game.png", tone: "teal" },
+      screens: [
+        { src: "assets/project-covers/undercover-game.png", caption: "Fig. 01｜真实对局观战：多个模型玩家共享规则，私有词牌互相隔离" },
+        { src: "assets/project-covers/undercover-home.png", caption: "Fig. 02｜开局入口：经典 / 猜词模式与词语难度选择" },
+      ],
       links: { github: "https://github.com/LBP97541135/sheishiwodi" },
       problem: "模型不能直接决定规则、胜负和可见信息；真实模型还会出现格式错误、超时、过期结果和隐私泄漏，需要由 Harness 承担可靠性。",
       decisions: [

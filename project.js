@@ -96,6 +96,23 @@
   $("#caseValidation").innerHTML = listMarkup(project.validation);
   $("#caseBoundary").innerHTML = listMarkup(project.boundary);
 
+  const projectHref = (item) => `project.html?id=${encodeURIComponent(item.id)}&p=${encodeURIComponent(personaId)}`;
+  const projectIndex = content.projects.findIndex((item) => item.id === project.id);
+  const prevProject = projectIndex > 0 ? content.projects[projectIndex - 1] : null;
+  const nextProject = projectIndex < content.projects.length - 1 ? content.projects[projectIndex + 1] : null;
+  const pagerMarkup = [
+    prevProject ? `<a href="${projectHref(prevProject)}"><small>← 上一个案例</small><strong>${escapeHtml(prevProject.title)}</strong></a>` : "",
+    nextProject ? `<a class="is-next" href="${projectHref(nextProject)}"><small>下一个案例 →</small><strong>${escapeHtml(nextProject.title)}</strong></a>` : "",
+  ]
+    .filter(Boolean)
+    .join("");
+  const pager = $("#casePager");
+  if (pagerMarkup) {
+    pager.innerHTML = pagerMarkup;
+  } else {
+    pager.hidden = true;
+  }
+
   const flowTerms = project.cover?.label?.split(" / ").filter(Boolean) || project.tags.slice(0, 3);
   $("#caseFlow").innerHTML = flowTerms
     .slice(0, 4)
